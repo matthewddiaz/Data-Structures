@@ -62,7 +62,7 @@ public class MaxHeap {
      * NOTE: heapSize is set to (array.length - 1)
      * @param array
      */
-    public void buildMaxHeapify(int[] array){
+    public void buildMaxHeap(int[] array){
         this.heapSize = array.length - 1;
         for(int nonLeafIndex = this.heapSize/2; nonLeafIndex >= 0; nonLeafIndex--){
             maxHeapify(array, nonLeafIndex);
@@ -83,6 +83,10 @@ public class MaxHeap {
 
     public int getHeapSize(){
         return this.heapSize;
+    }
+
+    public void setHeapSize(int heapSize){
+        this.heapSize = heapSize;
     }
 }
 
