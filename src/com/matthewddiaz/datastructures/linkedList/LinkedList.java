@@ -7,6 +7,7 @@ import com.matthewddiaz.designpatterns.behavioralPatterns.Iterator;
  */
 public class LinkedList<T> {
     private Node head;
+    private int numOfElements;
 
     private class Node{
         T element;
@@ -19,12 +20,13 @@ public class LinkedList<T> {
      */
     public void prependElement(T element){
         if(isEmpty()){
-            head = createNewNode(element);
+            this.head = createNewNode(element);
         }else{
             Node node = createNewNode(element);
-            node.next = head;
-            head = node;
+            node.next = this.head;
+            this.head = node;
         }
+        this.numOfElements++;
     }
 
     /**
@@ -33,14 +35,15 @@ public class LinkedList<T> {
      */
     public void appendElement(T element){
         if(isEmpty()){
-            head = createNewNode(element);
+            this.head = createNewNode(element);
         }else{
-            Node temp = head;
+            Node temp = this.head;
             while(temp.next != null){
                 temp = temp.next;
             }
             temp.next = createNewNode(element);
         }
+        this.numOfElements++;
     }
 
     /**
@@ -55,7 +58,7 @@ public class LinkedList<T> {
             return elementIsInList;
         }
 
-        Node temp = head;
+        Node temp = this.head;
         while(temp != null){
             if(temp.element == element){
                 return !elementIsInList;
@@ -79,6 +82,7 @@ public class LinkedList<T> {
         }
 
         Node temp = head;
+        //why is this done here and then in the while loop???
         if(temp.element == element){
             temp = temp.next;
             head = temp;
@@ -93,7 +97,6 @@ public class LinkedList<T> {
             }
             temp = temp.next;
         }
-
         return isRemoved;
     }
 
@@ -136,6 +139,21 @@ public class LinkedList<T> {
     }
 
     /**
+     * Returns an array containing all of the elements in this list
+     * in order from head till end.
+     * @return
+     */
+    public Object[] toArray(){
+        Object[] arr = new Object[this.numOfElements];
+        Iterator<T> iterator = createIterator();
+        int currentIndex = 0;
+        for(iterator.first(); !iterator.isDone(); iterator.next()){
+            arr[currentIndex++] = iterator.currentElement();
+        }
+        return arr;
+    }
+
+    /**
      * helper method that creates a new Node
      * @param element
      * @return
@@ -148,30 +166,18 @@ public class LinkedList<T> {
     }
 
     /**
-     * Reverse the input of this list
-     * 1) Create a head Node = null;
-     * 2) iterate input list until you reach null
-     *     a) for the node if head is equal to null head is equal to node
-     *     b) create a temp node. set temp equal to node. make temp point to head. set head to temp
-     * 3) Set our original head equal to the newHead
-     *
+     * Creating a new LinkedList that contains the data of the original Linked List in
+     * reverse order.
      */
-    public void reverseList(){
-        this.head = reverseList(this.head);
-    }
-
-    private Node reverseList(Node node){
-        Node list = null;
-        while(node != null){
-            if(list == null){
-                list = node;
-            }else{
-                Node temp = node;
-                temp.next = list;
-                list = temp;
-            }
-            node = node.next;
+    public LinkedList<T> createReversedLinkedList(){
+        //creating new LinkedList
+        LinkedList<T> reversedLinkedList = new LinkedList();
+        Iterator<T> iterator = this.createIterator();
+        //iterating through the current LinkedList and prepending the
+        //curent element of the iterator to the new reversed LinkedList
+        for(iterator.first(); !iterator.isDone(); iterator.next()){
+            reversedLinkedList.prependElement(iterator.currentElement());
         }
-        return list;
+        return reversedLinkedList;
     }
 }

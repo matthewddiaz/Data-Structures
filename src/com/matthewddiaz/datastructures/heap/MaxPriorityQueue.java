@@ -16,7 +16,7 @@ public class MaxPriorityQueue {
     public MaxPriorityQueue(int[] array){
         this.maxHeap = new MaxHeap();
         this.heapContainer = array;
-        this.maxHeap.buildMaxHeapify(this.heapContainer);
+        this.maxHeap.buildMaxHeap(this.heapContainer);
     }
 
     /*
