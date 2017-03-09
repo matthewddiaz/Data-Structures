@@ -68,6 +68,20 @@ class LinkedListTest {
     }
 
     @Test
+    void removeLastElement() {
+        boolean expectedResult = true;
+        String[] expectedArray = {character6};
+
+        linkedList.prependElement(character1);
+        linkedList.prependElement(character6);
+        boolean elementFound = linkedList.removeElement(character1);
+        Object[] actualArray = linkedList.toArray();
+
+        assertEquals(expectedResult, elementFound);
+        Arrays.equals(expectedArray, actualArray);
+    }
+
+    @Test
     void removeElementInList() {
         boolean expectedResult = true;
         String[] expectedArray = {character4, character2, character1};

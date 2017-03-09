@@ -81,18 +81,18 @@ public class LinkedList<T> {
             return isRemoved;
         }
 
-        Node temp = head;
-        //why is this done here and then in the while loop???
-        if(temp.element == element){
-            temp = temp.next;
-            head = temp;
+        if(head.element == element){
+            head = head.next;
+            this.numOfElements--;
             return !isRemoved;
         }
 
-        while(temp.next != null) {
+        Node temp = head;
+        while(temp != null){
             Node next = temp.next;
-            if (next.element == element) {
+            if((next != null) && (next.element == element)){
                 temp.next = next.next;
+                this.numOfElements--;
                 return !isRemoved;
             }
             temp = temp.next;
@@ -174,7 +174,7 @@ public class LinkedList<T> {
         LinkedList<T> reversedLinkedList = new LinkedList();
         Iterator<T> iterator = this.createIterator();
         //iterating through the current LinkedList and prepending the
-        //curent element of the iterator to the new reversed LinkedList
+        //current element of the iterator to the new reversed LinkedList
         for(iterator.first(); !iterator.isDone(); iterator.next()){
             reversedLinkedList.prependElement(iterator.currentElement());
         }
