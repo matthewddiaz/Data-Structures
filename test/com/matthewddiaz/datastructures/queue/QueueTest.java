@@ -4,8 +4,6 @@ import data.TestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -56,15 +54,20 @@ class QueueTest {
 
     @Test
     void testingDequeueForString() {
+        String expectedFirstRemovedElement = students[0];
+        String expectedSecondRemovedElement = students[1];
         String[] expectedResult = {students[2], students[3]};
+
         queueOfStudents.enqueue(students[0]);
         queueOfStudents.enqueue(students[1]);
         queueOfStudents.enqueue(students[2]);
         queueOfStudents.enqueue(students[3]);
-        queueOfStudents.dequeue();
-        queueOfStudents.dequeue();
-
+        String firstElementRemoved = queueOfStudents.dequeue();
+        String secondElementRemoved = queueOfStudents.dequeue();
         Object[] actualResult = queueOfStudents.toArray();
+
+        assertEquals(expectedFirstRemovedElement, firstElementRemoved);
+        assertEquals(expectedSecondRemovedElement, secondElementRemoved);
         assertArrayEquals(expectedResult, actualResult);
     }
 
@@ -82,32 +85,44 @@ class QueueTest {
 
     @Test
     void testingDequeueForDouble() {
+        Double expectedFirstRemovedElement = grades[3];
+        Double expectedSecondRemovedElement = grades[0];
         Double[] expectedResult = { grades[2], grades[5]};
         queueOfGrades.enqueue(grades[3]);
         queueOfGrades.enqueue(grades[0]);
         queueOfGrades.enqueue(grades[2]);
         queueOfGrades.enqueue(grades[5]);
 
-        queueOfGrades.dequeue();
-        queueOfGrades.dequeue();
+        Double firstElementRemoved = queueOfGrades.dequeue();
+        Double secondElementRemoved = queueOfGrades.dequeue();
         Object[] actualResult = queueOfGrades.toArray();
+
+        assertEquals(expectedFirstRemovedElement, firstElementRemoved);
+        assertEquals(expectedSecondRemovedElement, secondElementRemoved);
         assertArrayEquals(expectedResult, actualResult);
     }
 
     @Test
     void testingEnqueueAndDeque() {
+        Double expectedFirstRemovedElement = grades[4];
+        Double expectedSecondRemovedElement = grades[1];
+        Double expectedThirdRemovedElement = grades[2];
         Double[] expectedResult = {grades[3], grades[5], grades[1]};
+
         queueOfGrades.enqueue(grades[4]);
         queueOfGrades.enqueue(grades[1]);
-        queueOfGrades.dequeue();
-        queueOfGrades.dequeue();
+        Double firstElementRemoved = queueOfGrades.dequeue();
+        Double secondElementRemoved = queueOfGrades.dequeue();
         queueOfGrades.enqueue(grades[2]);
         queueOfGrades.enqueue(grades[3]);
         queueOfGrades.enqueue(grades[5]);
-        queueOfGrades.dequeue();
+        Double thirdElementRemoved = queueOfGrades.dequeue();
         queueOfGrades.enqueue(grades[1]);
 
         Object[] actualResult = queueOfGrades.toArray();
+        assertEquals(expectedFirstRemovedElement, firstElementRemoved);
+        assertEquals(expectedSecondRemovedElement, secondElementRemoved);
+        assertEquals(expectedThirdRemovedElement, thirdElementRemoved);
         assertArrayEquals(expectedResult, actualResult);
     }
 }

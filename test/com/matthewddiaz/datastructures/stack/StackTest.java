@@ -4,8 +4,6 @@ import data.TestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.Arrays;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -50,8 +48,7 @@ class StackTest {
         stackOfStudents.push(students[5]);
 
         Object[] actualResult = stackOfStudents.toArray();
-        Arrays.equals(expectedResult,  actualResult);
-
+        assertArrayEquals(expectedResult,  actualResult);
     }
 
     @Test
@@ -63,21 +60,67 @@ class StackTest {
         stackOfGrades.push(grades[4]);
         stackOfGrades.push(grades[5]);
 
-        System.out.println(Arrays.toString(expectedResult));
+        Object[] actualResult = stackOfGrades.toArray();
+        assertArrayEquals(expectedResult,  actualResult);
     }
 
     @Test
     void testingPopToStringStack() {
+        String expectedFirstElementRemoved = students[3];
+        String expectedSecondElementRemoved = students[5];
+        String expectedThirdElementRemoved = students[4];
+        String[] expectedResult = {students[2], students[1]};
 
+        stackOfStudents.push(students[1]);
+        stackOfStudents.push(students[2]);
+        stackOfStudents.push(students[3]);
+        String firstElementRemoved = stackOfStudents.pop();
+        stackOfStudents.push(students[4]);
+        stackOfStudents.push(students[5]);
+        String secondElementRemoved = stackOfStudents.pop();
+        String thirdElementRemoved =  stackOfStudents.pop();
+
+        Object[] actualResult = stackOfStudents.toArray();
+        assertEquals(expectedFirstElementRemoved, firstElementRemoved);
+        assertEquals(expectedSecondElementRemoved, secondElementRemoved);
+        assertEquals(expectedThirdElementRemoved, thirdElementRemoved);
+        assertArrayEquals(expectedResult,  actualResult);
     }
 
     @Test
     void testingPopToDoubleStack() {
+        Double expectedFirstElementRemoved = grades[2];
+        Double expectedSecondElementRemoved = grades[1];
+        Double expectedThirdElementRemoved = grades[4];
+        Double[] expectedResult = {grades[5], grades[3]};
 
+        stackOfGrades.push(grades[1]);
+        stackOfGrades.push(grades[2]);
+        Double firstElementRemoved = stackOfGrades.pop();
+        Double secondElementRemoved = stackOfGrades.pop();
+        stackOfGrades.push(grades[3]);
+        stackOfGrades.push(grades[4]);
+        Double thirdElementRemoved = stackOfGrades.pop();
+        stackOfGrades.push(grades[5]);
+
+        Object[] actualResult = stackOfGrades.toArray();
+        assertEquals(expectedFirstElementRemoved, firstElementRemoved);
+        assertEquals(expectedSecondElementRemoved, secondElementRemoved);
+        assertEquals(expectedThirdElementRemoved, thirdElementRemoved);
+        assertArrayEquals(expectedResult,  actualResult);
     }
 
     @Test
     void peak() {
+        Double expectedPeakElement = grades[2];
+        Double[] expectedResult = {grades[2], grades[1], grades[0]};
+        stackOfGrades.push(grades[0]);
+        stackOfGrades.push(grades[1]);
+        stackOfGrades.push(grades[2]);
+        Double peakElement = stackOfGrades.peak();
 
+        Object[] actualResult = stackOfGrades.toArray();
+        assertEquals(expectedPeakElement, peakElement);
+        assertArrayEquals(expectedResult, actualResult);
     }
 }
