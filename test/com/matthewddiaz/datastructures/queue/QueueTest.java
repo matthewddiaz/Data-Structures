@@ -51,7 +51,7 @@ class QueueTest {
         queueOfStudents.enqueue(students[3]);
 
         Object[] actualResult = queueOfStudents.toArray();
-        Arrays.equals(expectedResult, actualResult);
+        assertArrayEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -65,7 +65,7 @@ class QueueTest {
         queueOfStudents.dequeue();
 
         Object[] actualResult = queueOfStudents.toArray();
-        Arrays.equals(expectedResult, actualResult);
+        assertArrayEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -76,8 +76,8 @@ class QueueTest {
         queueOfGrades.enqueue(grades[2]);
         queueOfGrades.enqueue(grades[5]);
 
-        Object[] actualResult = queueOfStudents.toArray();
-        Arrays.equals(expectedResult, actualResult);
+        Object[] actualResult = queueOfGrades.toArray();
+        assertArrayEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -90,7 +90,24 @@ class QueueTest {
 
         queueOfGrades.dequeue();
         queueOfGrades.dequeue();
-        Object[] actualResult = queueOfStudents.toArray();
-        Arrays.equals(expectedResult, actualResult);
+        Object[] actualResult = queueOfGrades.toArray();
+        assertArrayEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void testingEnqueueAndDeque() {
+        Double[] expectedResult = {grades[3], grades[5], grades[1]};
+        queueOfGrades.enqueue(grades[4]);
+        queueOfGrades.enqueue(grades[1]);
+        queueOfGrades.dequeue();
+        queueOfGrades.dequeue();
+        queueOfGrades.enqueue(grades[2]);
+        queueOfGrades.enqueue(grades[3]);
+        queueOfGrades.enqueue(grades[5]);
+        queueOfGrades.dequeue();
+        queueOfGrades.enqueue(grades[1]);
+
+        Object[] actualResult = queueOfGrades.toArray();
+        assertArrayEquals(expectedResult, actualResult);
     }
 }

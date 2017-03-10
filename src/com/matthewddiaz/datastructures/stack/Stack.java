@@ -111,11 +111,19 @@ public class Stack<T> {
         Iterator<T> iterator = createIterator();
         int currentPosition = 0;
 
-        for(iterator.first(); iterator.isDone(); iterator.next()){
+        for(iterator.first(); !iterator.isDone(); iterator.next()){
             array[currentPosition++] = iterator.currentElement();
         }
         return array;
     }
+
+    /**
+     * Returns String representation of
+     * @return
+     */
+//    public String toString(){
+//
+//    }
 
     /**
      * Helper method that creates a new Node
