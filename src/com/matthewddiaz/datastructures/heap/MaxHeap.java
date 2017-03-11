@@ -26,7 +26,7 @@ public class MaxHeap {
      * @param array
      * @param parentIndex
      */
-    public void maxHeapify(int[] array, int parentIndex){
+    public void maxHeapify(Comparable[] array, int parentIndex){
         //NOTE: To have A[0] as the starting node instead of A[1]
         //leftChildIndex & rightChildIndex is offset by an addition 1
         int leftChildIndex = 2*parentIndex + 1;
@@ -34,12 +34,12 @@ public class MaxHeap {
         int largestElementIndex = parentIndex;
 
         //check if leftChildIndex is less than heapSize & leftChild is greater than parent
-        if(leftChildIndex <= this.heapSize && array[leftChildIndex] > array[parentIndex]){
+        if((leftChildIndex <= this.heapSize) && (array[leftChildIndex].compareTo(array[parentIndex]) > 0)){
             largestElementIndex = leftChildIndex;
         }
 
         //check if rightChildIndex is less than heapSize & rightChild is greater than largestElement
-        if(rightChildIndex <= this.heapSize && array[rightChildIndex] > array[largestElementIndex]){
+        if((rightChildIndex <= this.heapSize) && (array[rightChildIndex].compareTo(array[largestElementIndex]) > 0)){
             largestElementIndex = rightChildIndex;
         }
 
@@ -62,15 +62,15 @@ public class MaxHeap {
      * NOTE: heapSize is set to (array.length - 1)
      * @param array
      */
-    public void buildMaxHeap(int[] array){
+    public void buildMaxHeap(Comparable[] array){
         this.heapSize = array.length - 1;
         for(int nonLeafIndex = this.heapSize/2; nonLeafIndex >= 0; nonLeafIndex--){
             maxHeapify(array, nonLeafIndex);
         }
      }
 
-    private void swap(int[] array, int leftElement, int rightElement){
-        int tempElement = array[leftElement];
+    private void swap(Comparable[] array, int leftElement, int rightElement){
+        Comparable tempElement = array[leftElement];
         array[leftElement] = array[rightElement];
         array[rightElement] = tempElement;
     }

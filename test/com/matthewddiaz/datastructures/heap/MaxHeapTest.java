@@ -1,5 +1,6 @@
 package com.matthewddiaz.datastructures.heap;
 
+import data.TestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -10,44 +11,45 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 class MaxHeapTest {
     private MaxHeap maxHeap;
-    private int[] array = {7,1,45,19,100,20,11,15};
+    private Integer[] ages;
+    private String[] students;
+    private Double[] grades;
 
     @BeforeEach
     void setUp() {
         maxHeap = new MaxHeap();
+        ages = TestData.getIntegerArray();
+        students = TestData.getStringArray();
+        grades = TestData.getDoubleArray();
     }
 
     /**
-     * Turns array into a max heap
+     * Turns Integer array into a max heap
      */
     @Test
-    void buildMaxHeap() {
-        int[] expectedArray = {100,19,45,15,1,20,11,7};
-        maxHeap.buildMaxHeap(array);
-        assertArrayEquals(expectedArray, array);
+    void buildIntegerMaxHeap() {
+        Integer[] expectedArray = {180, 103, 105, 16, 20, 100, 15, 1, 11, 4, 17, 19};
+        maxHeap.buildMaxHeap(ages);
+        assertArrayEquals(expectedArray, ages);
     }
 
     /**
-     * Testing MaxHeap.maxHeapify() method. This method enforces
-     * max heap's property of parent being larger than both left
-     * and right child.
-     *
-     * Testing maxHeapify() on index 0
-     * A[0] = 7 which is not larger than its right child thus max
-     * heap rule is current not correct for index 0
-     * thus step
-     * A[0] is swapped with A[2]
-     * now 7 is in A[2]
-     * here we check if the rule is broken once again
-     * A[2] is swapped with A[5]
-     * now 7 is in A[5]
-     *
+     * Turns String array into a max heap
      */
     @Test
-    void maxHeapify() {
-        int[] expectedArray = {45,1,20,19,100,7,11,15};
-        maxHeap.setHeapSize(array.length - 1);
-        maxHeap.maxHeapify(array,0);
-        assertArrayEquals(expectedArray, array);
+    void buildStringMaxHeap() {
+        String[] expectedArray = {"Vegeta", "Master Roshi", "Piccolo", "Krillian", "Goku", "Gohan", "Bulma", "Cell"};
+        maxHeap.buildMaxHeap(students);
+        assertArrayEquals(expectedArray, students);
+    }
+
+    /**
+     * Turns Double array into a max heap
+     */
+    @Test
+    void buildDoubleMaxHeap() {
+        Double[] expectedArray = {105.4, 103.2, 17.4, 100.4, 19.3, 16.6, 1.1, 18.18, 16.5, 15.1, 11.1, 4.3, 2.3, -180.2};
+        maxHeap.buildMaxHeap(grades);
+        assertArrayEquals(expectedArray, grades);
     }
 }
