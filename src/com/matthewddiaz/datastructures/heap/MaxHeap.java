@@ -23,6 +23,8 @@ public class MaxHeap {
      *
      * NOTE: Max Heap rule is that the value of parentIndex is greater than
      * or equal to the value of its children.
+     *
+     * Running Time: θ(lg(n))
      * @param array
      * @param parentIndex
      */
@@ -60,6 +62,8 @@ public class MaxHeap {
      * and can't have children.
      *
      * NOTE: heapSize is set to (array.length - 1)
+     *
+     * Running Time: θ(n)
      * @param array
      */
     public void buildMaxHeap(Comparable[] array){
@@ -68,6 +72,21 @@ public class MaxHeap {
             maxHeapify(array, nonLeafIndex);
         }
      }
+
+    /**
+     * Same as buildMaxHeap() with one parameter. However heapSize is explicitly input
+     * by the user.
+     * @param array
+     * @param heapSize
+     *
+     * Running Time: θ(n)
+     */
+    public void buildMaxHeap(Comparable[] array, int heapSize){
+        this.heapSize = heapSize;
+        for(int nonLeafIndex = this.heapSize/2; nonLeafIndex >= 0; nonLeafIndex--){
+            maxHeapify(array, nonLeafIndex);
+        }
+    }
 
     private void swap(Comparable[] array, int leftElement, int rightElement){
         Comparable tempElement = array[leftElement];

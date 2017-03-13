@@ -6,37 +6,58 @@ package com.matthewddiaz.datastructures.heap;
 
 /**
  * MaxPriorityQueue data structure maintains a set of elements which are maintained based on an attribute
- * of element called key.
- * NOTE: this
+ * of element called key. MPQ has 3 major operations to perform the data: maximum(), extractMaximum(),
+ * insertElement()
  */
 public class MaxPriorityQueue {
     private MaxHeap maxHeap;
-    private int[] heapContainer;
+    private Comparable[] heapContainer;
 
-    public MaxPriorityQueue(int[] array){
+    /**
+     * Constructor that turns the input Comparable array to a maxHeap.
+     * NOTE: Assumes that heapSize is equal to (array.length - 1)
+     * @param array
+     */
+    public MaxPriorityQueue(Comparable[] array){
         this.maxHeap = new MaxHeap();
         this.heapContainer = array;
         this.maxHeap.buildMaxHeap(this.heapContainer);
     }
 
+    /**
+     * Constructor that turns the input Comparable array to a maxHeap.
+     * NOTE: HeapSize is set to the input variable numOfElementsInHeap
+     * @param array
+     * @param numOfElementsInHeap
+     */
+    public MaxPriorityQueue(Comparable[] array, int numOfElementsInHeap){
+        this.maxHeap = new MaxHeap();
+        this.heapContainer = array;
+        this.maxHeap.buildMaxHeap(array, numOfElementsInHeap);
+    }
+
     /*
      * Returns the element with the max priority from heapContainer
+     *
+     * Running Time: θ(1)
      */
-    public int maximum(){
+    public Comparable maximum(){
         return this.heapContainer[0];
     }
 
     /**
      * Returns and removes the element with the max priority from heapContainer
+     *
+     * Running Time: θ(lg(n))
      * @return
      * @throws Exception
      */
-    public int extractMaximum() throws Exception {
+    public Comparable extractMaximum() throws Exception {
         if(this.maxHeap.getHeapSize() <= 0){
             throw new Exception("Heap is empty. Can't remove from an empty heap.");
         }
 
-        int maxElement = this.heapContainer[0];
+        Comparable maxElement = this.heapContainer[0];
         //"removing largest element from the heap." Actually moving the element past the
         //last index of the heap.
         this.heapContainer[0] = this.heapContainer[this.maxHeap.getHeapSize()];
@@ -45,53 +66,53 @@ public class MaxPriorityQueue {
         return maxElement;
     }
 
+    public boolean isFull(){
+        return (this.maxHeap.getHeapSize() >= (this.heapContainer.length - 1));
+    }
+
     /**
      * Inserts a new element with priority key into the heapContainer
      * NOTE: throws an exception if the MPQ is full
+     *
+     * Running Time: θ(lg(n))
      * @param key
      * @throws Exception
      */
-    public void insertElement(int key) throws Exception {
-        if(this.maxHeap.getHeapSize() >= this.heapContainer.length - 1){
+    public void insertElement(Comparable key) throws Exception {
+        if(isFull()){
             throw new Exception("Max Priority Queue is full. Can't insert a new element");
         }
 
         this.maxHeap.incrementHeapSize();
-        this.heapContainer[this.maxHeap.getHeapSize()] = Integer.MIN_VALUE;
-        increaseKey(this.maxHeap.getHeapSize(), key);
+        this.heapContainer[this.maxHeap.getHeapSize()] = key;
+        swim(this.maxHeap.getHeapSize());
     }
 
     /**
-     * Increases the key value of an element in heapContainer.
+     * Moves an the element in maxHeap[index] to its correct position to ensure that maxHeap property is
+     * still conformed.
      * NOTE: throws an exception if index is out of bound or if key is less than original key value
-     * NOTE: Since the before this operation takes place heapContainer conforms to the rule of a maxHeap
+     * NOTE: Since before this operation takes place heapContainer conforms to the rule of a maxHeap
      * therefore the while loop makes sure that the element with the increase key is moved to its correct position
      * to maintain the max heap property.
+     *
+     * Running Time: θ(lg(n))
      * @param index
-     * @param key
      * @throws Exception
      */
-    public void increaseKey(int index, int key) throws Exception {
+    private void swim(int index) throws Exception {
         if(index > maxHeap.getHeapSize() || index < 0){
             throw new Exception("Index out of Bound");
         }
 
-        if(this.heapContainer[index] > key){
-            throw new Exception("Key" + key + " is smaller than current key for index" + index);
-        }
-        this.heapContainer[index] = key;
-        while(index > 0 && (this.heapContainer[index/2] < this.heapContainer[index])){
+        while(index > 0 && (this.heapContainer[index/2].compareTo(this.heapContainer[index]) < 0)){
             swap(index/2, index);
             index = index/2;
         }
     }
 
-    public boolean isFull(){
-        return (this.maxHeap.getHeapSize() == this.heapContainer.length - 1);
-    }
-
     private void swap(int index1, int index2){
-        int tempElement = this.heapContainer[index1];
+        Comparable tempElement = this.heapContainer[index1];
         this.heapContainer[index1] = this.heapContainer[index2];
         this.heapContainer[index2] = tempElement;
     }
