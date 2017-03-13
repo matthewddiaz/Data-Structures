@@ -4,6 +4,8 @@ package com.matthewddiaz.datastructures.heap;
  * Created by matthewdiaz on 2/27/17.
  */
 
+import com.matthewddiaz.designpatterns.behavioralPatterns.Iterator;
+
 /**
  * MaxPriorityQueue data structure maintains a set of elements which are maintained based on an attribute
  * of element called key. MPQ has 3 major operations to perform the data: maximum(), extractMaximum(),
@@ -12,6 +14,7 @@ package com.matthewddiaz.datastructures.heap;
 public class MaxPriorityQueue {
     private MaxHeap maxHeap;
     private Comparable[] heapContainer;
+    private int heapContainerSize;
 
     /**
      * Constructor that turns the input Comparable array to a maxHeap.
@@ -21,6 +24,7 @@ public class MaxPriorityQueue {
     public MaxPriorityQueue(Comparable[] array){
         this.maxHeap = new MaxHeap();
         this.heapContainer = array;
+        this.heapContainerSize = array.length - 1;
         this.maxHeap.buildMaxHeap(this.heapContainer);
     }
 
@@ -33,6 +37,7 @@ public class MaxPriorityQueue {
     public MaxPriorityQueue(Comparable[] array, int numOfElementsInHeap){
         this.maxHeap = new MaxHeap();
         this.heapContainer = array;
+        this.heapContainerSize = array.length - 1;
         this.maxHeap.buildMaxHeap(array, numOfElementsInHeap);
     }
 
@@ -67,7 +72,7 @@ public class MaxPriorityQueue {
     }
 
     public boolean isFull(){
-        return (this.maxHeap.getHeapSize() >= (this.heapContainer.length - 1));
+        return (this.maxHeap.getHeapSize() > (this.heapContainerSize));
     }
 
     /**
@@ -83,9 +88,44 @@ public class MaxPriorityQueue {
             throw new Exception("Max Priority Queue is full. Can't insert a new element");
         }
 
-        this.maxHeap.incrementHeapSize();
         this.heapContainer[this.maxHeap.getHeapSize()] = key;
         swim(this.maxHeap.getHeapSize());
+        this.maxHeap.incrementHeapSize();
+    }
+
+    /**
+     * Creates a new Iterator of MPQ. The order of the iterator is the order maintained by
+     * MPQ which is its underlying heap.
+     * @return
+     */
+    public Iterator<Comparable> createIterator(){
+        return new Iterator<Comparable>() {
+            private int currentPosition;
+
+            @Override
+            public void first() {
+                currentPosition = 0;
+            }
+
+            @Override
+            public Comparable currentElement() {
+                return heapContainer[currentPosition];
+            }
+
+            @Override
+            public void next() {
+                currentPosition++;
+            }
+
+            @Override
+            public boolean isDone() {
+                return (currentPosition > heapContainerSize);
+            }
+        };
+    }
+
+    public Comparable[] getMaxHeap(){
+        return this.heapContainer;
     }
 
     /**

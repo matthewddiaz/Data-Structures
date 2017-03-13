@@ -4,7 +4,6 @@ import data.TestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
@@ -41,23 +40,36 @@ class MaxPriorityQueueTest {
     @Test
     void extractMaximumForTypeDouble() throws Exception {
         Double expectedMaxElement = 105.4;
-        Double secondMaxElement = 103.2;
-        Comparable<Double> actualMaxElement = mpqForGrades.extractMaximum();
-        assertEquals(expectedMaxElement,actualMaxElement);
+        Double expectedSecondMaxElement = 103.2;
+        Double expectedThirdMaxElement = 100.4;
 
-        Comparable<Double> newMaxElement = mpqForGrades.extractMaximum();
-        assertEquals(secondMaxElement,newMaxElement);
+        Comparable<Double> actualMaxElement = mpqForGrades.extractMaximum();
+        Comparable<Double> secondMaxElement = mpqForGrades.extractMaximum();
+        Comparable<Double> thirdMaxElement = mpqForGrades.extractMaximum();
+
+        assertEquals(expectedMaxElement,actualMaxElement);
+        assertEquals(expectedSecondMaxElement, secondMaxElement);
+        assertEquals(expectedThirdMaxElement, thirdMaxElement);
     }
 
     @Test
     void insertElement() throws Exception {
+        Integer[] expectedMaxHeap = {190, 78, 28, 15, 24, -100, 1, 11, 14, -105};
         Integer[] arr = new Integer[10];
         MaxPriorityQueue mpq = new MaxPriorityQueue(arr, 0);
+
         mpq.insertElement(15);
         mpq.insertElement(24);
         mpq.insertElement(14);
         mpq.insertElement(28);
         mpq.insertElement(78);
         mpq.insertElement(-100);
+        mpq.insertElement(1);
+        mpq.insertElement(11);
+        mpq.insertElement(190);
+        mpq.insertElement(-105);
+
+        Comparable[] actualMaxHeap = mpq.getMaxHeap();
+        assertArrayEquals(expectedMaxHeap, actualMaxHeap);
     }
 }
