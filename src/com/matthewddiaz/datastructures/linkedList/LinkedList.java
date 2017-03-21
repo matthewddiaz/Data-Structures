@@ -7,43 +7,67 @@ import com.matthewddiaz.designpatterns.behavioralPatterns.Iterator;
  */
 public class LinkedList<T> {
     private Node head;
+    private Node tail;
     private int numOfElements;
 
     private class Node{
         T element;
         Node next;
+
+        Node(T element){
+            this.element = element;
+            this.next = null;
+        }
+    }
+
+    public LinkedList(){
+        this.head = null;
+        this.tail = this.head;
     }
 
     /**
      * Prepends an element to the List
+     * Sets head pointer to the newly created Node
      * @param element
      */
     public void prependElement(T element){
+        Node newNode = new Node(element);
+
         if(isEmpty()){
-            this.head = createNewNode(element);
+            addFirstNode(newNode);
         }else{
-            Node node = createNewNode(element);
-            node.next = this.head;
-            this.head = node;
+            newNode.next = this.head;
+            this.head = newNode;
         }
         this.numOfElements++;
     }
 
     /**
      * Appends an element to the List
+     * Sets tail pointer to the newly created Node
      * @param element
      */
     public void appendElement(T element){
+        Node newNode = new Node(element);
+
         if(isEmpty()){
-            this.head = createNewNode(element);
+            addFirstNode(newNode);
         }else{
-            Node temp = this.head;
-            while(temp.next != null){
-                temp = temp.next;
-            }
-            temp.next = createNewNode(element);
+            this.tail.next = newNode;
+            this.tail = this.tail.next;
         }
         this.numOfElements++;
+    }
+
+    /**
+     * Anytime the first node is added to an empty list
+     * head and tail both point to it. This is to avoid
+     * the problem of prepending or appending to null pointers.
+     * @param node
+     */
+    private void addFirstNode(Node node){
+        this.head = node;
+        this.tail = this.head;
     }
 
     /**
@@ -81,8 +105,8 @@ public class LinkedList<T> {
             return isRemoved;
         }
 
-        if(head.element == element){
-            head = head.next;
+        if(this.head.element == element){
+            this.head = this.head.next;
             this.numOfElements--;
             return !isRemoved;
         }
@@ -151,18 +175,6 @@ public class LinkedList<T> {
             arr[currentIndex++] = iterator.currentElement();
         }
         return arr;
-    }
-
-    /**
-     * helper method that creates a new Node
-     * @param element
-     * @return
-     */
-    private Node createNewNode(T element) {
-        Node node = new Node();
-        node.element = element;
-        node.next = null;
-        return node;
     }
 
     /**

@@ -48,6 +48,42 @@ class LinkedListTest {
     }
 
     @Test
+    void testingAppendAndPrependAndRemove() {
+        String[] expectedResult = {character4, character5};
+
+        //appending four elements
+        linkedList.appendElement(character1);
+        linkedList.appendElement(character2);
+        linkedList.appendElement(character3);
+        linkedList.appendElement(character5);
+
+        //removing those four elements
+        linkedList.removeElement(character3);
+        linkedList.removeElement(character1);
+        linkedList.removeElement(character2);
+        linkedList.removeElement(character5);
+
+        //prepending four elements
+        linkedList.prependElement(character1);
+        linkedList.prependElement(character2);
+        linkedList.prependElement(character3);
+        linkedList.prependElement(character5);
+
+        //removing those four elements
+        linkedList.removeElement(character3);
+        linkedList.removeElement(character1);
+        linkedList.removeElement(character2);
+        linkedList.removeElement(character5);
+
+        //append 2 elements
+        linkedList.appendElement(character4);
+        linkedList.appendElement(character5);
+
+        Object[] arr = linkedList.toArray();
+        Arrays.equals(expectedResult, arr);
+    }
+
+    @Test
     void testingElementNotInList() {
         boolean expectedResult = false;
         linkedList.appendElement(character1);

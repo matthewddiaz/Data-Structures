@@ -1,14 +1,18 @@
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+package com.matthewddiaz.datastructures.trees;
+
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 /**
- * Created by matthewdiaz on 8/30/16.
+ * Created by matthewdiaz on 3/21/17.
  */
-public class BinarySearchTreeTest {
+class BinarySearchTreeTest {
     private BinarySearchTree binarySearchTree;
 
-    @Before
+    @BeforeEach
     public void setUp() throws Exception {
         this.binarySearchTree = new BinarySearchTree();
     }
@@ -78,4 +82,5 @@ public class BinarySearchTreeTest {
         this.binarySearchTree.insertElement(14);
         System.out.println("Sum of left leaves is: " + this.binarySearchTree.sumOfLeftLeaves());
     }
+
 }
