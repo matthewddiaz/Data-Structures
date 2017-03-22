@@ -127,8 +127,9 @@ class LinkedListTest {
         linkedList.prependElement(character3);
         linkedList.prependElement(character4);
         boolean elementFound = linkedList.removeElement(character3);
-        Object[] actualArray = linkedList.toArray();
-
+        int listSize = linkedList.size();
+        String[] actualArray = new String[listSize];
+        linkedList.toArray(actualArray);
         assertEquals(expectedResult, elementFound);
         Arrays.equals(expectedArray, actualArray);
     }

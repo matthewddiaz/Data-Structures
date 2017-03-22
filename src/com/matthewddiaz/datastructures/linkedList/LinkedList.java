@@ -23,6 +23,7 @@ public class LinkedList<T> {
     public LinkedList(){
         this.head = null;
         this.tail = this.head;
+        this.numOfElements = 0;
     }
 
     /**
@@ -175,6 +176,34 @@ public class LinkedList<T> {
             arr[currentIndex++] = iterator.currentElement();
         }
         return arr;
+    }
+
+    /**
+     * Returns the input array with elements from the list; in the
+     * same order as the linked list.
+     * @param array
+     * @return
+     */
+    public T[] toArray(T[] array){
+        Iterator<T> iterator = createIterator();
+        int currentIndex = 0;
+
+        iterator.first();
+        //break loop if iterator is done traversing the linked list
+        //or currentIndex is greater than or equal to array.length
+        while(!iterator.isDone() && currentIndex < array.length){
+            array[currentIndex++] = iterator.currentElement();
+            iterator.next();
+        }
+        return array;
+    }
+
+    /**
+     * Returns the number of elements in the list
+     * @return
+     */
+    public int size(){
+        return this.numOfElements;
     }
 
     /**
