@@ -118,14 +118,6 @@ public class Stack<T> {
     }
 
     /**
-     * Returns String representation of
-     * @return
-     */
-//    public String toString(){
-//
-//    }
-
-    /**
      * Helper method that creates a new Node
      * @param element
      * @return

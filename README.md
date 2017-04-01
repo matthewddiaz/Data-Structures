@@ -4,18 +4,13 @@ Repository for commonly used data structures in computer science.
 
 ## Data Structure Sections
 
-### Heap
-1. [Max Heap](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/heap/MaxHeap.java)
-2. [Max Priority Queue](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/heap/MaxPriorityQueue.java)
+### [Heap](https://github.com/matthewddiaz/Data-Structures/tree/master/src/com/matthewddiaz/datastructures/heap)
 
-### LinkedList
-1. [Linked List](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/linkedList/LinkedList.java)
+### [Linked List](https://github.com/matthewddiaz/Data-Structures/tree/master/src/com/matthewddiaz/datastructures/linkedList)
 
-### Queue
-1. [Queue](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/queue/Queue.java)
+### [Queue](https://github.com/matthewddiaz/Data-Structures/tree/master/src/com/matthewddiaz/datastructures/queue)
 
-### Stack
-1. [Stack](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/stack/Stack.java)
+### [Stack](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/stack)
 
 ### Trees
 

@@ -32,6 +32,20 @@ class QueueTest {
     }
 
     @Test
+    void testingPeak(){
+        String[] expectedResult = {students[0], students[1]};
+        String expectedElement = students[0];
+
+        queueOfStudents.enqueue(students[0]);
+        queueOfStudents.enqueue(students[1]);
+        String studentAtHead = queueOfStudents.peak();
+
+        Object[] actualResult = queueOfStudents.toArray();
+        assertArrayEquals(expectedResult, actualResult);
+        assertEquals(expectedElement, studentAtHead);
+    }
+
+    @Test
     void testingANonEmptyQueue() {
         boolean expectedResult = false;
         queueOfGrades.enqueue(grades[0]);

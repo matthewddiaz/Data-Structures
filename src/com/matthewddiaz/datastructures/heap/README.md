@@ -2,7 +2,7 @@
 
 ## Heap
 A heap is a data structure that viewed as a binary tree that is backed by an array of size N. 
-Elements range from A[1...N]; where A[0] is left empty and A[1] is the root. A parent element A[P] has a 
+Elements range from A[1...N]; where A[0] is usually left empty and A[1] is the root. A parent element A[P] has a 
 left child element at A[2P] and right child at A[2P + 1]. 
 
 There are two types of heaps a Min Heap and a Max Heap. In a Max Heap the root element is the largest element in the heap;
@@ -31,7 +31,10 @@ is recursively called again until heap properties are enforced.
 by calling maxHeapify() on nodes A[N/2..1]. Recall that nodes after index N/2 are leaf nodes and therefore already conform
 to max heap's property.
 
-    **Time Complexity:** Θ(n)
+**NOTE:** This Max Heap is implemented with root at A[0] thus both left and right child
+are offset by 1.
+
+   **Time Complexity:** Θ(n)
 
 **Test class:** [MaxHeapTest](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/queue/MaxHeapTest.java)
 

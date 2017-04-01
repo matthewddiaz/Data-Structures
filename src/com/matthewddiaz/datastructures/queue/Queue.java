@@ -31,7 +31,7 @@ public class Queue<T> {
     }
 
     /**
-     * Inserts an element at the end (tail) of the com.matthewddiaz.queue
+     * Inserts an element at the end (tail) of the queue
      * @param element
      */
     public void enqueue(T element){
@@ -46,7 +46,7 @@ public class Queue<T> {
     }
 
     /**
-     * Removes an element from the front (head) of the com.matthewddiaz.queue
+     * Removes and returns the element at the front (head) of the queue
      * @return
      */
     public T dequeue(){
@@ -58,6 +58,17 @@ public class Queue<T> {
         head = head.next;
         numOfElements--;
         return value;
+    }
+
+    /**
+     * Returns the element at the front (head) of the queue
+     * @return
+     */
+    public T peak(){
+        if(isEmpty()){
+            return  null;
+        }
+        return head.element;
     }
 
     /**
