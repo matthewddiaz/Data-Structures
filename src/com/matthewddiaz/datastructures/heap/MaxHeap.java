@@ -125,15 +125,15 @@ public class MaxHeap {
      * @return
      */
     public boolean isEmpty(){
-        return this.heapSize == 0;
+        return this.heapSize <= 0;
     }
 
     /**
-     * Returns true when heap is full (heapSize is equal to the length)
+     * Returns true when heap is full (heapSize is greater than or equal to the length)
      * @return
      */
     public boolean isFull(){
-        return this.heapSize == this.length;
+        return this.heapSize >= this.length;
     }
 
     public void decrementHeapSize(){

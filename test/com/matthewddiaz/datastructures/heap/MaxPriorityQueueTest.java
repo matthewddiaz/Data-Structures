@@ -16,7 +16,7 @@ class MaxPriorityQueueTest {
     private Double[] grades;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws Exception {
         students = TestData.getStringArray();
         grades = TestData.getDoubleArray();
         mpqForStudents = new MaxPriorityQueue(students);
@@ -53,6 +53,29 @@ class MaxPriorityQueueTest {
     }
 
     @Test
+    void insertAndExtractElement() throws Exception {
+        Double expectedMaxElement = 2.2;
+        Double expectedSecondMaxElement = 1.3;
+        Double expectedThirdMaxElement = -1.3;
+
+        Double[] testData = new Double[10];
+        testData[0] = 1.3;
+        testData[1] = 2.2;
+
+        MaxPriorityQueue mpq = new MaxPriorityQueue(testData, 2);
+        mpq.insertElement(-1.3);
+        Comparable<Double> actualMaxElement = mpq.extractMaximum();
+        Comparable<Double> secondMaxElement = mpq.extractMaximum();
+        Comparable<Double> thirdMaxElement = mpq.extractMaximum();
+        mpq.insertElement(4.1);
+        mpq.insertElement(100.3);
+
+        assertEquals(expectedMaxElement,actualMaxElement);
+        assertEquals(expectedSecondMaxElement, secondMaxElement);
+        assertEquals(expectedThirdMaxElement, thirdMaxElement);
+    }
+
+    @Test
     void insertElement() throws Exception {
         Integer[] expectedMaxHeap = {190, 78, 28, 15, 24, -100, 1, 11, 14, -105};
         Integer[] arr = new Integer[10];
@@ -68,6 +91,7 @@ class MaxPriorityQueueTest {
         mpq.insertElement(11);
         mpq.insertElement(190);
         mpq.insertElement(-105);
+
 
         Comparable[] actualMaxHeap = mpq.getMaxHeap();
         assertArrayEquals(expectedMaxHeap, actualMaxHeap);

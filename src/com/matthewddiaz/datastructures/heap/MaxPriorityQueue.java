@@ -13,19 +13,17 @@ import com.matthewddiaz.designpatterns.behavioralPatterns.Iterator;
  */
 public class MaxPriorityQueue {
     private MaxHeap maxHeap;
-    private Comparable[] heapContainer;
-    private int heapContainerSize;
+    private Comparable[] heapArray;
 
     /**
      * Constructor that turns the input Comparable array to a maxHeap.
      * NOTE: Assumes that heapSize is equal to (array.length - 1)
      * @param array
      */
-    public MaxPriorityQueue(Comparable[] array){
+    public MaxPriorityQueue(Comparable[] array) throws Exception{
         this.maxHeap = new MaxHeap();
-        this.heapContainer = array;
-        this.heapContainerSize = array.length - 1;
-        this.maxHeap.buildMaxHeap(this.heapContainer);
+        this.heapArray = array;
+        this.maxHeap.buildMaxHeap(this.heapArray);
     }
 
     /**
@@ -34,49 +32,49 @@ public class MaxPriorityQueue {
      * @param array
      * @param numOfElementsInHeap
      */
-    public MaxPriorityQueue(Comparable[] array, int numOfElementsInHeap){
+    public MaxPriorityQueue(Comparable[] array, int numOfElementsInHeap) throws Exception{
         this.maxHeap = new MaxHeap();
-        this.heapContainer = array;
-        this.heapContainerSize = array.length - 1;
-        this.maxHeap.buildMaxHeap(array, numOfElementsInHeap);
+        this.heapArray = array;
+        this.maxHeap.buildMaxHeap(this.heapArray, numOfElementsInHeap);
     }
 
     /*
-     * Returns the element with the max priority from heapContainer
+     * Returns the element with the max priority from heapArray
      *
      * Running Time: θ(1)
      */
     public Comparable maximum(){
-        return this.heapContainer[0];
+        if(isEmpty()){
+            return null;
+        }
+        return this.heapArray[0];
     }
 
     /**
-     * Returns and removes the element with the max priority from heapContainer
+     * Returns and removes the element with the max priority from heapArray
      *
      * Running Time: θ(lg(n))
      * @return
      * @throws Exception
      */
     public Comparable extractMaximum() throws Exception {
-        if(this.maxHeap.getHeapSize() <= 0){
+        if(isEmpty()){
             throw new Exception("Heap is empty. Can't remove from an empty heap.");
         }
 
-        Comparable maxElement = this.heapContainer[0];
-        //"removing largest element from the heap." Actually moving the element past the
-        //last index of the heap.
-        this.heapContainer[0] = this.heapContainer[this.maxHeap.getHeapSize()];
+        Comparable maxElement = this.heapArray[0];
+        //heap[0] gets set to last element in heap
+        int indexOfLastElementInHeap = this.maxHeap.getHeapSize() - 1;
+        this.heapArray[0] = this.heapArray[indexOfLastElementInHeap];
+        //decrease heap size by 1
         this.maxHeap.decrementHeapSize();
-        this.maxHeap.maxHeapify(this.heapContainer,0);
+        //call maxHeapify on heap[0] to ensure max heap property
+        this.maxHeap.maxHeapify(this.heapArray,0);
         return maxElement;
     }
 
-    public boolean isFull(){
-        return (this.maxHeap.getHeapSize() > (this.heapContainerSize));
-    }
-
     /**
-     * Inserts a new element with priority key into the heapContainer
+     * Inserts a new element with priority key into the heapArray
      * NOTE: throws an exception if the MPQ is full
      *
      * Running Time: θ(lg(n))
@@ -88,9 +86,17 @@ public class MaxPriorityQueue {
             throw new Exception("Max Priority Queue is full. Can't insert a new element");
         }
 
-        this.heapContainer[this.maxHeap.getHeapSize()] = key;
+        this.heapArray[this.maxHeap.getHeapSize()] = key;
         swim(this.maxHeap.getHeapSize());
         this.maxHeap.incrementHeapSize();
+    }
+
+    public boolean isEmpty(){
+        return this.maxHeap.isEmpty();
+    }
+
+    public boolean isFull(){
+        return this.maxHeap.isFull();
     }
 
     /**
@@ -100,39 +106,43 @@ public class MaxPriorityQueue {
      */
     public Iterator<Comparable> createIterator(){
         return new Iterator<Comparable>() {
-            private int currentPosition;
+            private int currentIndex;
 
             @Override
             public void first() {
-                currentPosition = 0;
+                currentIndex = 0;
             }
 
             @Override
             public Comparable currentElement() {
-                return heapContainer[currentPosition];
+                return heapArray[currentIndex];
             }
 
             @Override
             public void next() {
-                currentPosition++;
+                currentIndex++;
             }
 
             @Override
             public boolean isDone() {
-                return (currentPosition > heapContainerSize);
+                return (currentIndex >= maxHeap.getHeapSize());
             }
         };
     }
 
+    /**
+     * Returns array containing Max Heap data
+     * @return
+     */
     public Comparable[] getMaxHeap(){
-        return this.heapContainer;
+        return this.heapArray;
     }
 
     /**
      * Moves an the element in maxHeap[index] to its correct position to ensure that maxHeap property is
      * still conformed.
      * NOTE: throws an exception if index is out of bound or if key is less than original key value
-     * NOTE: Since before this operation takes place heapContainer conforms to the rule of a maxHeap
+     * NOTE: Since before this operation takes place heapArray conforms to the rule of a maxHeap
      * therefore the while loop makes sure that the element with the increase key is moved to its correct position
      * to maintain the max heap property.
      *
@@ -145,15 +155,20 @@ public class MaxPriorityQueue {
             throw new Exception("Index out of Bound");
         }
 
-        while(index > 0 && (this.heapContainer[index/2].compareTo(this.heapContainer[index]) < 0)){
+        while(index > 0 && (this.heapArray[index/2].compareTo(this.heapArray[index]) < 0)){
             swap(index/2, index);
             index = index/2;
         }
     }
 
+    /**
+     * Swaps elements in index1 and index2 in heapArray
+     * @param index1
+     * @param index2
+     */
     private void swap(int index1, int index2){
-        Comparable tempElement = this.heapContainer[index1];
-        this.heapContainer[index1] = this.heapContainer[index2];
-        this.heapContainer[index2] = tempElement;
+        Comparable tempElement = this.heapArray[index1];
+        this.heapArray[index1] = this.heapArray[index2];
+        this.heapArray[index2] = tempElement;
     }
 }
