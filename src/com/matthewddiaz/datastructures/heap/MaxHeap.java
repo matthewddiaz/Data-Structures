@@ -79,9 +79,13 @@ public class MaxHeap {
      * Running Time: θ(n)
      * @param array
      */
-    public void buildMaxHeap(Comparable[] array) throws Exception {
-        buildMaxHeap(array, array.length);
-     }
+    public void buildMaxHeap(Comparable[] array) {
+        try {
+            buildMaxHeap(array, array.length);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Builds input array for an array of size n into a max heap with a bottom up approach by calling maxHeapify on

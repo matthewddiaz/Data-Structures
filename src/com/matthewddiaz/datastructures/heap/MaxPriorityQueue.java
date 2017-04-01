@@ -20,7 +20,7 @@ public class MaxPriorityQueue {
      * NOTE: Assumes that heapSize is equal to (array.length - 1)
      * @param array
      */
-    public MaxPriorityQueue(Comparable[] array) throws Exception{
+    public MaxPriorityQueue(Comparable[] array) {
         this.maxHeap = new MaxHeap();
         this.heapArray = array;
         this.maxHeap.buildMaxHeap(this.heapArray);

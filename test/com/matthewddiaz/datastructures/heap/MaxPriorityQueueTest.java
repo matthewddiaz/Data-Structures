@@ -16,7 +16,7 @@ class MaxPriorityQueueTest {
     private Double[] grades;
 
     @BeforeEach
-    void setUp() throws Exception {
+    void setUp() {
         students = TestData.getStringArray();
         grades = TestData.getDoubleArray();
         mpqForStudents = new MaxPriorityQueue(students);

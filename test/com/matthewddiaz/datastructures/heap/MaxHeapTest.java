@@ -29,11 +29,8 @@ class MaxHeapTest {
     @Test
     void buildIntegerMaxHeap() {
         Integer[] expectedArray = {180, 103, 105, 16, 20, 100, 15, 1, 11, 4, 17, 19};
-        try {
-            maxHeap.buildMaxHeap(ages);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        maxHeap.buildMaxHeap(ages);
+
         assertArrayEquals(expectedArray, ages);
     }
 
@@ -43,11 +40,8 @@ class MaxHeapTest {
     @Test
     void buildStringMaxHeap() {
         String[] expectedArray = {"Vegeta", "Master Roshi", "Piccolo", "Krillian", "Goku", "Gohan", "Bulma", "Cell"};
-        try {
-            maxHeap.buildMaxHeap(students);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        maxHeap.buildMaxHeap(students);
+
         assertArrayEquals(expectedArray, students);
     }
 
@@ -57,11 +51,8 @@ class MaxHeapTest {
     @Test
     void buildDoubleMaxHeap() {
         Double[] expectedArray = {105.4, 103.2, 17.4, 100.4, 19.3, 16.6, 1.1, 18.18, 16.5, 15.1, 11.1, 4.3, 2.3, -180.2};
-        try {
-            maxHeap.buildMaxHeap(grades);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        maxHeap.buildMaxHeap(grades);
+
         assertArrayEquals(expectedArray, grades);
     }
 
@@ -108,11 +99,8 @@ class MaxHeapTest {
      */
     @Test
     void buildMaxHeapIsFull(){
-        try {
-            maxHeap.buildMaxHeap(students);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        maxHeap.buildMaxHeap(students);
+
         boolean actualResult = maxHeap.isFull();
         assertTrue(actualResult);
     }
