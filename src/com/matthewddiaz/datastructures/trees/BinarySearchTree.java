@@ -79,6 +79,8 @@ public class BinarySearchTree {
 
     /**
      * If the element is in the BST it is removed.
+     * NOTE: not working correctly!!!
+     * Duplicate leaf node in BST after removal of desired node
      * @param element
      */
     public void removeElement(int element){
@@ -210,6 +212,47 @@ public class BinarySearchTree {
         }
 
         traversalBuffer.append(" ]");
+        return traversalBuffer.toString();
+    }
+
+    /**
+     * Iterative approach of Pre-Order Traversal.
+     * A Depth First Search that traverse the BST
+     * starting from the root node this traversal
+     * always prints left child, then right child,
+     * then current (self) node.
+     * @return
+     */
+    public String postOrderTraversal(){
+        if(isEmpty()){
+            return "[]";
+        }
+
+        Node pointer = this.root;
+        Deque<Node> stack = new ArrayDeque<>();
+        StringBuffer traversalBuffer = new StringBuffer("[ ");
+
+        while(!stack.isEmpty() || pointer != null){
+            while(pointer != null){
+                if(pointer.right != null){
+                    stack.push(pointer.right);
+                }
+                stack.push(pointer);
+                pointer = pointer.left;
+            }
+
+            pointer = stack.pop();
+            if(pointer.right != null && pointer.right == stack.peek()){
+                Node rightChild = stack.pop();
+                stack.push(pointer);
+                pointer = rightChild;
+            }else{
+                traversalBuffer.append(pointer.element + " ,");
+                pointer = null;
+            }
+        }
+        traversalBuffer.deleteCharAt(traversalBuffer.length() - 1);
+        traversalBuffer.append("]");
         return traversalBuffer.toString();
     }
 
