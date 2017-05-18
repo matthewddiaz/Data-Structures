@@ -33,4 +33,15 @@ public class BreadFirstSearch {
         }
         return graphBFS.toString();
     }
+
+
+    public static String shortestDistance(Graph.Vertex source, Graph.Vertex destination){
+        if(source.equals(destination)){
+            return source.id + "";
+        }else if(destination.parent == null){
+            return "NO PATH";
+        }else{
+            return shortestDistance(source, destination.parent) + " " + destination.id;
+        }
+    }
 }

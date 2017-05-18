@@ -8,16 +8,23 @@ import java.util.*;
 public abstract class Graph {
     static class Vertex{
         int id;
+        //used in BFS
         int distance;
         Vertex parent;
         //either 0,1, or 2
         int visit_state;
+        //used in DFS
+        int discoveredTimeStamp;
+        //used in DFS
+        int finishedTimeStamp;
 
         Vertex(int id){
             this.id = id;
             distance = Integer.MAX_VALUE;
             parent = null;
             visit_state = 0;
+            discoveredTimeStamp = 0;
+            finishedTimeStamp = 0;
         }
 
         @Override
@@ -31,6 +38,10 @@ public abstract class Graph {
                 buffer.append(this.parent.id);
             }
             buffer.append("\n");
+            buffer.append("Discovered time stamp: "  + this.discoveredTimeStamp + "\n");
+            buffer.append("Finished time stamp: " + this.finishedTimeStamp);
+            buffer.append("\n");
+
             return buffer.toString();
         }
     }
