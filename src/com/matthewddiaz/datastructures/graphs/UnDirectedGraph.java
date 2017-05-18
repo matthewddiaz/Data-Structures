@@ -27,7 +27,7 @@ public class UnDirectedGraph extends Graph{
     }
 
     @Override
-    void addAdjacentVertexToAdjMap(Map<Vertex, List<Vertex>> adjList, Vertex source, Vertex adjacentVertex) {
+    void addAdjacentVertexToAdjMap(Map<Integer, List<Vertex>> adjList, Vertex source, Vertex adjacentVertex) {
         addAdjacentVertex(adjList, source, adjacentVertex);
         addAdjacentVertex(adjList, adjacentVertex, source);
     }
@@ -37,6 +37,7 @@ public class UnDirectedGraph extends Graph{
         addVertexToAdjMatrix(adjMatrix, source.id, adjVertex.id);
         addVertexToAdjMatrix(adjMatrix, adjVertex.id, source.id);
     }
+
 }
 
 

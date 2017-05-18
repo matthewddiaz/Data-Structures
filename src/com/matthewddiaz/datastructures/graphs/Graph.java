@@ -8,9 +8,30 @@ import java.util.*;
 public abstract class Graph {
     static class Vertex{
         int id;
+        int distance;
+        Vertex parent;
+        //either 0,1, or 2
+        int visit_state;
 
         Vertex(int id){
             this.id = id;
+            distance = Integer.MAX_VALUE;
+            parent = null;
+            visit_state = 0;
+        }
+
+        @Override
+        public String toString(){
+            StringBuffer buffer = new StringBuffer("Vector ID: " + this.id + "\n");
+            buffer.append("Distance From source: " + this.distance + "\n");
+            buffer.append("Predecessor: ");
+            if(this.parent == null){
+                buffer.append("null");
+            }else{
+                buffer.append(this.parent.id);
+            }
+            buffer.append("\n");
+            return buffer.toString();
         }
     }
 
@@ -24,21 +45,34 @@ public abstract class Graph {
         }
     }
 
-    private Set<Vertex> vertexSet;
+    private Map<Integer, Vertex> vertexSet;
     private Set<Edge> edgeSet;
 
     public Graph(){
-        this.vertexSet = new HashSet<>();
+        this.vertexSet = new HashMap<>();
         this.edgeSet = new HashSet<>();
     }
 
     public Graph(Set<Vertex> vertexSet, Set<Edge> edgeSet){
+        this.vertexSet = new HashMap<>();
+        transformInputSetToMap(vertexSet);
+        this.edgeSet = edgeSet;
+    }
+
+    private void transformInputSetToMap(Set<Vertex> vertexSet){
+        for(Vertex vertex: vertexSet){
+            this.vertexSet.put(vertex.id, vertex);
+        }
+    }
+
+    public Graph(Map<Integer, Vertex> vertexSet, Set<Edge> edgeSet){
         this.vertexSet = vertexSet;
         this.edgeSet = edgeSet;
     }
 
     public void addVertex(Vertex vertex){
-        vertexSet.add(vertex);
+        int vertexID = vertex.id;
+        this.vertexSet.put(vertexID, vertex);
     }
 
     abstract boolean isEdgeValid(Vertex source, Vertex destination);
@@ -75,8 +109,8 @@ public abstract class Graph {
         vertexList.add(adjacentVertex);
     }
 
-    public Map<Vertex, List<Vertex>> createAdjacencyListStoredAsMap(){
-        Map<Vertex, List<Vertex>> adjList = new HashMap<>();
+    public Map<Integer, List<Vertex>> createAdjacencyListStoredAsMap(){
+        Map<Integer, List<Vertex>> adjList = new HashMap<>();
         for(Edge e : edgeSet){
             Vertex sourceVertex = e.source;
             Vertex adjacentVertex = e.destination;
@@ -85,16 +119,16 @@ public abstract class Graph {
         return adjList;
     }
 
-    abstract void addAdjacentVertexToAdjMap(Map<Vertex, List<Vertex>> adjList, Vertex source, Vertex adjacentVertex);
+    abstract void addAdjacentVertexToAdjMap(Map<Integer, List<Vertex>> adjList, Vertex source, Vertex adjacentVertex);
 
-    void addAdjacentVertex(Map<Vertex, List<Vertex>> adjList, Vertex source, Vertex adjacentVertex ){
-        if(!adjList.containsKey(source)){
-            adjList.put(source, new LinkedList<>());
+    void addAdjacentVertex(Map<Integer, List<Vertex>> adjList, Vertex source, Vertex adjacentVertex ){
+        if(!adjList.containsKey(source.id)){
+            adjList.put(source.id, new LinkedList<>());
         }
 
         List<Vertex> vertexList = adjList.get(source);
         vertexList.add(adjacentVertex);
-        adjList.replace(source, vertexList);
+        adjList.replace(source.id, vertexList);
     }
 
     /**
@@ -133,9 +167,9 @@ public abstract class Graph {
      *
      * @param adjMap
      */
-    public static void traverseAdjArray(Map<Vertex, List<Vertex>> adjMap){
+    public static void traverseAdjArray(Map<Integer, List<Vertex>> adjMap){
        adjMap.forEach((vertex, vertexAdjVertices)->{
-           StringBuffer buffer = new StringBuffer(vertex.id + ": ");
+           StringBuffer buffer = new StringBuffer(vertex + ": ");
 
            for(Vertex adjVertex : vertexAdjVertices){
               buffer.append(adjVertex.id + " ");
@@ -155,11 +189,19 @@ public abstract class Graph {
         System.out.println(buffer.toString());
     }
 
-    public Set<Vertex> getVertexSet(){
-        return this.vertexSet;
+    public Collection<Vertex> getVertexSet(){
+        return this.vertexSet.values();
     }
 
     public Set<Edge> getEdgeSet(){
         return this.edgeSet;
+    }
+
+    public void setVertex(Vertex vertex){
+        this.vertexSet.replace(vertex.id, vertex);
+    }
+
+    public Vertex getVertex(int vertex_id){
+        return this.vertexSet.get(vertex_id);
     }
 }

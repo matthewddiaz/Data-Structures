@@ -24,7 +24,7 @@ public class DirectedGraph extends Graph {
     }
 
     @Override
-    void addAdjacentVertexToAdjMap(Map<Vertex, List<Vertex>> adjList, Vertex source, Vertex adjacentVertex) {
+    void addAdjacentVertexToAdjMap(Map<Integer, List<Vertex>> adjList, Vertex source, Vertex adjacentVertex) {
         addAdjacentVertex(adjList, source, adjacentVertex);
     }
 
