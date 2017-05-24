@@ -112,6 +112,18 @@ class BinarySearchTreeTest {
         }
     }
 
+    @Test
+    void predecessor(){
+        BinarySearchTree.Node node = this.complexBST.treeSearch(8);
+
+        BinarySearchTree.Node predecessorNode = this.complexBST.predecessor(node);
+        if(predecessorNode == null){
+            System.out.println("Current Node with key: " + node.key + " is the smallest element in the BST");
+        }else{
+            System.out.println("Predecessor has key: " + predecessorNode.key);
+        }
+    }
+
 //    @Test
 //    public void testIsEmpty() throws Exception {
 //

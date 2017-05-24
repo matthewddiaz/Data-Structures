@@ -313,6 +313,26 @@ public class BinarySearchTree {
         return parent;
     }
 
+    private Node predecessorOfNodeWithNoLeftSubTree(Deque<Node> ancestors){
+        if(ancestors.size() < 2){
+            return null;
+        }
+
+        java.util.Iterator<Node> iterator =  ancestors.iterator();
+        Node current = iterator.next();
+        Node parent = iterator.next();
+
+        while(parent.left == current){
+            current = parent;
+            if(iterator.hasNext()){
+                parent = iterator.next();
+            }else{
+                return null;
+            }
+        }
+        return parent;
+    }
+
     /**
      * Returns the successor of a the input node.
      * There are 2 possible cases
@@ -333,6 +353,14 @@ public class BinarySearchTree {
 
         Deque<Node> ancestorList = generateSimpleAncestryPath(this.root, node);
         return successorOfNodeWithNoRightSubTree(ancestorList);
+    }
+
+    public Node predecessor(Node node){
+        if(node.left != null){
+            return maximum(node.left);
+        }
+        Deque<Node> ancestorList = generateSimpleAncestryPath(this.root, node);
+        return predecessorOfNodeWithNoLeftSubTree(ancestorList);
     }
 
     public int heightOfTree(){
