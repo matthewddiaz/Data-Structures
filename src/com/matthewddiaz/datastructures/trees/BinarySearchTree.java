@@ -253,7 +253,7 @@ public class BinarySearchTree {
 
     /**
      * Returns a Deque of all the nodes in the simple path from an ancestor to a
-     * descendant. Not if the node passed in the first parameter is not a descendant
+     * descendant. NOTE: if the node passed in the first parameter is not a descendant
      * of the node passed in the second parameter then an empty Deque is returned.
      * @param ancestor
      * @param descendant
@@ -284,6 +284,15 @@ public class BinarySearchTree {
         return linkedList;
     }
 
+    /**
+     * The successor in of a node with no right subtree is
+     * the lowest ancestor whose left child is also an ancestor
+     * of the desired node. NOTE if none of the nodes in the ancestors
+     * list match this scenario then the node does not have a successor and
+     * null is returned.
+     * @param ancestors
+     * @return
+     */
     private Node successorOfNodeWithNoRightSubTree(Deque<Node> ancestors){
         if(ancestors.size() < 2){
             return null;
@@ -293,13 +302,30 @@ public class BinarySearchTree {
         Node current = iterator.next();
         Node parent = iterator.next();
 
-        while(parent != null && parent.right == current){
+        while(parent.right == current){
             current = parent;
-            parent = iterator.next();
+            if(iterator.hasNext()){
+                parent = iterator.next();
+            }else{
+                return null;
+            }
         }
         return parent;
     }
 
+    /**
+     * Returns the successor of a the input node.
+     * There are 2 possible cases
+     * 1) When the input element has a right subtree
+     *      a) The successor performing min on the right subtree of the input node
+     * 2) When the input element does not have a right subtree
+     *      a) Since this BST does not have a parent node, first find the simple
+     *         ancestry path from the root to the node in reverse order. Then
+     *         the successor is the lowest ancestor whose left child is also
+     *         an ancestor of the input node.
+     * @param node
+     * @return
+     */
     public Node successor(Node node){
         if(node.right != null){
             return minimum(node.right);
@@ -308,8 +334,6 @@ public class BinarySearchTree {
         Deque<Node> ancestorList = generateSimpleAncestryPath(this.root, node);
         return successorOfNodeWithNoRightSubTree(ancestorList);
     }
-
-
 
     public int heightOfTree(){
         return heightOfTree(this.root);

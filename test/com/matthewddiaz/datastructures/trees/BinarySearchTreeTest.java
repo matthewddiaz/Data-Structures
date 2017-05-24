@@ -67,6 +67,9 @@ class BinarySearchTreeTest {
         assertEquals(expectedMax, actualMax);
     }
 
+    /**
+     * Testing correctness of ancestry simple path list
+     */
     @Test
     void generateAncestrySimplePath(){
         BinarySearchTree.Node sourceNode = this.complexBST.treeSearch(15);
@@ -94,15 +97,19 @@ class BinarySearchTreeTest {
         assertEquals(expectedResult, actualResult);
     }
 
+    /**
+     *
+     */
     @Test
     void successor(){
-        BinarySearchTree.Node node = this.complexBST.treeSearch(100);
+        BinarySearchTree.Node node = this.complexBST.treeSearch(5);
 
         BinarySearchTree.Node successorNode = this.complexBST.successor(node);
         if(successorNode == null){
-            System.out.println("Current Node is the largest element in the BST");
+            System.out.println("Current Node with key: " + node.key + " is the largest element in the BST");
+        }else{
+            System.out.println("Successor has key: " + successorNode.key);
         }
-        System.out.println(successorNode.key);
     }
 
 //    @Test
