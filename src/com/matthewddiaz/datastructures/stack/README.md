@@ -1,7 +1,7 @@
 # Fundamental Data Structures
 
 ## Stack
-Is a dynamic set that only allows removal of the element most recently inserted.
+Is a dynamic set that only allows removal of the key most recently inserted.
 That is LIFO (Last In, First Out)
   
 
@@ -12,11 +12,11 @@ of the array.
 
 Operations of Stack
 
-1) **void push(T element)** - inserts element to the top of the Stack. 
+1) **void push(T key)** - inserts key to the top of the Stack. 
 
     **Time Complexity:** Θ(1)
 
-2) **T pop()** - removes and returns the top most element of the Stack.
+2) **T pop()** - removes and returns the top most key of the Stack.
     If the Stack is empty returns null.
 
    **Time Complexity:** Θ(1)

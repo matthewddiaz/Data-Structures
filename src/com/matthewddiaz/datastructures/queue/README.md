@@ -11,11 +11,11 @@ using an array its size is bound by the size of the array.
 
 Queue supports the following operations:
 
-1) **void enqueue(T element)** - inserts an element to the tail of the Queue. 
+1) **void enqueue(T key)** - inserts an key to the tail of the Queue. 
 
     **Time Complexity:** Θ(1)
 
-2) **T dequeue()** - removes and returns the element at the head of the Queue.
+2) **T dequeue()** - removes and returns the key at the head of the Queue.
 
    **Time Complexity:** Θ(1)
 

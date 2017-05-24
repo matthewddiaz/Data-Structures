@@ -37,7 +37,7 @@ public class BinaryTree<T> {
     }
 
     /**
-     * Inserts the element using In-Order traversal insertion to the binary tree
+     * Inserts the key using In-Order traversal insertion to the binary tree
      * @param element
      */
     public void insertElement(T element){
@@ -77,8 +77,8 @@ public class BinaryTree<T> {
     }
 
     /**
-     * If the element is in the tree; removes and returns the element.
-     * If the element is not in the tree then null is returned.
+     * If the key is in the tree; removes and returns the key.
+     * If the key is not in the tree then null is returned.
      * @param element
      * @return
      */
@@ -87,7 +87,7 @@ public class BinaryTree<T> {
     }
 
     /**
-     * Returns true if the element passed in the parameter is in the tree.
+     * Returns true if the key passed in the parameter is in the tree.
      * @param element
      * @return
      */

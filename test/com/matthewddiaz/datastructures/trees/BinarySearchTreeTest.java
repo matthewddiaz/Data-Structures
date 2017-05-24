@@ -5,98 +5,152 @@ import com.matthewddiaz.designpatterns.behavioralPatterns.Iterator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.Deque;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Created by matthewdiaz on 3/21/17.
  */
 class BinarySearchTreeTest {
-    private BinarySearchTree binarySearchTree;
+    private BinarySearchTree simpleBST;
+    private BinarySearchTree complexBST;
 
     @BeforeEach
     public void setUp() throws Exception {
-        this.binarySearchTree = new BinarySearchTree();
+        this.simpleBST = BSTCreator.createSimpleBinarySearchTree();
+        this.complexBST = BSTCreator.createComplexBinarySearchTree();
     }
 
-    private void generateSimpleBinarySearchTree(){
-        this.binarySearchTree.insertElement(10);
-        this.binarySearchTree.insertElement(5);
-        this.binarySearchTree.insertElement(12);
-        this.binarySearchTree.insertElement(15);
-        this.binarySearchTree.insertElement(1);
-        this.binarySearchTree.insertElement(11);
-    }
-
-    private void generateComplexBinarySearchTree(){
-        this.binarySearchTree.insertElement(9);
-        this.binarySearchTree.insertElement(5);
-        this.binarySearchTree.insertElement(15);
-        this.binarySearchTree.insertElement(20);
-        this.binarySearchTree.insertElement(1);
-        this.binarySearchTree.insertElement(11);
-        this.binarySearchTree.insertElement(10);
-        this.binarySearchTree.insertElement(16);
-        this.binarySearchTree.insertElement(8);
-        this.binarySearchTree.insertElement(50);
-        this.binarySearchTree.insertElement(60);
-        this.binarySearchTree.insertElement(100);
-        this.binarySearchTree.insertElement(90);
-        this.binarySearchTree.insertElement(80);
-        this.binarySearchTree.insertElement(18);
-        this.binarySearchTree.insertElement(55);
-    }
-
-    @Test
-    public void testIsEmpty() throws Exception {
-
-    }
-
-    @Test
-    public void testInsertElement() throws Exception {
-        generateSimpleBinarySearchTree();
-
-        this.binarySearchTree.inOrderTraversal();
-    }
-
+    /**
+     * Checks if the method containsElement correct determines if the input
+     * key is in the BST or not.
+     * @throws Exception
+     */
     @Test
     public void testContainsElement() throws Exception {
-        generateComplexBinarySearchTree();
+        assertTrue(this.complexBST.containsElement(5));
+        assertTrue(this.complexBST.containsElement(1));
+        assertFalse(this.complexBST.containsElement(2));
+        assertTrue(this.complexBST.containsElement(15));
+    }
 
-        assertTrue(this.binarySearchTree.containsElement(5));
-        assertTrue(this.binarySearchTree.containsElement(1));
-        assertFalse(this.binarySearchTree.containsElement(2));
-        assertTrue(this.binarySearchTree.containsElement(15));
+
+    @Test
+    void treeSearch() {
+        int expectedKey = 5;
+        BinarySearchTree.Node expectedNullResult = null;
+
+        BinarySearchTree.Node presentNode = this.complexBST.treeSearch(5);
+        BinarySearchTree.Node notPresetNode = this.complexBST.treeSearch(101);
+        assertEquals(expectedKey, presentNode.key);
+        assertEquals(expectedNullResult, notPresetNode);
+    }
+
+    /**
+     * Finds min element in BST
+     */
+    @Test
+    void minimum() {
+        int expectedMin = 1;
+        int actualMin = this.complexBST.minimum().key;
+        assertEquals(expectedMin, actualMin);
+    }
+
+    /**
+     * Finds max element in BST
+     */
+    @Test
+    void maximum() {
+        int expectedMax = 100;
+        int actualMax = this.complexBST.maximum().key;
+        assertEquals(expectedMax, actualMax);
     }
 
     @Test
-    public void testRemoveElement() throws Exception {
-        generateSimpleBinarySearchTree();
+    void generateAncestrySimplePath(){
+        BinarySearchTree.Node sourceNode = this.complexBST.treeSearch(15);
+        BinarySearchTree.Node destinationNode = this.complexBST.treeSearch(90);
 
-        //this.binarySearchTree.removeElement(10);
-        //assertFalse(this.binarySearchTree.containsElement(10));
-        System.out.println(this.binarySearchTree.postOrderTraversal());
+        Deque<BinarySearchTree.Node> simplePath = this.complexBST.generateSimpleAncestryPath(sourceNode, destinationNode);
+        for(BinarySearchTree.Node node : simplePath){
+            System.out.print(node.key + " ");
+        }
     }
+
+    @Test
+    void generateSimpleAncestryPathNoPathTestCase(){
+        String expectedResult = "No Path";
+
+        BinarySearchTree.Node sourceNode = this.complexBST.treeSearch(5);
+        BinarySearchTree.Node destinationNode = this.complexBST.treeSearch(60);
+
+        Deque<BinarySearchTree.Node> simplePath = this.complexBST.generateSimpleAncestryPath(sourceNode, destinationNode);
+        String actualResult = "Path exists";
+
+        if(simplePath.size() == 0){
+            actualResult = "No Path";
+        }
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    void successor(){
+        BinarySearchTree.Node node = this.complexBST.treeSearch(100);
+
+        BinarySearchTree.Node successorNode = this.complexBST.successor(node);
+        if(successorNode == null){
+            System.out.println("Current Node is the largest element in the BST");
+        }
+        System.out.println(successorNode.key);
+    }
+
+//    @Test
+//    public void testIsEmpty() throws Exception {
+//
+//    }
+
+//    @Test
+//    public void testInsertElement() throws Exception {
+//
+//        this.binarySearchTree.inOrderTraversal();
+//    }
+
+//    @Test
+//    public void testRemoveElement() throws Exception {
+//        generateSimpleBinarySearchTree();
+//
+//        //this.binarySearchTree.removeElement(10);
+//        //assertFalse(this.binarySearchTree.containsElement(10));
+//        System.out.println(this.binarySearchTree.postOrderTraversal());
+//    }
 
     @Test
     public void testHeightOfTree() throws Exception {
         int expectedHeight = 7;
-        generateComplexBinarySearchTree();
-        int actualHeight = binarySearchTree.heightOfTree();
+
+        int actualHeight = complexBST.heightOfTree();
         assertEquals(expectedHeight, actualHeight);
     }
 
     @Test
-    void preOrderTraversal() {
-        generateSimpleBinarySearchTree();
+    void createInOrderIterator() {
 
-        System.out.println(this.binarySearchTree.preOrderTraversal());
+    }
+
+    @Test
+    void createLevelOrderIterator() {
+
+    }
+
+    @Test
+    void preOrderTraversal() {
+        System.out.println(this.simpleBST.preOrderTraversal());
     }
 
     @Test
     void preOrderTraversalOfComplexBST() {
-        generateComplexBinarySearchTree();
-
-        System.out.println(this.binarySearchTree.preOrderTraversal());
+        System.out.println(this.complexBST.preOrderTraversal());
     }
 
     @Test
@@ -112,8 +166,7 @@ class BinarySearchTreeTest {
 
     @Test
     public void binarySearchLevelOrderIteratorTest() throws Exception {
-        generateComplexBinarySearchTree();
-        Iterator iterator = this.binarySearchTree.createLevelOrderIterator();
+        Iterator iterator = this.complexBST.createLevelOrderIterator();
 
         iterator.first();
         for(; !iterator.isDone(); iterator.next()){
@@ -123,8 +176,7 @@ class BinarySearchTreeTest {
 
     @Test
     public void binarySearchInOrderIteratorTest() throws Exception {
-        generateComplexBinarySearchTree();
-        Iterator iterator = this.binarySearchTree.createInOrderIterator();
+        Iterator iterator = this.complexBST.createInOrderIterator();
 
         iterator.first();
         for(; !iterator.isDone(); iterator.next()){

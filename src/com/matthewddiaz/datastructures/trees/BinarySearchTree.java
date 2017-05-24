@@ -9,16 +9,22 @@ import java.util.Deque;
 /**
  * Created by matthewdiaz on 8/30/16.
  */
+
+/**
+ * A Binary Search Tree is a Tree where each node can have a most 2 children. Furthermore
+ * the left subtree contains elements that are less than the root key. The right subtree contains
+ * elements that are greater than or equal to the root key.
+ */
 public class BinarySearchTree {
     private Node root;
 
-    private class Node{
-        int element;
+    class Node{
+        int key;
         Node left;
         Node right;
 
-        public Node(int element){
-            this.element = element;
+        public Node(int key){
+            this.key = key;
             this.left = null;
             this.right = null;
         }
@@ -50,7 +56,7 @@ public class BinarySearchTree {
     }
 
     /**
-     * Inserts the element into the BST
+     * Inserts the key into the BST
      * @param element
      */
     public void insertElement(int element){
@@ -62,14 +68,14 @@ public class BinarySearchTree {
             Node parent = null;
             while(temp != null) {
                 parent = temp;
-                if (element > temp.element) {
+                if (element > temp.key) {
                     temp = temp.right;
                 } else {
                     temp = temp.left;
                 }
             }
 
-            if(element > parent.element){
+            if(element > parent.key){
                 parent.right = node;
             }else{
                 parent.left = node;
@@ -78,7 +84,7 @@ public class BinarySearchTree {
     }
 
     /**
-     * If the element is in the BST it is removed.
+     * If the key is in the BST it is removed.
      * NOTE: not working correctly!!!
      * Duplicate leaf node in BST after removal of desired node
      * @param element
@@ -88,7 +94,7 @@ public class BinarySearchTree {
     }
 
     /**
-     * Helper function to remove the element from the BST
+     * Helper function to remove the key from the BST
      * @param node
      * @param element
      * @return
@@ -98,9 +104,9 @@ public class BinarySearchTree {
             return null;
         }
 
-        if(node.element == element){
+        if(node.key == element){
             node = swap(node);
-        }else if(element > node.element){
+        }else if(element > node.key){
             node.right = removeElement(node.right, element);
         }else{
             node.left = removeElement(node.left, element);
@@ -122,7 +128,7 @@ public class BinarySearchTree {
                 parent = temp;
                 temp = temp.right;
             }
-            node.element = temp.element;
+            node.key = temp.key;
             parent.right = null;
             return node;
         }else if(temp.right != null){
@@ -132,7 +138,7 @@ public class BinarySearchTree {
                 parent = temp;
                 temp = temp.left;
             }
-            node.element = temp.element;
+            node.key = temp.key;
             parent.left = null;
             return node;
         }else{
@@ -141,7 +147,7 @@ public class BinarySearchTree {
     }
 
     /**
-     * Returns true if the element is in the BST
+     * Returns true if the key is in the BST
      * @param element
      * @return
      */
@@ -150,7 +156,7 @@ public class BinarySearchTree {
     }
 
     /**
-     * Helper function to determine if the the element is in the BST
+     * Helper function to determine if the the key is in the BST
      * @param node
      * @param element
      * @return
@@ -160,14 +166,149 @@ public class BinarySearchTree {
             return false;
         }
 
-        if(node.element == element){
+        if(node.key == element){
             return true;
-        }else if(element > node.element){
+        }else if(element > node.key){
             return containsElement(node.right, element);
         }else{
             return containsElement(node.left, element);
         }
     }
+
+    /**
+     * Returns the node in the BST that contains the given key. If no
+     * node exists in the BST with the key then null is returned.
+     * @param element
+     * @return
+     */
+    public Node treeSearch(int element){
+        return treeSearch(this.root, element);
+    }
+
+    /**
+     * Helper function for treeSearch(int key)
+     * Given a node and a key checks if the current node
+     * has the key.
+     *
+     * If the current node is equal to null or the node
+     * contains the key then the current node is returned
+     *
+     * If the key is greater than the key of the current node; then treeSearch is
+     * called again but with the current nodes right child.
+     *
+     * @param node
+     * @param element
+     * @return
+     */
+    private Node treeSearch(Node node, int element){
+        if(node == null || node.key == element){
+            return node;
+        }else if(element > node.key){
+            return treeSearch(node.right, element);
+        }else{
+            return treeSearch(node.left, element);
+        }
+    }
+
+    /**
+     * Returns a pointer to the node with the minimum key in the BST
+     * NOTE: this node will always be the left most node in the BST
+     * @return
+     */
+    public Node minimum(){
+        return minimum(this.root);
+    }
+
+    /**
+     * @param node
+     * @return
+     */
+    private Node minimum(Node node){
+        while(node.left != null){
+            node = node.left;
+        }
+        return node;
+    }
+
+    /**
+     * Returns a pointer to the node with the maximum key in the BST
+     * NOTE: this node will always be the right most node in the BST
+     * @return
+     */
+    public Node maximum(){
+       return maximum(this.root);
+
+    }
+
+    /**
+     * @param node
+     * @return
+     */
+    private Node maximum(Node node){
+        while(node.right != null){
+            node = node.right;
+        }
+        return node;
+    }
+
+    /**
+     * Returns a Deque of all the nodes in the simple path from an ancestor to a
+     * descendant. Not if the node passed in the first parameter is not a descendant
+     * of the node passed in the second parameter then an empty Deque is returned.
+     * @param ancestor
+     * @param descendant
+     * @return
+     */
+    public Deque<Node> generateSimpleAncestryPath(Node ancestor, Node descendant){
+        Deque<Node> linkedList = new java.util.LinkedList<>();
+        //if ancestor is equal to null that means that there is no path
+        //from ancestor node to descendant node
+        while((ancestor != null) && (ancestor != descendant)){
+            linkedList.addFirst(ancestor);
+
+            if(ancestor.key < descendant.key){
+                ancestor = ancestor.right;
+            }else{
+                ancestor = ancestor.left;
+            }
+        }
+
+        //returns an empty list
+        if(ancestor == null){
+            linkedList.clear();
+            return linkedList;
+        }
+
+        //the descendant node is an ancestor of itself
+        linkedList.addFirst(descendant);
+        return linkedList;
+    }
+
+    private Node successorOfNodeWithNoRightSubTree(Deque<Node> ancestors){
+        if(ancestors.size() < 2){
+            return null;
+        }
+
+        java.util.Iterator<Node> iterator =  ancestors.iterator();
+        Node current = iterator.next();
+        Node parent = iterator.next();
+
+        while(parent != null && parent.right == current){
+            current = parent;
+            parent = iterator.next();
+        }
+        return parent;
+    }
+
+    public Node successor(Node node){
+        if(node.right != null){
+            return minimum(node.right);
+        }
+
+        Deque<Node> ancestorList = generateSimpleAncestryPath(this.root, node);
+        return successorOfNodeWithNoRightSubTree(ancestorList);
+    }
+
 
 
     public int heightOfTree(){
@@ -201,13 +342,13 @@ public class BinarySearchTree {
             return "[]";
         }
 
-        StringBuffer traversalBuffer = new StringBuffer("[ " + this.root.element);
+        StringBuffer traversalBuffer = new StringBuffer("[ " + this.root.key);
         Deque<Node> stack = new ArrayDeque<>();
         visitChildrenPreOrder(stack, this.root);
 
         while(!stack.isEmpty()){
             Node currentNode = stack.pop();
-            traversalBuffer.append(", " + currentNode.element);
+            traversalBuffer.append(", " + currentNode.key);
             visitChildrenPreOrder(stack, currentNode);
         }
 
@@ -247,7 +388,7 @@ public class BinarySearchTree {
                 stack.push(pointer);
                 pointer = rightChild;
             }else{
-                traversalBuffer.append(pointer.element + " ,");
+                traversalBuffer.append(pointer.key + " ,");
                 pointer = null;
             }
         }
@@ -280,10 +421,10 @@ public class BinarySearchTree {
             }
 
             pointer = stack.pop();
-            buffer.append(" " + pointer.element + ",");
+            buffer.append(" " + pointer.key + ",");
             pointer = pointer.right;
         }
-        //last element does not need the "," thus deleting last char in buffer
+        //last key does not need the "," thus deleting last char in buffer
         buffer.deleteCharAt(buffer.length() - 1);
         buffer.append(" ]");
         return buffer.toString();
@@ -303,12 +444,12 @@ public class BinarySearchTree {
         }
 
         Queue<Node> queue = new Queue<>();
-        StringBuffer buffer = new StringBuffer("[ "  + this.root.element);
+        StringBuffer buffer = new StringBuffer("[ "  + this.root.key);
         visitChildrenLevelOrder(queue, this.root);
 
         while(!queue.isEmpty()){
             Node node = queue.dequeue();
-            buffer.append(", " + node.element);
+            buffer.append(", " + node.key);
             visitChildrenLevelOrder(queue, node);
         }
 
@@ -342,7 +483,7 @@ public class BinarySearchTree {
             @Override
             public Object currentElement() {
                 Node currentNode = stack.peek();
-                return currentNode.element;
+                return currentNode.key;
             }
 
             @Override
@@ -379,7 +520,7 @@ public class BinarySearchTree {
             @Override
             public Object currentElement() {
                 Node currentNode = queue.peak();
-                return currentNode.element;
+                return currentNode.key;
             }
 
             @Override

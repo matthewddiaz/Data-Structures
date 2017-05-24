@@ -22,6 +22,8 @@ public class DepthFirstSearch {
     private static void dfsVisit(List<Graph.Vertex>[] adjList, Graph.Vertex currentVertex){
         //current vertex is discovered
         timeStamp = timeStamp + 1;
+
+        System.out.print("(" + currentVertex.id + " ");
         currentVertex.discoveredTimeStamp = timeStamp;
         currentVertex.visit_state = 1;
 
@@ -36,6 +38,6 @@ public class DepthFirstSearch {
         currentVertex.visit_state = 2;
         timeStamp = timeStamp + 1;
         currentVertex.finishedTimeStamp = timeStamp;
-        System.out.println(currentVertex);
+        System.out.print(" " + currentVertex.id + ")");
     }
 }

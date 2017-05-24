@@ -221,4 +221,12 @@ public class LinkedList<T> {
         }
         return reversedLinkedList;
     }
+
+    /**
+     * Returns pointer of first element in LinkedList (head)
+     * @return
+     */
+    public Node getHead(){
+        return this.head;
+    }
 }
