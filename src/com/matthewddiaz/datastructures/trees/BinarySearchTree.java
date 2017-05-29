@@ -28,6 +28,18 @@ public class BinarySearchTree {
             this.left = null;
             this.right = null;
         }
+
+        public int numOfChildren(){
+            int children = 0;
+            if(this.left != null){
+                children++;
+            }
+
+            if(this.right != null){
+                children++;
+            }
+            return children;
+        }
     }
 
     /**
@@ -64,86 +76,129 @@ public class BinarySearchTree {
         if(isEmpty()){
             root = node;
         }else{
-            Node temp = root;
-            Node parent = null;
-            while(temp != null) {
-                parent = temp;
-                if (element > temp.key) {
-                    temp = temp.right;
-                } else {
-                    temp = temp.left;
-                }
-            }
-
-            if(element > parent.key){
-                parent.right = node;
+            //obtain parent node of node of the newly created node to be inserted to BST.
+            Node parentPtr = getParentNode(node);
+            if(element > parentPtr.key){
+                parentPtr.right = node;
             }else{
-                parent.left = node;
+                parentPtr.left = node;
             }
         }
     }
 
     /**
-     * If the key is in the BST it is removed.
-     * NOTE: not working correctly!!!
-     * Duplicate leaf node in BST after removal of desired node
-     * @param element
+     * Returns the parent of a given node.
+     * NOTE: Returns null if the node passed in the parameter is the root.
+     * @param node
+     * @return
      */
-    public void removeElement(int element){
-        this.root = removeElement(this.root, element);
+    private Node getParentNode(Node node){
+        //the parent of root node is null
+        if(node == this.root){
+            return null;
+        }
+
+        //Creating two adjacent pointers. One points to the current node and another to its parent.
+        Node currentPtr = this.root;
+        Node parentPtr = null;
+        while(currentPtr != null && currentPtr != node) {
+            parentPtr = currentPtr;
+            if (node.key > currentPtr.key) {
+                currentPtr = currentPtr.right;
+            } else {
+                currentPtr = currentPtr.left;
+            }
+        }
+        return parentPtr;
+    }
+
+    public void deleteNode(int key){
+        //find node in tree;
+        Node node = treeSearch(key);
+        //if node does not exist exit
+        if(node != null){
+            deleteNode(node);
+        }
+    }
+
+    public void deleteNode(Node node){
+        int numOfChildren = node.numOfChildren();
+        if(numOfChildren == 2){
+            deleteNodeWithTwoChildren(node);
+        }else{
+            Node parent = getParentNode(node);
+            if(numOfChildren == 0){
+                deleteNodeWithNoChild(parent, node);
+            }else if(numOfChildren == 1){
+                deleteNodeWith1Child(parent, node);
+            }
+        }
+    }
+
+    private void deleteNodeWithTwoChildren(Node deleteNode){
+        //successor is min node in the input node's right subtree
+        Node successor = minimum(deleteNode.right);
+        //find parent of successor
+        Node parentOfSuccessor = getParentNode(successor);
+        //set the input node's key to successor's key
+        deleteNode.key = successor.key;
+        //set successor's right child as successor's parent left child
+        parentOfSuccessor.left = successor.right;
+    }
+
+    private void deleteNodeWithNoChild(Node parent, Node deleteNode){
+        if(parent == null){
+            this.root = null;
+        }else{
+            if(deleteNode.key > parent.key){
+                parent.right = null;
+            }else{
+                parent.left = null;
+            }
+        }
+    }
+
+    private void deleteNodeWith1Child(Node parent, Node deleteNode){
+        Node child = (deleteNode.right == null) ? deleteNode.left : deleteNode.right;
+
+        if(parent == null){
+            this.root = child;
+        }else{
+            if(deleteNode.key > parent.key){
+                parent.right = child;
+            }else{
+                parent.left = child;
+            }
+        }
     }
 
     /**
-     * Helper function to remove the key from the BST
+     * Inserts an element into the BST.
+     * NOTE: this operation is the same as insertElement
+     * which is written in a iterative fashion.
+     * @param element
+     */
+    public void insertElementRecursiveApproach(int element){
+        this.root = insertElement(this.root, element);
+    }
+
+    /**
+     * Helper method to insertElementRecursiveApproach
      * @param node
      * @param element
      * @return
      */
-    private Node removeElement(Node node, int element){
+    private Node insertElement(Node node, int element){
         if(node == null){
-            return null;
+            return new Node(element);
         }
 
-        if(node.key == element){
-            node = swap(node);
-        }else if(element > node.key){
-            node.right = removeElement(node.right, element);
+        if(element > node.key){
+            node.right = insertElement(node.right, element);
         }else{
-            node.left = removeElement(node.left, element);
+            node.left = insertElement(node.left, element);
         }
         return node;
-    }
-
-    /**
-     * Helper method that swaps nodes in the BST.
-     * @param node
-     * @return
-     */
-    private Node swap(Node node){
-        Node temp = node;
-        if(temp.left != null){
-            temp = temp.left;
-            Node parent = temp;
-            while(temp.right != null){
-                parent = temp;
-                temp = temp.right;
-            }
-            node.key = temp.key;
-            parent.right = null;
-            return node;
-        }else if(temp.right != null){
-            temp = temp.right;
-            Node parent = temp;
-            while(temp.left != null){
-                parent = temp;
-                temp = temp.left;
-            }
-            node.key = temp.key;
-            parent.left = null;
-            return node;
-        }else{
-            return null;
-        }
     }
 
     /**
@@ -378,6 +433,10 @@ public class BinarySearchTree {
         }else{
             return right + 1;
         }
+    }
+
+    public Node getRoot(){
+        return this.root;
     }
 
     /**

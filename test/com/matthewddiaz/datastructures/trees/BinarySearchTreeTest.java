@@ -98,30 +98,111 @@ class BinarySearchTreeTest {
     }
 
     /**
-     *
+     * Testing Successor functionality and its two main cases.
+     * 1) When the input node has a right subtree
+     * 2) When the input node does not have a right subtree
      */
+
     @Test
-    void successor(){
+    void successorForNodeWithRightSubtree(){
+        int expectedSuccessorKey = 8;
         BinarySearchTree.Node node = this.complexBST.treeSearch(5);
 
         BinarySearchTree.Node successorNode = this.complexBST.successor(node);
-        if(successorNode == null){
-            System.out.println("Current Node with key: " + node.key + " is the largest element in the BST");
-        }else{
-            System.out.println("Successor has key: " + successorNode.key);
-        }
+        assertEquals(expectedSuccessorKey, successorNode.key);
     }
 
     @Test
-    void predecessor(){
-        BinarySearchTree.Node node = this.complexBST.treeSearch(8);
+    void successorForNodeWithNoRightSubtree(){
+        int expectedSuccessorKey = 20;
+        BinarySearchTree.Node node = this.complexBST.treeSearch(18);
+
+        BinarySearchTree.Node successorNode = this.complexBST.successor(node);
+        assertEquals(expectedSuccessorKey, successorNode.key);
+    }
+
+    @Test
+    void successorForNodeWithLargestKeyValue(){
+        BinarySearchTree.Node expectedSuccessor = null;
+        BinarySearchTree.Node node = this.complexBST.maximum();
+
+        BinarySearchTree.Node successorNode = this.complexBST.successor(node);
+        assertEquals(expectedSuccessor, successorNode);
+    }
+
+    /**
+     * Testing Predecessor functionality and its two main cases.
+     * 1) When the input node has a left subtree
+     * 2) When the input node does not have a left subtree
+     */
+
+    @Test
+    void predecessorForNodeWithLeftSubtree(){
+        int expectedPredecessorKey = 8;
+        BinarySearchTree.Node node = this.complexBST.treeSearch(9);
 
         BinarySearchTree.Node predecessorNode = this.complexBST.predecessor(node);
-        if(predecessorNode == null){
-            System.out.println("Current Node with key: " + node.key + " is the smallest element in the BST");
-        }else{
-            System.out.println("Predecessor has key: " + predecessorNode.key);
-        }
+        assertEquals(expectedPredecessorKey, predecessorNode.key);
+    }
+
+    @Test
+    void predecessorForNodeWithNoLeftSubtree(){
+        int expectedPredecessorKey = 9;
+        BinarySearchTree.Node node = this.complexBST.treeSearch(10);
+
+        BinarySearchTree.Node predecessorNode = this.complexBST.predecessor(node);
+        assertEquals(expectedPredecessorKey, predecessorNode.key);
+    }
+
+    @Test
+    void predecessorForNodeWithSmallestKeyValue(){
+        BinarySearchTree.Node expectedPredecessor = null;
+        BinarySearchTree.Node node = this.complexBST.treeSearch(1);
+
+        BinarySearchTree.Node predecessorNode = this.complexBST.predecessor(node);
+        assertEquals(expectedPredecessor, predecessorNode);
+    }
+
+    @Test
+    void deleteNodeWithNoChildren(){
+        int removalKey = 8;
+        //before removal of leaf node
+        boolean isKeyPresentBefore = this.complexBST.containsElement(removalKey);
+        assertTrue(isKeyPresentBefore);
+
+        //after removal of leaf node
+        this.complexBST.deleteNode(removalKey);
+        boolean isKeyPresentAfter = this.complexBST.containsElement(removalKey);
+        assertFalse(isKeyPresentAfter);
+    }
+
+    @Test
+    void deleteNodeWithOneChild(){
+        int removalKey = 100;
+        //before removal of node
+        boolean isKeyPresentBefore = this.complexBST.containsElement(removalKey);
+        assertTrue(isKeyPresentBefore);
+
+        //after removal of node
+        this.complexBST.deleteNode(removalKey);
+        boolean isKeyPresentAfter = this.complexBST.containsElement(removalKey);
+        assertFalse(isKeyPresentAfter);
+        System.out.println(this.complexBST.inOrderTraversal());
+    }
+
+    @Test
+    void deleteNodeWithTwoChildren(){
+        int removalKey = this.complexBST.getRoot().key;
+
+        //before removal of node
+        boolean isKeyPresentBefore = this.complexBST.containsElement(removalKey);
+        assertTrue(isKeyPresentBefore);
+
+        //after removal of node
+        this.complexBST.deleteNode(removalKey);
+        boolean isKeyPresentAfter = this.complexBST.containsElement(removalKey);
+        assertFalse(isKeyPresentAfter);
+        System.out.println(this.complexBST.inOrderTraversal());
     }
 
 //    @Test
@@ -153,14 +234,10 @@ class BinarySearchTreeTest {
     }
 
     @Test
-    void createInOrderIterator() {
-
-    }
+    void createInOrderIterator() {}
 
     @Test
-    void createLevelOrderIterator() {
-
-    }
+    void createLevelOrderIterator() {}
 
     @Test
     void preOrderTraversal() {
@@ -173,15 +250,10 @@ class BinarySearchTreeTest {
     }
 
     @Test
-    void inOrderTraversal() {
-
-    }
+    void inOrderTraversal() {}
 
     @Test
-    void levelOrderTraversal() {
-
-    }
-
+    void levelOrderTraversal() {}
 
     @Test
     public void binarySearchLevelOrderIteratorTest() throws Exception {
