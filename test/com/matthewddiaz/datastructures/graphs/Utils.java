@@ -90,8 +90,8 @@ public class Utils {
         edgeSet.add(new Graph.Edge(v0,v2));
         edgeSet.add(new Graph.Edge(v1,v2));
         edgeSet.add(new Graph.Edge(v1,v3));
-        edgeSet.add(new Graph.Edge(v4,v6));
         edgeSet.add(new Graph.Edge(v4,v5));
+        edgeSet.add(new Graph.Edge(v4,v6));
         edgeSet.add(new Graph.Edge(v7,v8));
         return new UnDirectedGraph(vertexSet, edgeSet);
     }
