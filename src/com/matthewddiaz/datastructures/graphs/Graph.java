@@ -6,7 +6,7 @@ import java.util.*;
  * Created by matthewdiaz on 5/15/17.
  */
 public abstract class Graph {
-    static class Vertex{
+    public static class Vertex{
         int id;
         //used in BFS
         int distance;
@@ -44,15 +44,27 @@ public abstract class Graph {
 
             return buffer.toString();
         }
+
+        public int getId(){
+            return this.id;
+        }
     }
 
-    static class Edge{
+    public static class Edge{
         Vertex source;
         Vertex destination;
 
         Edge(Vertex s, Vertex d){
             source = s;
             destination = d;
+        }
+
+        public Vertex getSource(){
+            return this.source;
+        }
+
+        public Vertex getDestination(){
+            return this.destination;
         }
     }
 
