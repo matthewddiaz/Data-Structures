@@ -3,7 +3,7 @@ package com.matthewddiaz.datastructures.graphs;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.*;
+import java.util.List;
 
 /**
  * Created by matthewdiaz on 5/15/17.
@@ -21,9 +21,9 @@ class GraphTest {
     @Test
     void createAdjacencyListForDirectedGraph() {
         List<Graph.Vertex>[] adjArray = directedGraph.createAdjacencyList();
-        Map<Integer, List<Graph.Vertex>> adjList = directedGraph.createAdjacencyListStoredAsMap();
+        //Map<Integer, List<Graph.Vertex>> adjList = directedGraph.createAdjacencyListStoredAsMap();
         Graph.traverseAdjArray(adjArray);
-        Graph.traverseAdjArray(adjList);
+        //Graph.traverseAdjArray(adjList);
     }
 
     @Test

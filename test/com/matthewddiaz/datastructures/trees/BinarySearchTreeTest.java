@@ -2,6 +2,7 @@ package com.matthewddiaz.datastructures.trees;
 
 
 import com.matthewddiaz.designpatterns.behavioralPatterns.Iterator;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

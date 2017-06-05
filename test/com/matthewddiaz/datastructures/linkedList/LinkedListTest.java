@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
+import static com.matthewddiaz.datastructures.linkedList.Utils.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -12,12 +13,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 class LinkedListTest {
     private LinkedList<String> linkedList;
-    private String character1 = "Goku";
-    private String character2 = "Gohan";
-    private String character3 = "Vegeta";
-    private String character4 = "Bulma";
-    private String character5 = "Piccolo";
-    private String character6 = "Boo";
 
     @BeforeEach
     void setUp() {

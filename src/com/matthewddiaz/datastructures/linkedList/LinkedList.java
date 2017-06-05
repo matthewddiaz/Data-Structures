@@ -10,13 +10,25 @@ public class LinkedList<T> {
     private Node tail;
     private int numOfElements;
 
-    private class Node{
+    public static class Node<T>{
         T element;
         Node next;
 
         Node(T element){
             this.element = element;
             this.next = null;
+        }
+
+        public Node getNext(){
+            return this.next;
+        }
+
+        public void setNext(Node next){
+            this.next = next;
+        }
+
+        public T getElement(){
+            return this.element;
         }
     }
 
@@ -148,7 +160,7 @@ public class LinkedList<T> {
 
             @Override
             public T currentElement() {
-                return currentPosition.element;
+                return (T)currentPosition.element;
             }
 
             @Override
@@ -220,6 +232,40 @@ public class LinkedList<T> {
             reversedLinkedList.prependElement(iterator.currentElement());
         }
         return reversedLinkedList;
+    }
+
+    /**
+     * Returns a String of all of the elements in the linked list. In order from head to tail.
+     * Format: [ obj1, obj2, obj3 ]
+     * @return
+     */
+    @Override
+    public String toString(){
+        return toString(this.head);
+    }
+
+    /**
+     * Returns a String of all of the elements in the linked list pointed to by the head input node
+     * In order from head to tail.
+     * Format: [ obj1, obj2, obj3 ]
+     * @param headPtr
+     * @return
+     */
+    public static String toString(Node headPtr){
+        if(headPtr == null){
+            return "Empty Linked List";
+        }
+
+        StringBuffer linkedListStr = new StringBuffer("[ " + headPtr.element);
+        Node currentPtr = headPtr.next;
+
+        while(currentPtr != null){
+            linkedListStr.append(", " + currentPtr.element);
+            currentPtr = currentPtr.next;
+        }
+
+        linkedListStr.append(" ]");
+        return linkedListStr.toString();
     }
 
     /**
