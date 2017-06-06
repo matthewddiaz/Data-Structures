@@ -1,16 +1,26 @@
 # Fundamental Data Structures
 
+## Rooted Trees
+A rooted tree is a tree that has a distinguished node called **root**.
+
+The **height (h)** of a rooted tree is the longest simple path from the root to a leaf node.
+**Note:** the height of a rooted tree may range from 0 to (N-1), where N is the number of
+nodes in the tree. 
+
+A **leaf node** is a node that does not have any children.
+
 ## Binary Trees
 Is a structured finite set of nodes that either
 1) contains no nodes or 
-2) Composed of 3 disjoint set of nodes:
+2) Is composed of 3 disjoint set of nodes:
     1) a root node
     2) a binary tree called the left subtree
     3) a binary tree called the right subtree
 
-NOTE: Each node in a Binary Tree may have a most 2 children
+**Note:** A Binary Tree is a specific type of rooted tree. Each node in a Binary Tree may have at most 2 children.
  
 ### [Binary Tree](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/trees/BinaryTree.java) 
+This implementation uses a pointer called **root** to point to the root node of the Binary Tree.
 
 **Test class:** [BinarySearchTreeTest](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/trees/BinaryTreeTest.java)
 
@@ -19,7 +29,7 @@ NOTE: Each node in a Binary Tree may have a most 2 children
 A Binary Search Tree is a Binary Tree that has the following property:
 
 For every node in the BST all nodes in its left subtree have smaller key values
-and its key and all nodes in its right subtree have key values greater than or equal to its key.
+than its key and all nodes in its right subtree have key values greater than or equal to its key.
 
 ### [Binary Search Tree](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/trees/BinarySearchTree.java)
 BinarySearchTree.java is implemented by using chained Nodes.
@@ -40,7 +50,7 @@ Each Node contains:
    **Time Complexity:** Θ(lg(h))
    
 3) **Node treeSearch(T key)** - returns the node in the BST that contains 
-the input key value. NOTE: If no node in the BST contains the input key value 
+the input key value. If no node in the BST contains the input key value 
 then null is returned.  
     **Time Complexity:** Θ(lg(h))
 
@@ -95,7 +105,7 @@ scenarios when deleting a node:
         1) Find n's successor node (s), this will be n's right subtree minimum node. 
         2) Find parent node (p) of successor node (s).
         3) Set n's key value equal to s's key value.
-        4) Set p's left child equal to s's right child. NOTE: This step removes 
+        4) Set p's left child equal to s's right child. Note: This step removes 
         the currently duplicate value of s's key caused in step 3. Since the successor
         node is the minimum node in the right subtree; this guarantees that p's left child
         is equal to s. Furthermore since s is a minimum node it may potentially only have a right child.

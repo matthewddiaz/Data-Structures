@@ -4,6 +4,8 @@ Repository for commonly used data structures in computer science.
 
 ## Data Structure Sections
 
+### [Disjoint Sets](https://github.com/matthewddiaz/Data-Structures/tree/master/src/com/matthewddiaz/datastructures/disjointSets)
+
 ### [Graphs](https://github.com/matthewddiaz/Data-Structures/tree/master/src/com/matthewddiaz/datastructures/graphs)
 
 ### [Heap](https://github.com/matthewddiaz/Data-Structures/tree/master/src/com/matthewddiaz/datastructures/heap)

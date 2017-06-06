@@ -12,14 +12,14 @@ package com.matthewddiaz.datastructures.heap;
  * NOTE: Max Heap is extremely useful; since it is used to implement HeapSort and a Max Priority Queue.
  */
 public class MaxHeap {
-    //heapSize is equal equal to # of elements in array. Can range from [0, array.length]
+    //heapSize is equal equal to # of elements in array. Can range from [0, array.length - 1]
     private int heapSize;
     //heap length is equal to array.length
     private int length;
 
     /**
      * NOTE: It's important to call any of the two buildMaxHeap to turn the input array into
-     * an actual Max Heap. The constructor does not convert do this.
+     * an actual Max Heap. The constructor does not do this step.
      */
     public MaxHeap(){
         this.heapSize = 0;

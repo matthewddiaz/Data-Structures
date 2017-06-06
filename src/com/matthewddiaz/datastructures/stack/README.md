@@ -1,14 +1,15 @@
 # Fundamental Data Structures
 
 ## Stack
-Is a dynamic set that only allows removal of the key most recently inserted.
-That is LIFO (Last In, First Out)
+Is a dynamic set that only allows removal of the most recently inserted key.
+That is **LIFO (Last In, First Out)**
   
 
 ### [Stack](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/stack/StackList.java)
 Stack.java is implemented by using chained Nodes, however it can also be implemented using
 and array. If the Stack is implemented using an array then its size is bound by the size 
-of the array.
+of the array. When implemented using chained nodes class Stack has a **head** pointer that points
+to the top most key in the stack.
 
 Operations of Stack
 
