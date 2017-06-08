@@ -13,9 +13,9 @@ import com.matthewddiaz.designpatterns.behavioralPatterns.Iterator;
  */
 public class DynamicArray<E> implements List<E> {
     //backing array used to contain the elements
-    E[] backingArray;
+    private E[] backingArray;
     //size is the number of elements in the dynamic array
-    int size;
+    private int size;
 
     //default constructor. Creates a new Dynamic Array of size 10
     public DynamicArray(){
@@ -24,9 +24,10 @@ public class DynamicArray<E> implements List<E> {
     }
 
     //Creates a new Dynamic Array with input array size
-    public DynamicArray(int arraySize) throws IndexOutOfBoundsException{
+    public DynamicArray(int arraySize){
+        //any input array size less than 1 will be set to default array size of 10
         if(arraySize < 1){
-            throw new IndexOutOfBoundsException();
+            arraySize = 10;
         }
 
         backingArray =  (E[]) new Object[arraySize];
@@ -35,8 +36,8 @@ public class DynamicArray<E> implements List<E> {
 
     @Override
     public void appendElement(E element) {
-        //inserting element to back (index (size - 1)) of dynamic array.
-        insertElement(element, this.size - 1);
+        //inserting element at end (index (size)) of dynamic array.
+        insertElement(element, this.size);
     }
 
     @Override
@@ -168,10 +169,32 @@ public class DynamicArray<E> implements List<E> {
     }
 
     /**
+     * String format is: [ e1, e2, e3, e4 ]
+     * @return
+     */
+    @Override
+    public String toString(){
+        if(isEmpty()){
+            return "Empty List";
+        }
+
+        StringBuffer strBuffer = new StringBuffer("[ " + this.backingArray[0]);
+
+        for(int index = 1; index < this.size; index++){
+            strBuffer.append(", " + this.backingArray[index]);
+        }
+        strBuffer.append(" ]");
+
+        return strBuffer.toString();
+    }
+
+    /**
      * Resize the backing array to be 1.5 times its original size
      */
     private void growBackingArray(){
-        resizeBackingArray(this.size * (3/2));
+        //If dynamic array size is less than 10 its resize factor is 2
+        double resizeFactor = this.size < 10 ? 2 : 3/2;
+        resizeBackingArray((int) (this.size * resizeFactor));
     }
 
     /**
