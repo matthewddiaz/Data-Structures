@@ -68,6 +68,6 @@ Max Priority Queue supports the following operations:
       
 3) **insertElement(Element key)** - inserts a key into the priority queue.
 
-    **Time Complexity:**Θ(lg(n))
+    **Time Complexity:** Θ(lg(n))
 
 **Test class:** [MaxPriorityQueueTest](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/queue/MaxProrityQueueTest.java)
