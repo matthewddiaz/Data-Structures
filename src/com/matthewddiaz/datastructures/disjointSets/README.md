@@ -2,6 +2,8 @@
 
 ## Disjoint Set Data structure
 
+### [DisjointSets](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/disjointSets/DisjointSets.java)
+
 A **Disjoint-set data structure** - maintains a collection of disjoint dynamic sets. 
 
 Each set is identified via a **representative** - which is some member of the set. Usually the first
@@ -19,7 +21,7 @@ Disjoint-sets have the following operations:
 3) **T findSet(T element)** - returns the representative element of the set that contains the input element.  
 
 ## Implementing Disjoint Set using Linked Lists 
-### [DisjointSetsBackedByLinkedLists](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/disjointSets/disjointSetsBackedByLinkedLists.java)
+### [DisjointSetsBackedByLinkedLists](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/disjointSets/DisjointSetsBackedByLinkedLists.java)
 
 Each set is represented by its own linked list.
 
@@ -42,7 +44,7 @@ Each input element is wrapped in a **Node**; each Node contains:
     
     NOTE: If both sets have the same size then merge the second set into the first set.
 
-**Test class:** [DisjointSetsBackedByLinkedLists](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/disjointSets/disjointSetsBackedByLinkedListsTest.java)
+**Test class:** [DisjointSetsBackedByLinkedLists](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/disjointSets/DisjointSetsBackedByLinkedListsTest.java)
 
 ## Implementing Disjoint Set using Rooted Trees (Forest)
 ### [DisjointSetsBackedByForests](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/disjointSets/disjointSetsBackedByForest.java)
@@ -77,5 +79,5 @@ Each input element is wrapped in a **Node**; each Node contains:
     
     **find path** - is the path from Node "a" to the root Node in the tree. 
     
-**Test class:** [DisjointSetsBackedByForestsTest](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/disjointSets/disjointSetsBackedByForestTest.java)
+**Test class:** [DisjointSetsBackedByForestsTest](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/disjointSets/DisjointSetsBackedByForestTest.java)
 
