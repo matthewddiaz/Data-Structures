@@ -7,18 +7,18 @@ import java.util.*;
 /**
  * Created by matthewdiaz on 6/2/17.
  */
-public class DisjointSetForests<T> {
+public class DisjointSetsBackedByForest<T> {
     //contains a list of disjoint sets
     private Map<DisjointRootedTree.Node, DisjointRootedTree> disjointSets;
 
     //default constructor initializes disjointSets
-    public DisjointSetForests(){
+    public DisjointSetsBackedByForest(){
         disjointSets = new HashMap<>();
     }
 
     //initializes disjointSets and then creates a new disjoint set for every
     //node in the input collection
-    public DisjointSetForests(Collection<DisjointRootedTree.Node> dataSet){
+    public DisjointSetsBackedByForest(Collection<DisjointRootedTree.Node> dataSet){
         disjointSets = new HashMap<>();
 
         for(DisjointRootedTree.Node node : dataSet){
@@ -43,10 +43,14 @@ public class DisjointSetForests<T> {
         return node.parentPtr;
     }
 
-    //union of disjoint set x and y.
-    //NOTE: This algorithm uses union by rank, which makes the tree whose root
-    //has lesser rank point to the other tree's root. If the both roots
-    //have equal height than the first one is picked and its root rank is incremented by 1.
+    /**
+     * union of disjoint set x and y.
+     * NOTE: This algorithm uses union by rank, which makes the tree whose root
+     * has lesser rank point to the other tree's root. If the both roots
+     * have equal height than the first one is picked and its root rank is incremented by 1.
+     * @param x
+     * @param y
+     */
     public void union(DisjointRootedTree.Node x, DisjointRootedTree.Node y){
         DisjointRootedTree.Node rootOfX = findSet(x);
         DisjointRootedTree.Node rootOfY = findSet(y);
@@ -71,8 +75,9 @@ public class DisjointSetForests<T> {
     }
 
     //removes the disjoint that contains the given node from disjoint sets
-    private void removeDisjointSet(DisjointRootedTree.Node node){
-        disjointSets.remove(node);
+    //NOTE: only works if given representative node
+    private void removeDisjointSet(DisjointRootedTree.Node representativeNode){
+        disjointSets.remove(representativeNode);
     }
 
     //returns a collection of all the disjoint sets

@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 /**
  * Created by matthewdiaz on 6/8/17.
  */
-public class ListTest {
+public class TestForLists {
 
     public static void populateList(List<Integer> list){
         list.appendElement(1);

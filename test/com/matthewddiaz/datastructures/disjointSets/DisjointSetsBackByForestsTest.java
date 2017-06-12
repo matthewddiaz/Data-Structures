@@ -1,24 +1,22 @@
 package com.matthewddiaz.datastructures.disjointSets;
 
 import com.matthewddiaz.datastructures.graphs.Graph;
-import com.matthewddiaz.datastructures.graphs.Utils;
+import com.matthewddiaz.datastructures.graphs.GraphFactory;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * Created by matthewdiaz on 6/2/17.
  */
-class DisjointSetForestsTest {
-    private DisjointSetForests disjointSet;
+class DisjointSetsBackByForestsTest {
+    private DisjointSetsBackedByForest disjointSet;
 
     @Test
     void sample2(){
-        Graph graph = Utils.createUnDirectedDisjointGraph();
+        Graph graph = GraphFactory.createUnDirectedDisjointGraph();
 
 
         List<DisjointRootedTree.Node> list = new ArrayList<>();
@@ -28,7 +26,7 @@ class DisjointSetForestsTest {
             list.add(node);
         }
 
-        disjointSet =  new DisjointSetForests(list);
+        disjointSet =  new DisjointSetsBackedByForest(list);
 
         //call join on all edges. Note: for a given edge (u,v) the join will
         // only occur if which vertex u and vertex v are not in the same set.

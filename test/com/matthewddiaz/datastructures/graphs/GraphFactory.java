@@ -6,7 +6,8 @@ import java.util.Set;
 /**
  * Created by matthewdiaz on 5/17/17.
  */
-public class Utils {
+public class GraphFactory {
+
     public static Graph createSimpleUnDirectedGraph(){
         Set<Graph.Vertex> vertexSet = new HashSet<>();
         Set<Graph.Edge> edgeSet = new HashSet<>();

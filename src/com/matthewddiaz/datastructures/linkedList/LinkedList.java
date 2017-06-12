@@ -219,15 +219,15 @@ public class LinkedList<T> {
     }
 
     /**
-     * Creating a new LinkedList that contains the data of the original Linked List in
+     * Creating a new DisjointLinkedList that contains the data of the original Linked List in
      * reverse order.
      */
     public LinkedList<T> createReversedLinkedList(){
-        //creating new LinkedList
+        //creating new DisjointLinkedList
         LinkedList<T> reversedLinkedList = new LinkedList();
         Iterator<T> iterator = this.createIterator();
-        //iterating through the current LinkedList and prepending the
-        //current element of the iterator to the new reversed LinkedList
+        //iterating through the current DisjointLinkedList and prepending the
+        //current element of the iterator to the new reversed DisjointLinkedList
         for(iterator.first(); !iterator.isDone(); iterator.next()){
             reversedLinkedList.prependElement(iterator.currentElement());
         }
@@ -269,7 +269,7 @@ public class LinkedList<T> {
     }
 
     /**
-     * Returns pointer of first element in LinkedList (head)
+     * Returns pointer of first element in DisjointLinkedList (head)
      * @return
      */
     public Node getHead(){

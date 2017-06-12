@@ -17,12 +17,16 @@ class DynamicArrayTest {
 
     @Test
     void appendElement() {
-        ListTest.testAppendElement(dynamicArray);
+        TestForLists test = new TestForLists();
+
+
+
+        TestForLists.testAppendElement(dynamicArray);
     }
 
     @Test
     void containsElement() {
-        ListTest.containsElement(dynamicArray);
+        TestForLists.containsElement(dynamicArray);
     }
 
     @Test
@@ -32,12 +36,12 @@ class DynamicArrayTest {
 
     @Test
     void deleteElement() {
-        ListTest.deleteElement(dynamicArray);
+        TestForLists.deleteElement(dynamicArray);
     }
 
     @Test
     void deleteElement1() {
-        ListTest.deleteElement1(dynamicArray);
+        TestForLists.deleteElement1(dynamicArray);
     }
 
     @Test
@@ -52,17 +56,17 @@ class DynamicArrayTest {
 
     @Test
     void isEmpty() {
-        ListTest.isEmpty(dynamicArray);
+        TestForLists.isEmpty(dynamicArray);
     }
 
     @Test
     void prependElement() {
-        ListTest.testPrependElement(dynamicArray);
+        TestForLists.testPrependElement(dynamicArray);
     }
 
     @Test
     void size() {
-        ListTest.size(dynamicArray);
+        TestForLists.size(dynamicArray);
     }
 
 }

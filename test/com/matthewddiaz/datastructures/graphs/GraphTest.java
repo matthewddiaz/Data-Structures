@@ -14,8 +14,8 @@ class GraphTest {
 
     @BeforeEach
     void setUp() {
-        directedGraph = Utils.createSimpleDirectedGraph();
-        undirectedGraph = Utils.createSimpleUnDirectedGraph();
+        directedGraph = GraphFactory.createSimpleDirectedGraph();
+        undirectedGraph = GraphFactory.createSimpleUnDirectedGraph();
     }
 
     @Test
