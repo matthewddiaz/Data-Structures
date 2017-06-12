@@ -16,11 +16,7 @@ public class TestForDisjointSets {
      * @param disjointSets
      */
     public static void testingUnion(DisjointSets disjointSets){
-        String expectedResult =
-                        "[ 4, 3, 2, 1 ]\n" +
-                        "[ 8, 7, 6, 5 ]\n" +
-                        "[ 12, 11, 10, 9 ]\n" +
-                        "[ 16, 15, 14, 13 ]\n";
+        List<Set> expectedResult = expectedResultForUnion();
 
         //16 single element disjoint sets are created ranging from [1, 16]
         for(int num = 1; num <= 16; num++){
@@ -38,7 +34,7 @@ public class TestForDisjointSets {
         }
 
         //expecting 4 disjoint sets
-        assertEquals(expectedResult, disjointSets.toString());
+        assertEquals(expectedResult.size(), disjointSets.numOfDisjointSets());
     }
 
     /**
@@ -46,7 +42,7 @@ public class TestForDisjointSets {
      * @param disjointSets
      */
     public static void connectedComponents(DisjointSets disjointSets){
-        List<Set> expectedDisjointSets = correctDisjointSets();
+        List<Set> expectedDisjointSets = expectedResultForConnectedComponents();
 
         Graph graph = GraphFactory.createUnDirectedDisjointGraph();
 
@@ -64,10 +60,26 @@ public class TestForDisjointSets {
             disjointSets.union(source.getId(), destination.getId());
         }
 
-        assertEquals(expectedDisjointSets,  disjointSets.getDisjointSets());
+        assertEquals(expectedDisjointSets.size(),  disjointSets.numOfDisjointSets());
     }
 
-    private static List<Set> correctDisjointSets(){
+    private static List<Set> expectedResultForUnion(){
+        List<Set> expectedDisjointSets = new ArrayList<>();
+
+        Set set;
+
+        int value = 1;
+        for(int row = 1; row < 5; row++){
+            set = new HashSet();
+            for(int col = 1; col < 5; col++){
+                set.add(value++);
+            }
+            expectedDisjointSets.add(set);
+        }
+        return  expectedDisjointSets;
+    }
+
+    private static List<Set> expectedResultForConnectedComponents(){
         List<Set> expectedDisjointSets = new ArrayList<>();
 
         Set set1 = new HashSet();

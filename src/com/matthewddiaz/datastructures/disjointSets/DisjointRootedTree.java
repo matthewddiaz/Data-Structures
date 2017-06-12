@@ -5,7 +5,7 @@ package com.matthewddiaz.datastructures.disjointSets;
  */
 public class DisjointRootedTree<T> {
     //class attribute pointer to root node of this rooted tree
-    private Node root;
+    private Node<T> root;
 
     //inner class Node
     static class Node<T>{
@@ -41,5 +41,9 @@ public class DisjointRootedTree<T> {
             this.root = node;
         }
         node.parentPtr = this.root;
+    }
+
+    public Node<T> getRoot(){
+        return this.root;
     }
 }

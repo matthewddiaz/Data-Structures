@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Created by matthewdiaz on 5/30/17.
  */
-public class DisjointSetsBackByLinkedLists<T> implements DisjointSets<T> {
+public class DisjointSetsBackedByLinkedLists<T> implements DisjointSets<T> {
     //map with a key being input element and value being wrapper Node object
     Map<T, DisjointLinkedList.Node<T>> elementMap;
 
@@ -13,13 +13,13 @@ public class DisjointSetsBackByLinkedLists<T> implements DisjointSets<T> {
     List<DisjointLinkedList<T>> disjointSets;
 
     //default constructor
-    public DisjointSetsBackByLinkedLists(){
+    public DisjointSetsBackedByLinkedLists(){
         disjointSets = new ArrayList<>();
         elementMap = new HashMap<>();
     }
 
     //Constructor when wanting to create the Disjoint Set with dataSet
-    public DisjointSetsBackByLinkedLists(Collection<T> dataSet){
+    public DisjointSetsBackedByLinkedLists(Collection<T> dataSet){
         disjointSets = new ArrayList<>();
         elementMap = new HashMap<>();
 

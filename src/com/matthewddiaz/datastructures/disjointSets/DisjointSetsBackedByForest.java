@@ -6,21 +6,23 @@ import java.util.*;
  * Created by matthewdiaz on 6/2/17.
  */
 public class DisjointSetsBackedByForest<T> implements DisjointSets<T>{
-    //contains a list of disjoint sets
-    private Map<DisjointRootedTree.Node, DisjointRootedTree> disjointSets;
+    //contains a list of the root node of all the disjoint sets
+    private List<DisjointRootedTree.Node> disjointSetRoots;
 
     //Mapping between input element and their wrapper element Node
     private Map<T, DisjointRootedTree.Node<T>> elementMap;
 
     //default constructor initializes disjointSets
     public DisjointSetsBackedByForest(){
-        disjointSets = new HashMap<>();
+        disjointSetRoots = new ArrayList<>();
+        elementMap = new HashMap<>();
     }
 
     //initializes disjointSets and then creates a new disjoint set for every
     //element in the input collection
     public DisjointSetsBackedByForest(Collection<T> dataSet){
-        disjointSets = new HashMap<>();
+        disjointSetRoots = new ArrayList<>();
+        elementMap = new HashMap<>();
 
         for(T element : dataSet){
             makeSet(element);
@@ -30,17 +32,30 @@ public class DisjointSetsBackedByForest<T> implements DisjointSets<T>{
     @Override
     public void makeSet(T element) {
         //create a new wrapper node for input element
-        DisjointRootedTree.Node elementNode = new DisjointRootedTree.Node(element);
+        DisjointRootedTree.Node elementNode = createRootNode(element);
         makeSet(elementNode);
 
         //insert key: element; value: elementNode into elementMap
         elementMap.put(element, elementNode);
     }
 
+    /**
+     * Creating a new Wrapper node of input element
+     * NOTE: This wrapper node is all the root node of the tree
+     * and therefore its parent is itself.
+     * @param element
+     * @return
+     */
+    private DisjointRootedTree.Node createRootNode(T element){
+        DisjointRootedTree.Node elementNode = new DisjointRootedTree.Node(element);
+        elementNode.parentPtr = elementNode;
+        return elementNode;
+    }
+
     //Creates a new disjoint set with the input node as its only member
     private void makeSet(DisjointRootedTree.Node node){
-        DisjointRootedTree disjointSet = new DisjointRootedTree(node);
-        disjointSets.put(node, disjointSet);
+        node.parentPtr = node;
+        disjointSetRoots.add(node);
     }
 
     @Override
@@ -86,13 +101,13 @@ public class DisjointSetsBackedByForest<T> implements DisjointSets<T>{
         if(rootOfX != rootOfY){
             if(rootOfX.rank > rootOfY.rank){
                 mergeTrees(rootOfX, rootOfY);
-                removeDisjointSet(y);
+                removeDisjointSet(rootOfY);
             }else{
                 mergeTrees(rootOfY, rootOfX);
                 if(rootOfX.rank == rootOfY.rank){
                     rootOfY.rank++;
                 }
-                removeDisjointSet(x);
+                removeDisjointSet(rootOfX);
             }
         }
     }
@@ -105,17 +120,58 @@ public class DisjointSetsBackedByForest<T> implements DisjointSets<T>{
     //removes the disjoint that contains the given node from disjoint sets
     //NOTE: only works if given representative node
     private void removeDisjointSet(DisjointRootedTree.Node representativeNode){
-        disjointSets.remove(representativeNode);
+        disjointSetRoots.remove(representativeNode);
     }
 
     @Override
     public int numOfDisjointSets() {
-        return 0;
+        return disjointSetRoots.size();
     }
 
     @Override
     public List<Set<T>> getDisjointSets() {
-        return null;
+        HashMap<DisjointRootedTree.Node<T>, Set<T>> mapOfDisjointSets = new HashMap<>();
+
+        //for each wrapper node determine the mapOfDisjointSets it is part of
+        for(DisjointRootedTree.Node<T> node : elementMap.values()){
+            DisjointRootedTree.Node<T> representativeNode = findSet(node);
+            if(!mapOfDisjointSets.containsKey(representativeNode)){
+                Set<T> disjointSet = new HashSet();
+                disjointSet.add(node.member);
+                mapOfDisjointSets.put(representativeNode, disjointSet);
+            }else{
+                Set<T> disjointSet = mapOfDisjointSets.get(representativeNode);
+                disjointSet.add(node.member);
+                mapOfDisjointSets.replace(representativeNode, disjointSet);
+            }
+        }
+
+        List<Set<T>> list = new ArrayList<>();
+        for(Set set : mapOfDisjointSets.values()){
+            list.add(set);
+        }
+        return list;
+    }
+
+    @Override
+    public String toString(){
+        if(disjointSetRoots.size() == 0){
+            return "No Sets";
+        }
+
+        StringBuffer buffer = new StringBuffer();
+        List<Set<T>> listOfDisjointSets = getDisjointSets();
+
+        for(Set<T> disjointSet : listOfDisjointSets){
+            buffer.append("[ ");
+            for(T element : disjointSet){
+                buffer.append(element + ", ");
+            }
+            buffer.deleteCharAt(buffer.length() - 2);
+            buffer.append("]\n");
+        }
+
+        return buffer.toString();
     }
 
 }

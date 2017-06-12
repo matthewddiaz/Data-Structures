@@ -9,7 +9,7 @@ import static com.matthewddiaz.datastructures.disjointSets.TestForDisjointSets.t
 /**
  * Created by matthewdiaz on 6/2/17.
  */
-class DisjointSetsBackByForestsTest {
+class DisjointSetsBackedByForestTest {
     private DisjointSets disjointSetsBackedByForest;
 
     @BeforeEach

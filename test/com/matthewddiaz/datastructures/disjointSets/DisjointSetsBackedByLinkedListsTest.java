@@ -8,12 +8,12 @@ import static com.matthewddiaz.datastructures.disjointSets.TestForDisjointSets.*
 /**
  * Created by matthewdiaz on 6/1/17.
  */
-class DisjointSetsBackByLinkedListsTest {
+class DisjointSetsBackedByLinkedListsTest {
     private DisjointSets disjointSetsBackByLinkedLists;
 
     @BeforeEach
     void setUp() {
-        disjointSetsBackByLinkedLists = new DisjointSetsBackByLinkedLists();
+        disjointSetsBackByLinkedLists = new DisjointSetsBackedByLinkedLists();
     }
 
     @Test

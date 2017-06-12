@@ -12,13 +12,13 @@ public class DisjointLinkedList<T> {
     private int size;//keeps track of the number of Nodes in Set
 
     static class Node<T>{
-        DisjointLinkedList representativePtr;//points to set object
+        DisjointLinkedList setPtr;//points to set object
         Node nextPtr;//points to next object in set
         T member;//member that Node contains
 
         public Node(T member){
             this.member = member;
-            representativePtr = null;
+            setPtr = null;
             nextPtr = null;
         }
 
@@ -57,7 +57,7 @@ public class DisjointLinkedList<T> {
             tail = tail.nextPtr;
         }
         //set node representative pointer to point to set object
-        node.representativePtr = this;
+        node.setPtr = this;
 
         //increment the number of elements in the set
         this.size++;
