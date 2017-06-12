@@ -1,15 +1,16 @@
 package com.matthewddiaz.datastructures.disjointSets;
 
-import com.matthewddiaz.datastructures.graphs.Graph;
-
 import java.util.*;
 
 /**
  * Created by matthewdiaz on 6/2/17.
  */
-public class DisjointSetsBackedByForest<T> {
+public class DisjointSetsBackedByForest<T> implements DisjointSets<T>{
     //contains a list of disjoint sets
     private Map<DisjointRootedTree.Node, DisjointRootedTree> disjointSets;
+
+    //Mapping between input element and their wrapper element Node
+    private Map<T, DisjointRootedTree.Node<T>> elementMap;
 
     //default constructor initializes disjointSets
     public DisjointSetsBackedByForest(){
@@ -17,30 +18,57 @@ public class DisjointSetsBackedByForest<T> {
     }
 
     //initializes disjointSets and then creates a new disjoint set for every
-    //node in the input collection
-    public DisjointSetsBackedByForest(Collection<DisjointRootedTree.Node> dataSet){
+    //element in the input collection
+    public DisjointSetsBackedByForest(Collection<T> dataSet){
         disjointSets = new HashMap<>();
 
-        for(DisjointRootedTree.Node node : dataSet){
-            makeSet(node);
+        for(T element : dataSet){
+            makeSet(element);
         }
     }
 
+    @Override
+    public void makeSet(T element) {
+        //create a new wrapper node for input element
+        DisjointRootedTree.Node elementNode = new DisjointRootedTree.Node(element);
+        makeSet(elementNode);
+
+        //insert key: element; value: elementNode into elementMap
+        elementMap.put(element, elementNode);
+    }
+
     //Creates a new disjoint set with the input node as its only member
-    public void makeSet(DisjointRootedTree.Node node){
+    private void makeSet(DisjointRootedTree.Node node){
         DisjointRootedTree disjointSet = new DisjointRootedTree(node);
         disjointSets.put(node, disjointSet);
+    }
+
+    @Override
+    public T findSet(T element) {
+        //retrieve node for input element
+        DisjointRootedTree.Node<T> elementNode = elementMap.get(element);
+        //acquire representative node of the set that element node is in
+        DisjointRootedTree.Node<T> representativeNode = findSet(elementNode);
+
+        return representativeNode.member;
     }
 
     //returns the root node of the tree that the input node is found in
     //NOTE: this algorithm uses path compression, which points all nodes
     //in the path from node to the root point directly to root.
-    public DisjointRootedTree.Node findSet(DisjointRootedTree.Node node){
+    private DisjointRootedTree.Node findSet(DisjointRootedTree.Node node){
         if(node != node.parentPtr){
             node.parentPtr =  findSet(node.parentPtr);
         }
 
         return node.parentPtr;
+    }
+
+    @Override
+    public void union(T elementX, T elementY) {
+        DisjointRootedTree.Node nodeX = elementMap.get(elementX);
+        DisjointRootedTree.Node nodeY = elementMap.get(elementY);
+        union(nodeX, nodeY);
     }
 
     /**
@@ -80,9 +108,15 @@ public class DisjointSetsBackedByForest<T> {
         disjointSets.remove(representativeNode);
     }
 
-    //returns a collection of all the disjoint sets
-    public Collection<DisjointRootedTree> getDisjointSets(){
-        return disjointSets.values();
+    @Override
+    public int numOfDisjointSets() {
+        return 0;
     }
+
+    @Override
+    public List<Set<T>> getDisjointSets() {
+        return null;
+    }
+
 }
 
