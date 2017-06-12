@@ -57,7 +57,7 @@ public class DisjointSetsBackByLinkedLists<T> implements DisjointSets<T> {
     //returns the representative node of the set that the input node is in.
     //that is the node at head points to in that set
     private DisjointLinkedList.Node findSet(DisjointLinkedList.Node node){
-        DisjointLinkedList.Node firstNode = node.representativePtr.getHead();
+        DisjointLinkedList.Node firstNode = node.setPtr.getHead();
         return firstNode;
     }
 
@@ -79,8 +79,8 @@ public class DisjointSetsBackByLinkedLists<T> implements DisjointSets<T> {
         //making sure that x and y are not in the same set
         if(findSet(x) != findSet(y)){
 
-            DisjointLinkedList disjointSetOfX = x.representativePtr;
-            DisjointLinkedList disjointSetOfY = y.representativePtr;
+            DisjointLinkedList disjointSetOfX = x.setPtr;
+            DisjointLinkedList disjointSetOfY = y.setPtr;
 
             //using weight heuristic to save a bit of time
             //Append the shorter disjoint set to the larger disjoint set
