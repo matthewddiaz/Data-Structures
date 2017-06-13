@@ -10,7 +10,7 @@ Repository for commonly used data structures in computer science.
 
 ### [Heap](https://github.com/matthewddiaz/Data-Structures/tree/master/src/com/matthewddiaz/datastructures/heap)
 
-### [Linked List](https://github.com/matthewddiaz/Data-Structures/tree/master/src/com/matthewddiaz/datastructures/linkedList)
+### [List](https://github.com/matthewddiaz/Data-Structures/tree/master/src/com/matthewddiaz/datastructures/lists)
 
 ### [Queue](https://github.com/matthewddiaz/Data-Structures/tree/master/src/com/matthewddiaz/datastructures/queue)
 

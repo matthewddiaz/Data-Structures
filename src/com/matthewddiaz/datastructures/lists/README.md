@@ -6,7 +6,7 @@ A **list** is an order collection. The user has the ability to get, insert, and 
 in the collection. Unlike **Sets** lists usually allow for duplicate input elements. Note: A list is referred to as an
 abstract data type (ADT) instead of a data structure since it only specifies the interface but not the implementation.
 
-#### Common Operations of a [List](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/list/List.java)
+#### Common Operations of a [List](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/lists/List.java)
 
 1) **void appendElement(E element)** - inserts the element at the end of the list
 
@@ -50,7 +50,7 @@ The doubly linked list is the same as a singly linked list except that each Node
 pointer, **previous**, which points to the previous Node in the linked list. That is each Node has two pointers a **next** and
 a **previous**.
 
-### [Linked List](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/linkedList/LinkedList.java)
+### [Linked List](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/lists/LinkedList.java)
 LinkedList.java is implemented using two pointers a head and tail to improve the performance of some operations.
 NOTE: LinkedList.java implements List and must therefore implement all of List's methods.
 
@@ -72,7 +72,7 @@ if the key is not in the LinkedList returns false.
    
    **Time Complexity:** Θ(n)
 
-**Test class:** [LinkedListTest](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/list/linkedList/LinkedListTest.java)
+**Test class:** [LinkedListTest](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/lists/linkedList/LinkedListTest.java)
 
 ### Dynamic Array
 A **Dynamic Array** is a random access resizeable data structure. Dynamic Arrays are also called ArrayLists. They overcome the fixed size limitation
@@ -81,7 +81,7 @@ element from a Dynamic Array takes O(1) time instead of O(n).
 
 **Note:** Linked Lists are usually used to implement the List ADT.
 
-### [Dynamic Array](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/list/DynamicArray.java)
+### [Dynamic Array](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/lists/DynamicArray.java)
 DynamicArray.java implements List and therefore must implement all of List's methods.
 
 Note: Dynamic Array is backed by an Array.
@@ -97,7 +97,7 @@ How Dynamic Array differs from a regular Array:
     1) Create a new backing array that is (2/3) the size of the actually array
     2) Transfer all of the elements from the old array into the smaller array
     3) set the actual array equal to the new smaller backing array
-    Note: Usually happends after lots of elements have been removed from the list 
+    Note: Usually happens after lots of elements have been removed from the list 
 
-**Test class:** [DynamicArrayTest](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/list/dynamicArray/DyamicArrayTest.java)
+**Test class:** [DynamicArrayTest](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/lists/dynamicArray/DynamicArrayTest.java)
 

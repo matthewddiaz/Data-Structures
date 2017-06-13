@@ -47,7 +47,7 @@ Each input element is wrapped in a **Node**; each Node contains:
 **Test class:** [DisjointSetsBackedByLinkedLists](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/disjointSets/DisjointSetsBackedByLinkedListsTest.java)
 
 ## Implementing Disjoint Set using Rooted Trees (Forest)
-### [DisjointSetsBackedByForests](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/disjointSets/disjointSetsBackedByForest.java)
+### [DisjointSetsBackedByForests](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/disjointSets/DisjointSetsBackedByForest.java)
 
 **Note:** This implementation is faster than Disjoint Set using Linked Lists
 
