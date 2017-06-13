@@ -1,9 +1,11 @@
-package com.matthewddiaz.datastructures.linkedList;
+package com.matthewddiaz.datastructures.lists.linkedList;
+
+import com.matthewddiaz.datastructures.lists.LinkedList;
 
 /**
  * Created by matthewdiaz on 6/4/17.
  */
-public class Utils {
+public class LinkedListFactory {
 
     static String character1 = "Goku";
     static String character2 = "Gohan";

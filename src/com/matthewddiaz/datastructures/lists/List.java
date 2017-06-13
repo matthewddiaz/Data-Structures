@@ -24,7 +24,7 @@ public interface List<E> {
      * Creates and returns a new iterator of the list
      * @return
      */
-    Iterator createIterator();
+    Iterator<E> createIterator();
 
     /**
      * Removes the element and returns true if E is in the list
@@ -32,7 +32,7 @@ public interface List<E> {
      * @return
      * @throws NullPointerException
      */
-    boolean deleteElement(E element) throws NullPointerException;
+    boolean removeElement(E element) throws NullPointerException;
 
     /**
      * Removes and returns the element from the list at the given index
@@ -40,7 +40,7 @@ public interface List<E> {
      * @return
      * @throws IndexOutOfBoundsException
      */
-    E deleteElement(int index) throws IndexOutOfBoundsException;
+    E removeElement(int index) throws IndexOutOfBoundsException;
 
     /**
      * Returns element at index.
@@ -80,4 +80,12 @@ public interface List<E> {
      * @return
      */
     String toString();
+
+    /**
+     * Returns the input array with elements from the list; in the
+     * same order as the linked list.
+     * @param array
+     * @return
+     */
+    public E[] toArray(E[] array);
 }

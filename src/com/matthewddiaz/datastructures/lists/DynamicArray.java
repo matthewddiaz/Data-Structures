@@ -52,7 +52,7 @@ public class DynamicArray<E> implements List<E> {
     }
 
     @Override
-    public Iterator createIterator() {
+    public Iterator<E> createIterator() {
         return new Iterator() {
             private int index;
 
@@ -79,11 +79,11 @@ public class DynamicArray<E> implements List<E> {
     }
 
     @Override
-    public boolean deleteElement(E element) throws NullPointerException {
+    public boolean removeElement(E element) throws NullPointerException {
         //iterating the dynamic array to determine the index of the first occurrence of the input element
         for(int index = 0; index < this.size; index++){
             if(this.backingArray[index] == element){
-                deleteElement(index);
+                removeElement(index);
                 return true;
             }
         }
@@ -93,7 +93,7 @@ public class DynamicArray<E> implements List<E> {
     }
 
     @Override
-    public E deleteElement(int index) throws IndexOutOfBoundsException {
+    public E removeElement(int index) throws IndexOutOfBoundsException {
         //throw IndexOutOfBound if input index is negative or greater than or equal to size
         if(index < 0 || index >= this.size){
             throw new IndexOutOfBoundsException();
@@ -188,12 +188,17 @@ public class DynamicArray<E> implements List<E> {
         return strBuffer.toString();
     }
 
+    @Override
+    public E[] toArray(E[] array) {
+        return this.backingArray;
+    }
+
     /**
      * Resize the backing array to be 1.5 times its original size
      */
     private void growBackingArray(){
         //If dynamic array size is less than 10 its resize factor is 2
-        double resizeFactor = this.size < 10 ? 2 : 3/2;
+        double resizeFactor = this.size < 10 ? 2 : 1.5;
         resizeBackingArray((int) (this.size * resizeFactor));
     }
 
@@ -202,14 +207,15 @@ public class DynamicArray<E> implements List<E> {
      * @return
      */
     private boolean isFull(){
-        return (this.size == this.backingArray.length);
+        return (this.size >= this.backingArray.length);
     }
 
     /**
      * Shrinks the backing array to be 2/3 the size of its original size
      */
     private void shrinkBackingArray(){
-        resizeBackingArray(this.size * (2/3));
+        double shrinkFactor = this.size * (.66);
+        resizeBackingArray((int) shrinkFactor);
     }
 
     /**

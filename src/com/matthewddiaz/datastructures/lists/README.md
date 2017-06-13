@@ -1,18 +1,20 @@
 # Fundamental Data Structures
 
-## Linked List
+## Lists
+
+### Linked List
 Linked List is a data structure in which elements are arranged in a linear order, determined by a pointer. 
 Linked Lists are usually implemented with only  1 pointer the **head** which points to the first node in the linked list.
 However this causes the operation **void appendElement(T key)** to operate in **Θ(n)**, adding a pointer that points to 
 the last node in the linked list, **tail**, reduces the time of this operation to **Θ(1)**. 
 
-### Two Main types of Linked Lists
+#### Two Main types of Linked Lists
 
-#### 1. Singly Linked List
+##### 1. Singly Linked List
 The singly linked list contains 1 pointer, **head**, which points to the first Node in linked list. Each Node in the linked list contains 
 a T member attribute and 1 pointer that points to the next Node in the linked list.
  
-#### 2. Doubly Linked List
+##### 2. Doubly Linked List
 The doubly linked list is the same as a singly linked list except that each Node in the linked list contains an additional
 pointer, **previous**, which points to the previous Node in the linked list. That is each Node has two pointers a **next** and
 a **previous**.
@@ -40,3 +42,4 @@ if the key is not in the LinkedList returns false.
 
 **Test class:** [LinkedListTest](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/linkedList/LinkedListTest.java)
 
+### Dynamic Array
