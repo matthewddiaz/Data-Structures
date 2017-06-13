@@ -243,6 +243,6 @@ public class DynamicArray<E> implements List<E> {
      * @return
      */
     private boolean shrinkThreshold(){
-        return ((this.size < (this.backingArray.length * (1/3))) && (this.backingArray.length > 10));
+        return ((this.size < (this.backingArray.length * (.33))) && (this.backingArray.length > 10));
     }
 }
