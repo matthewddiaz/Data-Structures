@@ -10,8 +10,8 @@ public class BSTCreator {
      * This BST should be used for simple test cases.
      * @return
      */
-    public static BinarySearchTree createSimpleBinarySearchTree(){
-        BinarySearchTree simpleBST = new BinarySearchTree();
+    public static BinarySearchTree<Integer> createSimpleBinarySearchTree(){
+        BinarySearchTree<Integer> simpleBST = new BinarySearchTree();
         simpleBST.insertElement(10);
         simpleBST.insertElement(5);
         simpleBST.insertElement(12);
@@ -26,8 +26,8 @@ public class BSTCreator {
      * This BST should be used for complex test cases.
      * @return
      */
-    public static BinarySearchTree createComplexBinarySearchTree(){
-        BinarySearchTree complexBST = new BinarySearchTree();
+    public static BinarySearchTree<Integer> createComplexBinarySearchTree(){
+        BinarySearchTree<Integer> complexBST = new BinarySearchTree();
         complexBST.insertElement(9);
         complexBST.insertElement(5);
         complexBST.insertElement(15);

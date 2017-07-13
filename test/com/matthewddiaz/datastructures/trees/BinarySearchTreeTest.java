@@ -14,12 +14,10 @@ import static org.junit.jupiter.api.Assertions.*;
  * Created by matthewdiaz on 3/21/17.
  */
 class BinarySearchTreeTest {
-    private BinarySearchTree simpleBST;
-    private BinarySearchTree complexBST;
+    private BinarySearchTree<Integer> complexBST;
 
     @BeforeEach
     public void setUp() throws Exception {
-        this.simpleBST = BSTCreator.createSimpleBinarySearchTree();
         this.complexBST = BSTCreator.createComplexBinarySearchTree();
     }
 
@@ -35,7 +33,6 @@ class BinarySearchTreeTest {
         assertFalse(this.complexBST.containsElement(2));
         assertTrue(this.complexBST.containsElement(15));
     }
-
 
     @Test
     void treeSearch() {
@@ -54,7 +51,7 @@ class BinarySearchTreeTest {
     @Test
     void minimum() {
         int expectedMin = 1;
-        int actualMin = this.complexBST.minimum().key;
+        int actualMin = (int) this.complexBST.minimum().key;
         assertEquals(expectedMin, actualMin);
     }
 
@@ -64,7 +61,7 @@ class BinarySearchTreeTest {
     @Test
     void maximum() {
         int expectedMax = 100;
-        int actualMax = this.complexBST.maximum().key;
+        int actualMax = (int) this.complexBST.maximum().key;
         assertEquals(expectedMax, actualMax);
     }
 
@@ -100,8 +97,8 @@ class BinarySearchTreeTest {
 
     /**
      * Testing Successor functionality and its two main cases.
-     * 1) When the input node has a right subtree
-     * 2) When the input node does not have a right subtree
+     * 1) When the input node has a rightChild subtree
+     * 2) When the input node does not have a rightChild subtree
      */
 
     @Test
@@ -133,8 +130,8 @@ class BinarySearchTreeTest {
 
     /**
      * Testing Predecessor functionality and its two main cases.
-     * 1) When the input node has a left subtree
-     * 2) When the input node does not have a left subtree
+     * 1) When the input node has a leftChild subtree
+     * 2) When the input node does not have a leftChild subtree
      */
 
     @Test
@@ -193,7 +190,7 @@ class BinarySearchTreeTest {
 
     @Test
     void deleteNodeWithTwoChildren(){
-        int removalKey = this.complexBST.getRoot().key;
+        int removalKey = (int) this.complexBST.getRoot().getKey();
 
         //before removal of node
         boolean isKeyPresentBefore = this.complexBST.containsElement(removalKey);
@@ -226,53 +223,4 @@ class BinarySearchTreeTest {
 //        System.out.println(this.binarySearchTree.postOrderTraversal());
 //    }
 
-    @Test
-    public void testHeightOfTree() throws Exception {
-        int expectedHeight = 7;
-
-        int actualHeight = complexBST.heightOfTree();
-        assertEquals(expectedHeight, actualHeight);
-    }
-
-    @Test
-    void createInOrderIterator() {}
-
-    @Test
-    void createLevelOrderIterator() {}
-
-    @Test
-    void preOrderTraversal() {
-        System.out.println(this.simpleBST.preOrderTraversal());
-    }
-
-    @Test
-    void preOrderTraversalOfComplexBST() {
-        System.out.println(this.complexBST.preOrderTraversal());
-    }
-
-    @Test
-    void inOrderTraversal() {}
-
-    @Test
-    void levelOrderTraversal() {}
-
-    @Test
-    public void binarySearchLevelOrderIteratorTest() throws Exception {
-        Iterator iterator = this.complexBST.createLevelOrderIterator();
-
-        iterator.first();
-        for(; !iterator.isDone(); iterator.next()){
-            System.out.println(iterator.currentElement());
-        }
-    }
-
-    @Test
-    public void binarySearchInOrderIteratorTest() throws Exception {
-        Iterator iterator = this.complexBST.createInOrderIterator();
-
-        iterator.first();
-        for(; !iterator.isDone(); iterator.next()){
-            System.out.println(iterator.currentElement());
-        }
-    }
 }

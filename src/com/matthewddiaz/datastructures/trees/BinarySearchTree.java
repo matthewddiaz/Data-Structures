@@ -1,9 +1,5 @@
 package com.matthewddiaz.datastructures.trees;
 
-import com.matthewddiaz.datastructures.queue.Queue;
-import com.matthewddiaz.designpatterns.behavioralPatterns.Iterator;
-
-import java.util.ArrayDeque;
 import java.util.Deque;
 
 /**
@@ -12,42 +8,16 @@ import java.util.Deque;
 
 /**
  * A Binary Search Tree is a Tree where each node can have a most 2 children. Furthermore
- * the left subtree contains elements that are less than the root key. The right subtree contains
+ * the leftChild subtree contains elements that are less than the root key. The rightChild subtree contains
  * elements that are greater than or equal to the root key.
  */
-public class BinarySearchTree {
-    private Node root;
-
-    class Node{
-        int key;
-        Node left;
-        Node right;
-
-        public Node(int key){
-            this.key = key;
-            this.left = null;
-            this.right = null;
-        }
-
-        public int numOfChildren(){
-            int children = 0;
-            if(this.left != null){
-                children++;
-            }
-
-            if(this.right != null){
-                children++;
-            }
-            return children;
-        }
-    }
-
+public class BinarySearchTree<T extends Comparable<T>> extends BinaryTree{
     /**
      * Default constructor
      * Note: This constructor should be used when creating a new empty BST
      */
     public BinarySearchTree(){
-        this.root = null;
+        super();
     }
 
     /**
@@ -56,7 +26,7 @@ public class BinarySearchTree {
      * @param root
      */
     public BinarySearchTree(Node root){
-        this.root = root;
+        super(root);
     }
 
     /**
@@ -71,17 +41,19 @@ public class BinarySearchTree {
      * Inserts the key into the BST
      * @param element
      */
-    public void insertElement(int element){
+    public void insertElement(Comparable element){
         Node node = new Node(element);
         if(isEmpty()){
             root = node;
         }else{
             //obtain parent node of node of the newly created node to be inserted to BST.
             Node parentPtr = getParentNode(node);
-            if(element > parentPtr.key){
-                parentPtr.right = node;
+            int compareValue = parentPtr.key.compareTo(element);
+            //if parent key is less than the inserting element value; then element becomes parent's right child
+            if(compareValue < 0){
+                parentPtr.rightChild = node;
             }else{
-                parentPtr.left = node;
+                parentPtr.leftChild = node;
             }
         }
     }
@@ -89,30 +61,33 @@ public class BinarySearchTree {
     /**
      * Returns the parent of a given node.
      * NOTE: Returns null if the node passed in the parameter is the root.
-     * @param node
+     * @param childNode
      * @return
      */
-    private Node getParentNode(Node node){
-        //the parent of root node is null
-        if(node == this.root){
+    private Node getParentNode(Node childNode){
+        //the root node does not contain a parent
+        if(childNode == this.root){
             return null;
         }
 
-        //Creating two adjacent pointers. One points to the current node and another to its parent.
+        //Creating two pointers. One points to the current node and another to its parent.
+        //Note: searching for parent of child node. CurrentPtr starts at the root node
         Node currentPtr = this.root;
         Node parentPtr = null;
-        while(currentPtr != null && currentPtr != node) {
+        while((currentPtr != null) && (currentPtr != childNode)) {
             parentPtr = currentPtr;
-            if (node.key > currentPtr.key) {
-                currentPtr = currentPtr.right;
+            int compareValue = currentPtr.key.compareTo(childNode.key);
+            //if current pointer key value is less childNode key value; set current pointer equal to it's right child
+            if (compareValue < 0) {
+                currentPtr = currentPtr.rightChild;
             } else {
-                currentPtr = currentPtr.left;
+                currentPtr = currentPtr.leftChild;
             }
         }
         return parentPtr;
     }
 
-    public void deleteNode(int key){
+    public void deleteNode(T key){
         //find node in tree;
         Node node = treeSearch(key);
         //if node does not exist exit
@@ -136,38 +111,43 @@ public class BinarySearchTree {
     }
 
     private void deleteNodeWithTwoChildren(Node deleteNode){
-        //successor is min node in the input node's right subtree
-        Node successor = minimum(deleteNode.right);
+        //successor is min node in the input node's rightChild subtree
+        Node successor = minimum(deleteNode.rightChild);
         //find parent of successor
         Node parentOfSuccessor = getParentNode(successor);
         //set the input node's key to successor's key
         deleteNode.key = successor.key;
-        //set successor's right child as successor's parent left child
-        parentOfSuccessor.left = successor.right;
+        //set successor's rightChild child as successor's parent leftChild child
+        parentOfSuccessor.leftChild = successor.rightChild;
     }
 
-    private void deleteNodeWithNoChild(Node parent, Node deleteNode){
-        if(parent == null){
+    private void deleteNodeWithNoChild(Node parentNode, Node deleteNode){
+        if(parentNode == null){
             this.root = null;
         }else{
-            if(deleteNode.key > parent.key){
-                parent.right = null;
+            int compareValue = parentNode.key.compareTo(deleteNode.key);
+            //if parentNode key value is less than deleteNode key value; delete the parentNode's right child
+            if(compareValue < 0){
+                parentNode.rightChild = null;
             }else{
-                parent.left = null;
+                parentNode.leftChild = null;
             }
         }
     }
 
-    private void deleteNodeWith1Child(Node parent, Node deleteNode){
-        Node child = (deleteNode.right == null) ? deleteNode.left : deleteNode.right;
+    private void deleteNodeWith1Child(Node parentNode, Node deleteNode){
+        //saving the child single child of deleteNode
+        Node childOfDeleteNode = (deleteNode.rightChild == null) ? deleteNode.leftChild : deleteNode.rightChild;
 
-        if(parent == null){
-            this.root = child;
+        if(parentNode == null){
+            this.root = childOfDeleteNode;
         }else{
-            if(deleteNode.key > parent.key){
-                parent.right = child;
+            int compareValue = parentNode.key.compareTo(deleteNode.key);
+            //if parentNode key value is less than deleteNode key value; childOfDeleteNode is set to parentNode's right child
+            if(compareValue < 0){
+                parentNode.rightChild = childOfDeleteNode;
             }else{
-                parent.left = child;
+                parentNode.leftChild = childOfDeleteNode;
             }
         }
     }
@@ -178,55 +158,58 @@ public class BinarySearchTree {
      * which is written in a iterative fashion.
      * @param element
      */
-    public void insertElementRecursiveApproach(int element){
+    public void insertElementRecursiveApproach(T element){
         this.root = insertElement(this.root, element);
     }
 
     /**
      * Helper method to insertElementRecursiveApproach
-     * @param node
+     * @param currentNode
      * @param element
      * @return
      */
-    private Node insertElement(Node node, int element){
-        if(node == null){
+    private Node insertElement(Node currentNode, T element){
+        if(currentNode == null){
             return new Node(element);
         }
-
-        if(element > node.key){
-            node.right = insertElement(node.right, element);
+        //if currentNode's key value is less than element's key value; then element must in currentNode's right subtree
+        int compareValue = currentNode.key.compareTo(element);
+        if(compareValue < 0){
+            currentNode.rightChild = insertElement(currentNode.rightChild, element);
         }else{
-            node.left = insertElement(node.left, element);
+            currentNode.leftChild = insertElement(currentNode.leftChild, element);
         }
-        return node;
+        return currentNode;
     }
 
     /**
-     * Returns true if the key is in the BST
      * @param element
-     * @return
+     * @return true if the key is in the BST
      */
-    public boolean containsElement(int element){
+    public boolean containsElement(T element){
         return containsElement(this.root, element);
     }
 
     /**
      * Helper function to determine if the the key is in the BST
-     * @param node
+     * @param currentNode
      * @param element
-     * @return
+     * @return Returns true if element is in the Binary Search Tree
      */
-    private boolean containsElement(Node node, int element){
-        if(node == null){
+    private boolean containsElement(Node currentNode, T element){
+        if(currentNode == null){
             return false;
         }
 
-        if(node.key == element){
+        int compareValue = currentNode.key.compareTo(element);
+        //if currentNode's key value is equal to element return true
+        if(compareValue == 0){
             return true;
-        }else if(element > node.key){
-            return containsElement(node.right, element);
+        }//if currentNode's key value is less than element check currentNode's right subtree
+        else if(compareValue < 0){
+            return containsElement(currentNode.rightChild, element);
         }else{
-            return containsElement(node.left, element);
+            return containsElement(currentNode.leftChild, element);
         }
     }
 
@@ -236,7 +219,7 @@ public class BinarySearchTree {
      * @param element
      * @return
      */
-    public Node treeSearch(int element){
+    public Node treeSearch(T element){
         return treeSearch(this.root, element);
     }
 
@@ -249,25 +232,30 @@ public class BinarySearchTree {
      * contains the key then the current node is returned
      *
      * If the key is greater than the key of the current node; then treeSearch is
-     * called again but with the current nodes right child.
+     * called again but with the current nodes rightChild child.
      *
      * @param node
      * @param element
      * @return
      */
-    private Node treeSearch(Node node, int element){
-        if(node == null || node.key == element){
+    private Node treeSearch(Node node, T element){
+        if(node == null){
+            return null;
+        }
+
+        int compareValue = node.key.compareTo(element);
+        if(compareValue == 0){
             return node;
-        }else if(element > node.key){
-            return treeSearch(node.right, element);
+        }else if(compareValue < 0){
+            return treeSearch(node.rightChild, element);
         }else{
-            return treeSearch(node.left, element);
+            return treeSearch(node.leftChild, element);
         }
     }
 
     /**
      * Returns a pointer to the node with the minimum key in the BST
-     * NOTE: this node will always be the left most node in the BST
+     * NOTE: this node will always be the leftChild most node in the BST
      * @return
      */
     public Node minimum(){
@@ -279,15 +267,15 @@ public class BinarySearchTree {
      * @return
      */
     private Node minimum(Node node){
-        while(node.left != null){
-            node = node.left;
+        while(node.leftChild != null){
+            node = node.leftChild;
         }
         return node;
     }
 
     /**
      * Returns a pointer to the node with the maximum key in the BST
-     * NOTE: this node will always be the right most node in the BST
+     * NOTE: this node will always be the rightChild most node in the BST
      * @return
      */
     public Node maximum(){
@@ -300,11 +288,17 @@ public class BinarySearchTree {
      * @return
      */
     private Node maximum(Node node){
-        while(node.right != null){
-            node = node.right;
+        while(node.rightChild != null){
+            node = node.rightChild;
         }
         return node;
     }
+
+
+    //if current pointer key value is less childNode key value; set current pointer equal to it's right child
+//    int compareValue = currentPtr.key.compareTo(node.key);
+//            if (compareValue < 0) {
+
 
     /**
      * Returns a Deque of all the nodes in the simple path from an ancestor to a
@@ -320,11 +314,12 @@ public class BinarySearchTree {
         //from ancestor node to descendant node
         while((ancestor != null) && (ancestor != descendant)){
             linkedList.addFirst(ancestor);
-
-            if(ancestor.key < descendant.key){
-                ancestor = ancestor.right;
+            int compareValue = ancestor.key.compareTo(descendant.key);
+            //if ancestor's key value is less than descendant key value; the descendant is in ancestor's right subtree
+            if(compareValue < 0){
+                ancestor = ancestor.rightChild;
             }else{
-                ancestor = ancestor.left;
+                ancestor = ancestor.leftChild;
             }
         }
 
@@ -340,8 +335,8 @@ public class BinarySearchTree {
     }
 
     /**
-     * The successor in of a node with no right subtree is
-     * the lowest ancestor whose left child is also an ancestor
+     * The successor in of a node with no rightChild subtree is
+     * the lowest ancestor whose leftChild child is also an ancestor
      * of the desired node. NOTE if none of the nodes in the ancestors
      * list match this scenario then the node does not have a successor and
      * null is returned.
@@ -357,7 +352,7 @@ public class BinarySearchTree {
         Node current = iterator.next();
         Node parent = iterator.next();
 
-        while(parent.right == current){
+        while(parent.rightChild == current){
             current = parent;
             if(iterator.hasNext()){
                 parent = iterator.next();
@@ -377,7 +372,7 @@ public class BinarySearchTree {
         Node current = iterator.next();
         Node parent = iterator.next();
 
-        while(parent.left == current){
+        while(parent.leftChild == current){
             current = parent;
             if(iterator.hasNext()){
                 parent = iterator.next();
@@ -391,19 +386,19 @@ public class BinarySearchTree {
     /**
      * Returns the successor of a the input node.
      * There are 2 possible cases
-     * 1) When the input element has a right subtree
-     *      a) The successor performing min on the right subtree of the input node
-     * 2) When the input element does not have a right subtree
+     * 1) When the input element has a rightChild subtree
+     *      a) The successor performing min on the rightChild subtree of the input node
+     * 2) When the input element does not have a rightChild subtree
      *      a) Since this BST does not have a parent node, first find the simple
      *         ancestry path from the root to the node in reverse order. Then
-     *         the successor is the lowest ancestor whose left child is also
+     *         the successor is the lowest ancestor whose leftChild child is also
      *         an ancestor of the input node.
      * @param node
      * @return
      */
     public Node successor(Node node){
-        if(node.right != null){
-            return minimum(node.right);
+        if(node.rightChild != null){
+            return minimum(node.rightChild);
         }
 
         Deque<Node> ancestorList = generateSimpleAncestryPath(this.root, node);
@@ -411,275 +406,11 @@ public class BinarySearchTree {
     }
 
     public Node predecessor(Node node){
-        if(node.left != null){
-            return maximum(node.left);
+        if(node.leftChild != null){
+            return maximum(node.leftChild);
         }
         Deque<Node> ancestorList = generateSimpleAncestryPath(this.root, node);
         return predecessorOfNodeWithNoLeftSubTree(ancestorList);
     }
 
-    public int heightOfTree(){
-        return heightOfTree(this.root);
-    }
-
-    private int heightOfTree(Node node){
-        if(node == null){
-            return -1;
-        }
-        int left = heightOfTree(node.left);
-        int right = heightOfTree(node.right);
-        if(left > right){
-            return left + 1;
-        }else{
-            return right + 1;
-        }
-    }
-
-    public Node getRoot(){
-        return this.root;
-    }
-
-    /**
-     * Iterative approach of Pre-Order Traversal.
-     * A Depth First Search, that traverses the BST
-     * starting from the root node and always prints
-     * the current (self) node, then the left child, then the
-     * right child.
-     * @return String representation of the BST Pre-Order traversal
-     * the format will be: [ e1, e2, e3 ]
-     */
-    public String preOrderTraversal(){
-        if(isEmpty()){
-            return "[]";
-        }
-
-        StringBuffer traversalBuffer = new StringBuffer("[ " + this.root.key);
-        Deque<Node> stack = new ArrayDeque<>();
-        visitChildrenPreOrder(stack, this.root);
-
-        while(!stack.isEmpty()){
-            Node currentNode = stack.pop();
-            traversalBuffer.append(", " + currentNode.key);
-            visitChildrenPreOrder(stack, currentNode);
-        }
-
-        traversalBuffer.append(" ]");
-        return traversalBuffer.toString();
-    }
-
-    /**
-     * Iterative approach of Pre-Order Traversal.
-     * A Depth First Search that traverse the BST
-     * starting from the root node this traversal
-     * always prints left child, then right child,
-     * then current (self) node.
-     * @return
-     */
-    public String postOrderTraversal(){
-        if(isEmpty()){
-            return "[]";
-        }
-
-        Node pointer = this.root;
-        Deque<Node> stack = new ArrayDeque<>();
-        StringBuffer traversalBuffer = new StringBuffer("[ ");
-
-        while(!stack.isEmpty() || pointer != null){
-            while(pointer != null){
-                if(pointer.right != null){
-                    stack.push(pointer.right);
-                }
-                stack.push(pointer);
-                pointer = pointer.left;
-            }
-
-            pointer = stack.pop();
-            if(pointer.right != null && pointer.right == stack.peek()){
-                Node rightChild = stack.pop();
-                stack.push(pointer);
-                pointer = rightChild;
-            }else{
-                traversalBuffer.append(pointer.key + " ,");
-                pointer = null;
-            }
-        }
-        traversalBuffer.deleteCharAt(traversalBuffer.length() - 1);
-        traversalBuffer.append("]");
-        return traversalBuffer.toString();
-    }
-
-    /**
-     * Iterative approach of In-Order Traversal.
-     * A Depth First Search, where left child are always
-     * printed first, then self node, then right child.
-     * For a BST this traversal will print the nodes
-     * with keys in ascending order.
-     * @return String representation of the BST In-Order traversal
-     * the format will be: [ e1, e2, e3 ]
-     */
-    public String inOrderTraversal(){
-        if(isEmpty()){
-            return "[]";
-        }
-
-        Node pointer = this.root;
-        Deque<Node> stack = new ArrayDeque<>();
-        StringBuffer buffer = new StringBuffer("[");
-        while(!stack.isEmpty() || (pointer != null)){
-            while(pointer != null){
-                stack.push(pointer);
-                pointer = pointer.left;
-            }
-
-            pointer = stack.pop();
-            buffer.append(" " + pointer.key + ",");
-            pointer = pointer.right;
-        }
-        //last key does not need the "," thus deleting last char in buffer
-        buffer.deleteCharAt(buffer.length() - 1);
-        buffer.append(" ]");
-        return buffer.toString();
-    }
-
-    /**
-     * Iterative approach of Level Order Traversal
-     * A Breadth First Search: For each level nodes are printed
-     * from left to right; the first with 0 being the
-     * first level.
-     * @return String representation of the BST Level-Order traversal
-     * the format will be: [ e1, e2, e3 ]
-     */
-    public String levelOrderTraversal(){
-        if(isEmpty()){
-            return "[]";
-        }
-
-        Queue<Node> queue = new Queue<>();
-        StringBuffer buffer = new StringBuffer("[ "  + this.root.key);
-        visitChildrenLevelOrder(queue, this.root);
-
-        while(!queue.isEmpty()){
-            Node node = queue.dequeue();
-            buffer.append(", " + node.key);
-            visitChildrenLevelOrder(queue, node);
-        }
-
-        buffer.append(" ]");
-        return buffer.toString();
-    }
-
-    /**
-     * Creates and returns a new Iterator object that traverses
-     * the tree in In-Order.
-     * @return
-     */
-    public Iterator createInOrderIterator(){
-        return new Iterator() {
-            private Deque<Node> stack = new ArrayDeque<>();
-            private Node pointer;
-
-            private void insertSelfAndLeftDescendants(){
-                while(pointer != null){
-                    this.stack.push(pointer);
-                    pointer = pointer.left;
-                }
-            }
-
-            @Override
-            public void first() {
-                pointer = root;
-                insertSelfAndLeftDescendants();
-            }
-
-            @Override
-            public Object currentElement() {
-                Node currentNode = stack.peek();
-                return currentNode.key;
-            }
-
-            @Override
-            public void next() {
-                pointer = stack.pop();
-
-                if(pointer.right != null){
-                    pointer = pointer.right;
-                    insertSelfAndLeftDescendants();
-                }
-            }
-
-            @Override
-            public boolean isDone() {
-                return stack.isEmpty();
-            }
-        };
-    }
-
-    /**
-     * Creates and returns a new Iterator object that traverses
-     * the tree in Level Order.
-     * @return
-     */
-    public Iterator createLevelOrderIterator(){
-        return new Iterator() {
-            private Queue<Node> queue = new Queue<>();
-
-            @Override
-            public void first() {
-                queue.enqueue(root);
-            }
-
-            @Override
-            public Object currentElement() {
-                Node currentNode = queue.peak();
-                return currentNode.key;
-            }
-
-            @Override
-            public void next() {
-                Node currentNode = queue.dequeue();
-                visitChildrenLevelOrder(queue, currentNode);
-            }
-
-            @Override
-            public boolean isDone() {
-                return  queue.isEmpty();
-            }
-        };
-    }
-
-    /**
-     * Helper method for PreOrder Traversal. Inserts a nodes
-     * children if present.
-     * Note: right child is inserted first since its visited last.
-     * @param stack
-     * @param node
-     */
-    private void visitChildrenPreOrder(Deque<Node> stack, Node node){
-        //insert right child if present
-        if(node.right != null){
-            stack.push(node.right);
-        }
-
-        //insert left child if present
-        if(node.left != null){
-            stack.push(node.left);
-        }
-    }
-
-    /**
-     * Helper method that inserts a node's child nodes to the Queue.
-     * Note: If both children are present then the left child is
-     * enqueued first.
-     * @param queue
-     * @param node
-     */
-    private void visitChildrenLevelOrder(Queue<Node> queue, Node node){
-        if(node.left != null){
-            queue.enqueue(node.left);
-        }
-
-        if(node.right != null){
-            queue.enqueue(node.right);
-        }
-    }
 }
