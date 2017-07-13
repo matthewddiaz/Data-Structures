@@ -214,11 +214,11 @@ public class BinaryTree<T extends Comparable<T>> {
                 stack.push(pointer);
                 pointer = rightChild;
             }else{
-                traversalBuffer.append(pointer.key + " ,");
+                traversalBuffer.append(pointer.key + ", ");
                 pointer = null;
             }
         }
-        traversalBuffer.deleteCharAt(traversalBuffer.length() - 1);
+        traversalBuffer.deleteCharAt(traversalBuffer.length() - 2);
         traversalBuffer.append("]");
         return traversalBuffer.toString();
     }
