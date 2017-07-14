@@ -14,8 +14,8 @@ public class BinaryTree<T extends Comparable<T>> {
 
     public static class Node<T extends Comparable<T>>{
         protected T key;
-        protected BinaryTree.Node leftChild;
-        protected BinaryTree.Node rightChild;
+        protected Node leftChild;
+        protected Node rightChild;
 
         public Node(T key){
             this.key = key;
@@ -39,12 +39,20 @@ public class BinaryTree<T extends Comparable<T>> {
             return this.key;
         }
 
-        public BinaryTree.Node getLeftChild(){
+        public Node getLeftChild(){
             return  this.leftChild;
         }
 
-        public BinaryTree.Node getRightChild(){
+        public Node getRightChild(){
             return  this.rightChild;
+        }
+
+        public void setLeftChild(Node leftChild){
+            this.leftChild = leftChild;
+        }
+
+        public void setRightChild(Node rightChild){
+            this.rightChild = rightChild;
         }
     }
 
