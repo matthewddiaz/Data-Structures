@@ -130,7 +130,7 @@ public class BinaryTree<T extends Comparable<T>> {
         return heightOfTree(this.root);
     }
 
-    private int heightOfTree(Node node){
+    public static int heightOfTree(Node node){
         if(node == null){
             return -1;
         }
@@ -153,13 +153,17 @@ public class BinaryTree<T extends Comparable<T>> {
      * the format will be: [ e1, e2, e3 ]
      */
     public String preOrderTraversal(){
-        if(isEmpty()){
+        return preOrderTraversal(this.root);
+    }
+
+    public static String preOrderTraversal(Node node){
+        if(node == null){
             return "[]";
         }
 
-        StringBuffer traversalBuffer = new StringBuffer("[ " + this.root.key);
+        StringBuffer traversalBuffer = new StringBuffer("[ " + node.key);
         Deque<Node> stack = new ArrayDeque<>();
-        visitChildrenPreOrder(stack, this.root);
+        visitChildrenPreOrder(stack, node);
 
         while(!stack.isEmpty()){
             Node currentNode = stack.pop();
@@ -178,7 +182,7 @@ public class BinaryTree<T extends Comparable<T>> {
      * @param stack
      * @param node
      */
-    private void visitChildrenPreOrder(Deque<Node> stack, Node node){
+    private static void visitChildrenPreOrder(Deque<Node> stack, Node node){
         //insert rightChild child if present
         if(node.rightChild != null){
             stack.push(node.rightChild);
@@ -199,15 +203,19 @@ public class BinaryTree<T extends Comparable<T>> {
      * @return
      */
     public String postOrderTraversal(){
-        if(isEmpty()){
+        return postOrderTraversal(this.root);
+    }
+
+    public static String postOrderTraversal(Node node){
+        if(node == null){
             return "[]";
         }
 
-        Node pointer = this.root;
+        Node pointer = node;
         Deque<Node> stack = new ArrayDeque<>();
         StringBuffer traversalBuffer = new StringBuffer("[ ");
 
-        while(!stack.isEmpty() || pointer != null){
+        while(!stack.isEmpty() || (pointer != null)){
             while(pointer != null){
                 if(pointer.rightChild != null){
                     stack.push(pointer.rightChild);
@@ -217,7 +225,7 @@ public class BinaryTree<T extends Comparable<T>> {
             }
 
             pointer = stack.pop();
-            if(pointer.rightChild != null && pointer.rightChild == stack.peek()){
+            if((pointer.rightChild != null) && (pointer.rightChild == stack.peek())){
                 Node rightChild = stack.pop();
                 stack.push(pointer);
                 pointer = rightChild;
@@ -241,11 +249,15 @@ public class BinaryTree<T extends Comparable<T>> {
      * the format will be: [ e1, e2, e3 ]
      */
     public String inOrderTraversal(){
-        if(isEmpty()){
+        return inOrderTraversal(this.root);
+    }
+
+    public static String inOrderTraversal(Node node){
+        if(node == null){
             return "[]";
         }
 
-        Node pointer = this.root;
+        Node pointer = node;
         Deque<Node> stack = new ArrayDeque<>();
         StringBuffer buffer = new StringBuffer("[");
         while(!stack.isEmpty() || (pointer != null)){
@@ -273,18 +285,22 @@ public class BinaryTree<T extends Comparable<T>> {
      * the format will be: [ e1, e2, e3 ]
      */
     public String levelOrderTraversal(){
-        if(isEmpty()){
+        return levelOrderTraversal(this.root);
+    }
+
+    public static String levelOrderTraversal(Node node){
+        if(node == null){
             return "[]";
         }
 
         Queue<Node> queue = new Queue<>();
-        StringBuffer buffer = new StringBuffer("[ "  + this.root.key);
-        visitChildrenLevelOrder(queue, this.root);
+        StringBuffer buffer = new StringBuffer("[ "  + node.key);
+        visitChildrenLevelOrder(queue, node);
 
         while(!queue.isEmpty()){
-            Node node = queue.dequeue();
-            buffer.append(", " + node.key);
-            visitChildrenLevelOrder(queue, node);
+            Node currentNode = queue.dequeue();
+            buffer.append(", " + currentNode.key);
+            visitChildrenLevelOrder(queue, currentNode);
         }
 
         buffer.append(" ]");
@@ -298,7 +314,7 @@ public class BinaryTree<T extends Comparable<T>> {
      * @param queue
      * @param node
      */
-    private void visitChildrenLevelOrder(Queue<Node> queue, Node node){
+    private static void visitChildrenLevelOrder(Queue<Node> queue, Node node){
         if(node.leftChild != null){
             queue.enqueue(node.leftChild);
         }
