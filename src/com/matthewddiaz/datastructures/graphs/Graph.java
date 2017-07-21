@@ -14,49 +14,27 @@ public abstract class Graph {
         //either 0,1, or 2
         int visit_state;
 
-        public void setId(int id) {
-            this.id = id;
-        }
+        public void setId(int id) {this.id = id;}
 
-        public int getDistance() {
-            return distance;
-        }
+        public int getDistance() {return distance;}
 
-        public void setDistance(int distance) {
-            this.distance = distance;
-        }
+        public void setDistance(int distance) {this.distance = distance;}
 
-        public Vertex getParent() {
-            return parent;
-        }
+        public Vertex getParent() {return parent;}
 
-        public void setParent(Vertex parent) {
-            this.parent = parent;
-        }
+        public void setParent(Vertex parent) {this.parent = parent;}
 
-        public int getVisit_state() {
-            return visit_state;
-        }
+        public int getVisit_state() {return visit_state;}
 
-        public void setVisit_state(int visit_state) {
-            this.visit_state = visit_state;
-        }
+        public void setVisit_state(int visit_state) {this.visit_state = visit_state;}
 
-        public int getDiscoveredTimeStamp() {
-            return discoveredTimeStamp;
-        }
+        public int getDiscoveredTimeStamp() {return discoveredTimeStamp;}
 
-        public void setDiscoveredTimeStamp(int discoveredTimeStamp) {
-            this.discoveredTimeStamp = discoveredTimeStamp;
-        }
+        public void setDiscoveredTimeStamp(int discoveredTimeStamp) {this.discoveredTimeStamp = discoveredTimeStamp;}
 
-        public int getFinishedTimeStamp() {
-            return finishedTimeStamp;
-        }
+        public int getFinishedTimeStamp() {return finishedTimeStamp;}
 
-        public void setFinishedTimeStamp(int finishedTimeStamp) {
-            this.finishedTimeStamp = finishedTimeStamp;
-        }
+        public void setFinishedTimeStamp(int finishedTimeStamp) {this.finishedTimeStamp = finishedTimeStamp;}
 
         //used in DFS
         int discoveredTimeStamp;
