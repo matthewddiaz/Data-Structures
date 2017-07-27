@@ -99,20 +99,6 @@ public abstract class UnWeightedGraph<T> extends Graph<T>{
     }
 
     /**
-     *
-     * @param vertexID
-     * @return
-     */
-    public Vertex<T> getVertex(T vertexID){
-        Map<T, Vertex<T>> vertexMap = this.getVertexMap();
-        if(vertexMap.containsKey(vertexID)){
-            return vertexMap.get(vertexID);
-        }else{
-            return null;
-        }
-    }
-
-    /**
      * Abstract method. Depending on the type of graph calls insertAdjacentVertexToAdjacencyList once or twice
      * @param adjacencyList adjacency list (stored using a map instead of a backing array)
      * @param source source vertex
@@ -138,10 +124,6 @@ public abstract class UnWeightedGraph<T> extends Graph<T>{
         List<Vertex<T>> sourceVertexAdjList = adjacencyList.get(source.getId());
         sourceVertexAdjList.add(adjacentVertex);
         adjacencyList.replace(source.getId(), sourceVertexAdjList);
-    }
-
-    public Set<Edge<T>> getEdgeSet(){
-        return this.edgeSet;
     }
 
     @Override
@@ -175,6 +157,14 @@ public abstract class UnWeightedGraph<T> extends Graph<T>{
                     adjacencyListBuffer.append(" ]\n");
                 });
         return adjacencyListBuffer.toString();
+    }
+
+    public Set<Edge<T>> getEdgeSet(){
+        return this.edgeSet;
+    }
+
+    public Map<T, List<Vertex<T>>> getAdjacencyList(){
+        return this.adjacencyList;
     }
 
 //

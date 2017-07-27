@@ -93,14 +93,27 @@ public abstract class Graph<T> {
         return new HashSet<>(this.vertexSet.values());
     }
 
+    /**
+     *
+     * @return
+     */
     protected Map<T, Vertex<T>> getVertexMap(){
         return  this.vertexSet;
     }
 
+    /**
+     *
+     * @param vertex
+     */
     public void setVertex(Vertex<T> vertex){
         this.vertexSet.replace(vertex.id, vertex);
     }
 
+    /**
+     *
+     * @param vertex_id
+     * @return
+     */
     public Vertex getVertex(T vertex_id){
         return this.vertexSet.get(vertex_id);
     }

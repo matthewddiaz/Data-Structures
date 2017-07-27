@@ -126,6 +126,7 @@ public abstract class WeightedGraph<T> extends Graph<T>{
 
         //iterate through all vertices in the set
         for(Vertex<T> vertex : vertexSet){
+            //Note: the vertex's id is the key used in the adjacencyList entry pairing.
             T sourceVertexID = vertex.getId();
             //opening brace for current source vertex
             adjacencyListBuffer.append(sourceVertexID + ": [ ");
@@ -146,11 +147,14 @@ public abstract class WeightedGraph<T> extends Graph<T>{
             //closing brace for current source adjacency list
             adjacencyListBuffer.append(" ]\n");
         }
-
         return adjacencyListBuffer.toString();
     }
 
-//    private static<T> String printWeightedAdjacentVertex(WeightedEdge<T> weightedEdge){
-//        return "{ Adjacent vertex: " + weightedEdge.getDestination().getId() + ", weight: " + weightedEdge.getWeight();
-//    }
+    public Map<T, List<WeightedEdge<T>>> getAdjacencyList() {
+        return adjacencyList;
+    }
+
+    public Set<WeightedEdge<T>> getWeightedEdgeSet() {
+        return weightedEdgeSet;
+    }
 }
