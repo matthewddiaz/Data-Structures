@@ -6,7 +6,7 @@ import com.matthewddiaz.datastructures.graphs.Vertex;
 /**
  * Created by matthewdiaz on 7/23/17.
  */
-public class WeightedEdge<T> extends Edge implements Comparable<WeightedEdge<T>>{
+public class WeightedEdge<T extends Comparable> extends Edge implements Comparable<WeightedEdge<T>>{
     private int weight;
 
     public WeightedEdge(Vertex<T> source, Vertex<T> destination, int weight){

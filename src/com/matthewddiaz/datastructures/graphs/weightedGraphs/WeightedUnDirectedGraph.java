@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Created by matthewdiaz on 7/23/17.
  */
-public class WeightedUnDirectedGraph<T> extends WeightedGraph<T> {
+public class WeightedUnDirectedGraph<T extends Comparable> extends WeightedGraph<T> {
     public WeightedUnDirectedGraph(Set<Vertex<T>> vertexSet) throws Exception {
         super(vertexSet);
     }

@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Created by matthewdiaz on 5/15/17.
  */
-public abstract class Graph<T> {
+public abstract class Graph<T extends Comparable> {
     //vertexSet is a map that relates key: vertex id to value: vertex
     private Map<T, Vertex<T>> vertexSet;
 
@@ -90,7 +90,7 @@ public abstract class Graph<T> {
     }
 
     public Set<Vertex<T>> getVertexSet(){
-        return new HashSet<>(this.vertexSet.values());
+        return new TreeSet<>(this.vertexSet.values());
     }
 
     /**

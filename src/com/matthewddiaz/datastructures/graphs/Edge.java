@@ -3,7 +3,7 @@ package com.matthewddiaz.datastructures.graphs;
 /**
  * Created by matthewdiaz on 7/23/17.
  */
-public class Edge<T> {
+public class Edge<T extends Comparable> {
     private Vertex<T> source;
     private Vertex<T> destination;
 

@@ -3,7 +3,7 @@ package com.matthewddiaz.datastructures.graphs;
 /**
  * Created by matthewdiaz on 7/23/17.
  */
-public class Vertex<T> {
+public class Vertex<T extends Comparable> implements Comparable<Vertex<T>>{
     T id;
     //Distance from source vertex. Used in BFS.
     int distance;
@@ -90,6 +90,19 @@ public class Vertex<T> {
 
     public T getId() {
         return this.id;
+    }
+
+    @Override
+    public int compareTo(Vertex<T> other) {
+        int compareVal =  this.getId().compareTo(other.getId());
+
+        if(compareVal == 0){
+            return 0;
+        }else if(compareVal > 0){
+            return 1;
+        }else{
+            return -1;
+        }
     }
 }
 

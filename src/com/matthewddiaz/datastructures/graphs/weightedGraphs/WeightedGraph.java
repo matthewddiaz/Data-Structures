@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Created by matthewdiaz on 7/24/17.
  */
-public abstract class WeightedGraph<T> extends Graph<T>{
+public abstract class WeightedGraph<T extends Comparable> extends Graph<T>{
     //adjacency list. graph representation
     private Map<T, List<WeightedEdge<T>>> adjacencyList;
 
@@ -121,7 +121,7 @@ public abstract class WeightedGraph<T> extends Graph<T>{
         return traverseAdjacencyList(this.adjacencyList, this.getVertexSet());
     }
 
-    public static<T> String traverseAdjacencyList(Map<T, List<WeightedEdge<T>>> adjacencyList, Set<Vertex<T>> vertexSet){
+    public static<T extends Comparable> String traverseAdjacencyList(Map<T, List<WeightedEdge<T>>> adjacencyList, Set<Vertex<T>> vertexSet){
         StringBuffer adjacencyListBuffer = new StringBuffer();
 
         //iterate through all vertices in the set

@@ -3,14 +3,13 @@ package com.matthewddiaz.datastructures.graphs.unWeightedGraphs;
 import com.matthewddiaz.datastructures.graphs.Edge;
 import com.matthewddiaz.datastructures.graphs.Vertex;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 /**
  * Created by matthewdiaz on 7/24/17.
  */
-public class UnWeightedUnDirectedGraph<T> extends UnWeightedGraph<T>{
+public class UnWeightedUnDirectedGraph<T extends Comparable> extends UnWeightedGraph<T>{
 
     /**
      * Default Unweighted Directed Graph Constructor.

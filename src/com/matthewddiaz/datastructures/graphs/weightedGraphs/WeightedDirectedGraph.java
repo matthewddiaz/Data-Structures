@@ -12,7 +12,7 @@ import java.util.Set;
 /**
  * Created by matthewdiaz on 7/23/17.
  */
-public class WeightedDirectedGraph<T> extends WeightedGraph<T>{
+public class WeightedDirectedGraph<T extends Comparable> extends WeightedGraph<T>{
 
     public WeightedDirectedGraph(Set<Vertex<T>> vertexSet) throws Exception {
         super(vertexSet);

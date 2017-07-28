@@ -9,7 +9,7 @@ import java.util.Set;
 /**
  * Created by matthewdiaz on 7/24/17.
  */
-public class UnWeightedDirectedGraph<T> extends UnWeightedGraph<T>{
+public class UnWeightedDirectedGraph<T extends Comparable> extends UnWeightedGraph<T>{
 
     /**
      * Default Unweighted Directed Graph Constructor.
