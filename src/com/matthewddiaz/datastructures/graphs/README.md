@@ -39,6 +39,14 @@ pairs of vertices. That is the edge (1,2) is equal to (2,1).
 
 **Note:** self-loops are not allowed.
 
+### Weighted graphs
+A **weighted graph** is a graph were each edge in it's edgeSet has an attribute weight. The weight of that edge can 
+signify for example distance between the two vertices the edge is connecting in a graph.
+
+### UnWeighted graphs
+An **unWeighted graph** is a graph were each edge in it's edgeSet does not have a weight. That is the distance
+from a vertex **u** to it's adjacent vertex **v** is always 1.
+
 ### Paths in a Graph
 
 A **path** of length **k** from vertex **u** to vertex **u'** in a graph G(V,E) is a sequence <v0... vk>. The length 
@@ -91,12 +99,21 @@ Con of using an Adjacency Matrix:
 
 #### Implementation for Abstract class: [Graph](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/graphs/Graph.java)
 
-#### Implementation for: [Directed Graph](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/graphs/DirectedGraph.java)
+#### Implementation for Abstract class: [UnWeighted Graph](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/graphs/unWeightedGraphs/UnWeightedGraph.java)
 
-#### Implementation for: [UnDirected Graph](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/graphs/UnDirectedGraph.java)
+#### Implementation for Abstract class: [Weighted Graph](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/graphs/weightedGraphs/WeightedGraph.java)
 
 
 
+#### Implementation for class: [UnWeighted UnDirected Graph](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/graphs/unWeightedGraphs/UnWeightedUnDirectedGraph.java)
+
+#### Implementation for class: [UnWeighted Directed Graph](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/graphs/unWeightedGraphs/UnWeightedDirectedGraph.java)
+
+
+
+#### Implementation for class: [Weighted UnDirected Graph](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/graphs/weightedGraphs/WeightedUnDirectedGraph.java)
+
+#### Implementation for class: [Weighted Directed Graph](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/graphs/weightedGraphs/WeightedDirectedGraph.java)
 
 
 
