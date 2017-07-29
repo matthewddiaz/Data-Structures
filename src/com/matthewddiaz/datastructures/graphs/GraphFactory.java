@@ -102,6 +102,24 @@ public class GraphFactory {
 
     /**
      *
+     * @return a unweighted undirected disjoint graph
+     */
+    public static UnWeightedUnDirectedGraph<Integer> createUnWeightedUnDirectedDisjointGraph() throws Exception {
+        Set<Vertex<Integer>> vertexSet = createVertexSet(0,9);
+        UnWeightedUnDirectedGraph<Integer> unWeightedUnDirectedGraph = new UnWeightedUnDirectedGraph(vertexSet);
+        unWeightedUnDirectedGraph.addEdge(0,1);
+        unWeightedUnDirectedGraph.addEdge(0,2);
+        unWeightedUnDirectedGraph.addEdge(1,2);
+        unWeightedUnDirectedGraph.addEdge(1,3);
+        unWeightedUnDirectedGraph.addEdge(4,5);
+        unWeightedUnDirectedGraph.addEdge(4,6);
+        unWeightedUnDirectedGraph.addEdge(7,8);
+
+        return unWeightedUnDirectedGraph;
+    }
+
+    /**
+     *
      * @param startIndex starting index for vertex set
      * @param endIndex ending index for vertex set
      * @return creates and returns a new Set with the vertices's id ranging from start index to end index

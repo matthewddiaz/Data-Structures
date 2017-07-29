@@ -1,7 +1,10 @@
 package com.matthewddiaz.datastructures.disjointSets;
 
+import com.matthewddiaz.datastructures.graphs.Edge;
 import com.matthewddiaz.datastructures.graphs.Graph;
 import com.matthewddiaz.datastructures.graphs.GraphFactory;
+import com.matthewddiaz.datastructures.graphs.Vertex;
+import com.matthewddiaz.datastructures.graphs.unWeightedGraphs.UnWeightedGraph;
 
 import java.util.*;
 
@@ -41,21 +44,21 @@ public class TestForDisjointSets {
      * Determines the connected components (connected vertices) of an undirected graph
      * @param disjointSets
      */
-    public static void connectedComponents(DisjointSets disjointSets){
+    public static void connectedComponents(DisjointSets disjointSets) throws Exception {
         List<Set> expectedDisjointSets = expectedResultForConnectedComponents();
 
-        Graph graph = GraphFactory.createUnDirectedDisjointGraph();
+        UnWeightedGraph<Integer> graph = GraphFactory.createUnWeightedUnDirectedDisjointGraph();
 
         //creating a disjoint set for each vertex in graph
-        for(Graph.Vertex vertex : graph.getVertexSet()){
+        for(Vertex<Integer> vertex : graph.getVertexSet()){
             disjointSets.makeSet(vertex.getId());
         }
 
         //call join on all edges. Note: for a given edge (u,v) the join will
         //only occur if vertex u and vertex v are not in the same set.
-        for(Graph.Edge edge : graph.getEdgeSet()){
-            Graph.Vertex source = edge.getSource();
-            Graph.Vertex destination = edge.getDestination();
+        for(Edge edge : graph.getEdgeSet()){
+            Vertex source = edge.getSource();
+            Vertex destination = edge.getDestination();
 
             disjointSets.union(source.getId(), destination.getId());
         }

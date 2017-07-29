@@ -22,7 +22,7 @@ class DisjointSetsBackedByLinkedListsTest {
     }
 
     @Test
-    void graphConnectedComponents(){
+    void graphConnectedComponents() throws Exception {
         connectedComponents(disjointSetsBackByLinkedLists);
     }
 }

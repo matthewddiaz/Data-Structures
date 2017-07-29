@@ -3,6 +3,7 @@ package com.matthewddiaz.datastructures.disjointSets;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+//import static com.matthewddiaz.datastructures.disjointSets.TestForDisjointSets.connectedComponents;
 import static com.matthewddiaz.datastructures.disjointSets.TestForDisjointSets.connectedComponents;
 import static com.matthewddiaz.datastructures.disjointSets.TestForDisjointSets.testingUnion;
 
@@ -23,7 +24,7 @@ class DisjointSetsBackedByForestTest {
     }
 
     @Test
-    void graphConnectedComponents(){
+    void graphConnectedComponents() throws Exception {
         connectedComponents(disjointSetsBackedByForest);
     }
 }
