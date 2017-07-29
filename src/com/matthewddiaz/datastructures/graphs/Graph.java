@@ -89,7 +89,7 @@ public abstract class Graph<T extends Comparable> {
         return true;
     }
 
-    public Set<Vertex<T>> getVertexSet(){
+    public SortedSet<Vertex<T>> getVertexSet(){
         return new TreeSet<>(this.vertexSet.values());
     }
 

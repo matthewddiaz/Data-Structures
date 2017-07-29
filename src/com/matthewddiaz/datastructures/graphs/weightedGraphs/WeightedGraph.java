@@ -67,17 +67,19 @@ public abstract class WeightedGraph<T extends Comparable> extends Graph<T>{
 
     /**
      *
-     * @param adjacencyList
-     * @param weightedEdge
+     * @param adjacencyList adjacency list
+     * @param weightedEdge weighted edge to be added to adjacency list
+     * Note: the functionality is decided by subclasses
      */
-    public abstract void addAdjacentVertexToAdjacencyList(Map<T, List<WeightedEdge<T>>> adjacencyList,
+    protected abstract void addAdjacentVertexToAdjacencyList(Map<T, List<WeightedEdge<T>>> adjacencyList,
                                                           WeightedEdge<T> weightedEdge);
 
     /**
-     *
-     * @param source
-     * @param destination
-     * @param weight
+     * Checks if source and destination vertex is valid; if so creates a weighted edge
+     * and adds it to the graphs edge set and adjacency list
+     * @param source source vertex
+     * @param destination destination vertex
+     * @param weight weight of edge
      */
     public void addWeightedEdge(Vertex<T> source, Vertex<T> destination, int weight) throws Exception {
         //check if source and destination vertex are valid vertices for an edge.
@@ -94,9 +96,10 @@ public abstract class WeightedGraph<T extends Comparable> extends Graph<T>{
 
     /**
      *
-     * @param sourceID
-     * @param destinationID
-     * @param weight
+     * @param sourceID id of source vertex
+     * @param destinationID id of source destination
+     * @param weight weight of edge
+     * NOTE: this method is used if client does not have the actual vertices; but does have their ids
      */
     public void addWeightedEdge(T sourceID, T destinationID, int weight) throws Exception {
         Vertex<T> source = getVertex(sourceID);
@@ -104,6 +107,12 @@ public abstract class WeightedGraph<T extends Comparable> extends Graph<T>{
         addWeightedEdge(source, destination, weight);
     }
 
+    /**
+     *
+     * @param adjacencyList graphs adjacency list
+     * @param source source vertex
+     * @param weightedEdge weighted edge added to adjacency list
+     */
     protected void insertAdjacentVertexToSourceAdjacencyList(Map<T, List<WeightedEdge<T>>> adjacencyList,
                                                              Vertex<T> source, WeightedEdge<T> weightedEdge){
         //if source vertex does not have an entry; create a new adjacency list for it
@@ -121,7 +130,16 @@ public abstract class WeightedGraph<T extends Comparable> extends Graph<T>{
         return traverseAdjacencyList(this.adjacencyList, this.getVertexSet());
     }
 
-    public static<T extends Comparable> String traverseAdjacencyList(Map<T, List<WeightedEdge<T>>> adjacencyList, Set<Vertex<T>> vertexSet){
+    /**
+     *NOTE: static method
+     * @param adjacencyList graph's adjacency list
+     * @param vertexSet graph's vertex set
+     * @param <T> generic type must extend Comparable interface
+     * @return a String representation of the graph's adjacency list
+     * with the format: "currentVertex.id [ {source.id, destination.id, weight }, ... ]
+     */
+    public static<T extends Comparable> String traverseAdjacencyList(Map<T, List<WeightedEdge<T>>> adjacencyList,
+                                                                     Set<Vertex<T>> vertexSet){
         StringBuffer adjacencyListBuffer = new StringBuffer();
 
         //iterate through all vertices in the set
@@ -148,6 +166,82 @@ public abstract class WeightedGraph<T extends Comparable> extends Graph<T>{
             adjacencyListBuffer.append(" ]\n");
         }
         return adjacencyListBuffer.toString();
+    }
+
+    /**
+     *
+     * @return Creates and returns the graph's adjacency matrix 2D Array.
+     * Note: If two vertices u and v have a connecting edge (u,v) then that weight's edge is stored in
+     * that slot matrix[u][v] = edge weight
+     */
+    public Integer[][] createAdjacencyMatrix(){
+        SortedSet<Vertex<T>> sortedVertexSet = this.getVertexSet();
+        int matrixDimension = sortedVertexSet.size();
+        //creating the adjacency matrix. All values are initialized to null
+        Integer[][] adjacencyMatrix = new Integer[matrixDimension][matrixDimension];
+
+        //insert all of the elements into a list to be able to index them based on their id sorted in non-decreasing order
+        List<Vertex<T>> sortedVertexList = new ArrayList<>();
+        for (Vertex<T> vertex : sortedVertexSet) {
+            sortedVertexList.add(vertex);
+        }
+
+        //iterate through all of the edges in the graphs edge set
+        for(WeightedEdge<T> weightedEdge : this.weightedEdgeSet){
+            Vertex<T> sourceVertex = weightedEdge.getSource();
+            Vertex<T> destinationVertex = weightedEdge.getDestination();
+            int edgeWeight = weightedEdge.getWeight();
+            //leaves functionality of inserting edge to adjacency matrix to subclasses
+            addWeightedEdgeToAdjacencyMatrix(adjacencyMatrix, sortedVertexList.indexOf(sourceVertex),
+                    sortedVertexList.indexOf(destinationVertex), edgeWeight);
+        }
+
+        return adjacencyMatrix;
+    }
+
+    /**
+     *
+     * @param adjacencyMatrix graph's adjacency matrix
+     * @param row value's row index for adjacency matrix
+     * @param col value's col index for adjacency matrix
+     * @param value weight of edge
+     * Note: this method leaves functionality of how to add edge to adjacency matrix to subclasses
+     */
+    protected abstract void addWeightedEdgeToAdjacencyMatrix(Integer[][] adjacencyMatrix, int row, int col, int value);
+
+    /**
+     *
+     * @param adjacencyMatrix graph's adjacency matrix
+     * @param row index row of value to be inserted in adjacency matrix
+     * @param col index col of value to be inserted in adjacency matrix
+     * @param value weight of edge
+     */
+    protected void populateAdjacencyMatrixSlot(Integer[][] adjacencyMatrix, int row, int col, int value){
+        adjacencyMatrix[row][col] = value;
+    }
+
+    /**
+     *
+     * @param adjacencyMatrix graph's adjacency matrix
+     * @return String representation of the graph's adjacency matrix
+     */
+    public static String traverseAdjacencyMatrix(Integer[][] adjacencyMatrix){
+        StringBuffer adjacencyMatrixBuffer = new StringBuffer();
+        //traversing every slot in the adjacency matrix
+        for(int rowIndex = 0; rowIndex < adjacencyMatrix.length; rowIndex++){
+            for (int colIndex = 0; colIndex < adjacencyMatrix[0].length; colIndex++){
+                Integer edgeWeight = adjacencyMatrix[rowIndex][colIndex];
+                //case were edge is present at the given slot
+                if(edgeWeight != null){
+                    adjacencyMatrixBuffer.append(edgeWeight + " ");
+                }//case were edge is not present in the given slot
+                else{
+                    adjacencyMatrixBuffer.append("X ");
+                }
+            }
+            adjacencyMatrixBuffer.append("\n");
+        }
+        return adjacencyMatrixBuffer.toString();
     }
 
     public Map<T, List<WeightedEdge<T>>> getAdjacencyList() {

@@ -50,38 +50,4 @@ public class UnWeightedDirectedGraph<T extends Comparable> extends UnWeightedGra
     protected void addAdjacentVertexToAdjacencyList(Map adjacencyList, Vertex source, Vertex adjacentVertex) {
         insertAdjacentVertexToAdjacencyList(adjacencyList, source, adjacentVertex);
     }
-
-//
-//    /**
-//     * Just adds adjacent vertex to source's adjacency list
-//     * @param adjArray adjacency array
-//     * @param source source vertex
-//     * @param adjacentVertex vertex that is adjacent to source vertex
-//     */
-//    @Override
-//    protected void addAdjacentVertexToAdjacencyList(List<Vertex>[] adjArray, Vertex source, Vertex adjacentVertex) {
-//        insertAdjacentVertexToAdjacencyList(adjArray, source, adjacentVertex);
-//    }
-//
-//    /**
-//     * Just adds adjacent vertex to source's adjacency list
-//     * @param adjList adjacency array (map)
-//     * @param source  source vertex
-//     * @param adjacentVertex vertex that is adjacent to source vertex
-//     */
-//    @Override
-//    protected void addAdjacentVertexToAdjMap(Map<Integer, List<Vertex>> adjList, Vertex source, Vertex adjacentVertex) {
-//        insertAdjacentVertexToAdjacencyList(adjList, source, adjacentVertex);
-//    }
-//
-//    /**
-//     * Just adds adjacent vertex to source's adjacency list
-//     * @param adjMatrix adjacent matrix 2D array
-//     * @param source source vertex
-//     * @param adjVertex vertex that is adjacent to source vertex
-//     */
-//    @Override
-//    protected void addAdjVertexToAdjMatrix(int[][] adjMatrix, Vertex source, Vertex adjVertex) {
-//        addVertexToAdjMatrix(adjMatrix, source.id, adjVertex.id);
-//    }
 }

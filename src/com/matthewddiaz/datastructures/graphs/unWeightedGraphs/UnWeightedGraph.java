@@ -136,8 +136,8 @@ public abstract class UnWeightedGraph<T extends Comparable> extends Graph<T> {
     /**
      * Static Method.
      *
-     * @param adjacencyList
-     * @param <T>
+     * @param adjacencyList input graph's adjacency list
+     * @param <T> generic type that extends Comparable
      * @return String representation of adjacencyList. Format for adjacency list: "vertex.id: [ adjV1, adjV2 ]"
      */
     public static <T extends Comparable> String traverseAdjacencyList(Map<T, List<Vertex<T>>> adjacencyList, Set<Vertex<T>> vertexSet) {
@@ -166,30 +166,37 @@ public abstract class UnWeightedGraph<T extends Comparable> extends Graph<T> {
         return adjacencyListBuffer.toString();
     }
 
+    /**
+     *
+     * @return Creates and returns the graph's adjacency matrix 2D Array.
+     */
     public boolean[][] createAdjacencyMatrix(){
         return createAdjacencyMatrix(this.adjacencyList, (SortedSet<Vertex<T>>) this.getVertexSet());
     }
 
     /**
      * An adjacency matrix has length and width equal to the number of vertices
-     * and each slot represents if the edge between those two vertices exist or not.
+     * and each slot represents if the edge between those two vertices exist (1) or not (0).
      * @return an adjacency matrix (2D array) of the graph
      */
     public static<T extends Comparable> boolean[][] createAdjacencyMatrix(Map<T, List<Vertex<T>>> adjacencyList,
                                                                           SortedSet<Vertex<T>> sortedVertexSet){
-        //create a relation between vertex id and an index position.
         int numOfVertices = sortedVertexSet.size();
+        //creating the adjacency matrix. All values are initialized to false
         boolean[][] adjMatrix = new boolean[numOfVertices][numOfVertices];
 
+        //insert all of the elements into a list to be able to index them based on their id sorted in non-decreasing order
         List<Vertex<T>> sortedVertexList = new ArrayList<>();
         for(Vertex<T> vertex : sortedVertexSet){
             sortedVertexList.add(vertex);
         }
 
+        //iterating through all vertices in the vertex set
         for(int currentVertexIndex = 0; currentVertexIndex < sortedVertexList.size(); currentVertexIndex++){
             Vertex<T> currentVertex = sortedVertexList.get(currentVertexIndex);
             T currentVertexID = currentVertex.getId();
 
+            //case were current vertex does have adjacent vertices in the graph
             if(adjacencyList.containsKey(currentVertexID)){
                 List<Vertex<T>> currentVertexAdjacencyList = adjacencyList.get(currentVertexID);
                 for(Vertex<T> adjacentVertex : currentVertexAdjacencyList){
@@ -199,18 +206,25 @@ public abstract class UnWeightedGraph<T extends Comparable> extends Graph<T> {
                 }
             }
         }
-
         return adjMatrix;
     }
 
+    /**
+     *
+     * @param adjacencyMatrix input graph adjacency matrix 2D array
+     * @return String representation of adjacency matrix
+     */
     public static String traverseAdjacencyMatrix(boolean[][] adjacencyMatrix){
         StringBuffer adjacencyMatrixBuffer = new StringBuffer();
 
+        //traversing every slot in the adjacency matrix
         for(int rowIndex = 0; rowIndex < adjacencyMatrix.length; rowIndex++){
             for(int colIndex = 0; colIndex < adjacencyMatrix[0].length; colIndex++){
+                //case were edge is present at the given slot
                 if(adjacencyMatrix[rowIndex][colIndex]){
                     adjacencyMatrixBuffer.append(1 + " ");
-                }else{
+                }//case were edge is not present in the given slot
+                else{
                     adjacencyMatrixBuffer.append(0 + " ");
                 }
             }

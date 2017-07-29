@@ -15,8 +15,8 @@ public class GraphFactory {
 
     /**
      *
-     * @return
-     * @throws Exception
+     * @return Creates and returns a new unweighted undirected graph.
+     * @throws Exception throws exception if an edge is invalid
      */
     public static UnWeightedUnDirectedGraph<Integer> createUnWeightedUnDirectedGraph() throws Exception {
         Set<Vertex<Integer>> vertexSet = createVertexSet(0,4);
@@ -36,8 +36,8 @@ public class GraphFactory {
 
     /**
      *
-     * @return
-     * @throws Exception
+     * @return Creates and returns a new unweighted directed graph.
+     * @throws Exception throws exception if an edge is invalid
      */
     public static UnWeightedDirectedGraph<Integer> createUnWeightedDirectedGraph() throws Exception {
         Set<Vertex<Integer>> vertexSet = createVertexSet(0, 5);
@@ -55,6 +55,11 @@ public class GraphFactory {
         return unWeightedUnDirectedGraph;
     }
 
+    /**
+     *
+     * @return Creates and returns a new weighted directed graph.
+     * @throws Exception throws exception if an edge is invalid
+     */
     public static WeightedDirectedGraph<Integer> createWeightedDirectedGraph() throws Exception {
         Set<Vertex<Integer>> vertexSet = createVertexSet(0, 4);
         WeightedDirectedGraph<Integer> weightedDirectedGraph = new WeightedDirectedGraph(vertexSet);
@@ -69,6 +74,11 @@ public class GraphFactory {
         return weightedDirectedGraph;
     }
 
+    /**
+     *
+     * @return Creates and returns a new weighted undirected graph.
+     * @throws Exception throws exception if an edge is invalid
+     */
     public static WeightedUnDirectedGraph<String> createWeightedUnDirectedGraph() throws Exception {
         Set<Vertex<String>> vertexSet = new HashSet<>();
         vertexSet.add(new Vertex<>("Miami"));
@@ -90,13 +100,11 @@ public class GraphFactory {
         return weightedUnDirectedGraph;
     }
 
-
-
     /**
      *
-     * @param startIndex
-     * @param endIndex
-     * @return
+     * @param startIndex starting index for vertex set
+     * @param endIndex ending index for vertex set
+     * @return creates and returns a new Set with the vertices's id ranging from start index to end index
      */
     private static Set<Vertex<Integer>> createVertexSet(int startIndex, int endIndex){
         Set<Vertex<Integer>> vertexSet = new HashSet<>();
@@ -105,36 +113,4 @@ public class GraphFactory {
         }
         return vertexSet;
     }
-
-    //private static Set<Edge> createEdgeSet(int )
-
-//    public static Graph createSimpleDirectedGraph(){
-//        Set<Vertex> vertexSet = createVertexSet(0, 5);
-//        Set<Edge> edgeSet = new HashSet<>();
-//
-//        edgeSet.add(new Graph.Edge(v0, v1));
-//        edgeSet.add(new Graph.Edge(v0, v3));
-//        edgeSet.add(new Graph.Edge(v1, v4));
-//        edgeSet.add(new Graph.Edge(v2, v4));
-//        edgeSet.add(new Graph.Edge(v2, v5));
-//        edgeSet.add(new Graph.Edge(v3, v1));
-//        edgeSet.add(new Graph.Edge(v4, v3));
-//        edgeSet.add(new Graph.Edge(v5, v5));
-//        return new DirectedGraph(vertexSet, edgeSet);
-//    }
-
-//    public static Graph createUnDirectedDisjointGraph(){
-//        Set<Graph.Vertex> vertexSet = createVertexSet(0, 9);
-//        Set<Graph.Edge> edgeSet = new HashSet<>();
-//
-//
-//        edgeSet.add(new Graph.Edge(v0,v1));
-//        edgeSet.add(new Graph.Edge(v0,v2));
-//        edgeSet.add(new Graph.Edge(v1,v2));
-//        edgeSet.add(new Graph.Edge(v1,v3));
-//        edgeSet.add(new Graph.Edge(v4,v5));
-//        edgeSet.add(new Graph.Edge(v4,v6));
-//        edgeSet.add(new Graph.Edge(v7,v8));
-//        return new UnDirectedGraph(vertexSet, edgeSet);
-//    }
 }

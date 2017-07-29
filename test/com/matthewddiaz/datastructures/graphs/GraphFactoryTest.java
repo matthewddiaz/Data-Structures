@@ -4,11 +4,11 @@ import com.matthewddiaz.datastructures.graphs.unWeightedGraphs.UnWeightedDirecte
 import com.matthewddiaz.datastructures.graphs.unWeightedGraphs.UnWeightedGraph;
 import com.matthewddiaz.datastructures.graphs.unWeightedGraphs.UnWeightedUnDirectedGraph;
 import com.matthewddiaz.datastructures.graphs.weightedGraphs.WeightedDirectedGraph;
+import com.matthewddiaz.datastructures.graphs.weightedGraphs.WeightedGraph;
 import com.matthewddiaz.datastructures.graphs.weightedGraphs.WeightedUnDirectedGraph;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.SortedSet;
 
 /**
  * Created by matthewdiaz on 7/24/17.
@@ -31,34 +31,67 @@ class GraphFactoryTest {
 
     @Test
     void createUnWeightedDirectedGraph() {
-        String graphAdjacencyListStr = unWeightedDirectedGraph.toString();
-        //System.out.println(graphAdjacencyListStr);
+        //adjacency list
+        printAdjacencyList(unWeightedDirectedGraph);
 
-        boolean[][] adjacencyMatrix = unWeightedDirectedGraph.createAdjacencyMatrix();
-        String graphAdjacencyMatrixStr = UnWeightedGraph.traverseAdjacencyMatrix(adjacencyMatrix);
-        System.out.println(graphAdjacencyMatrixStr);
+        //adjacency matrix
+        printUnWeightedAdjacencyMatrix(unWeightedDirectedGraph);
     }
 
     @Test
     void createUnWeightedUnDirectedGraph() {
-        String graphAdjacencyListStr = unWeightedUnDirectedGraph.toString();
-        System.out.println(graphAdjacencyListStr);
+        //adjacency list
+        printAdjacencyList(unWeightedUnDirectedGraph);
 
-        boolean[][] adjacencyMatrix = unWeightedUnDirectedGraph.createAdjacencyMatrix();
-        String graphAdjacencyMatrixStr = UnWeightedGraph.traverseAdjacencyMatrix(adjacencyMatrix);
-        System.out.println(graphAdjacencyMatrixStr);
+        //adjacency matrix
+        printUnWeightedAdjacencyMatrix(unWeightedUnDirectedGraph);
     }
 
     @Test
     void createWeightedUnDirectedGraph(){
-        String graphAdjacencyListStr = weightedUnDirectedGraph.toString();
-        System.out.println(graphAdjacencyListStr);
+        //adjacency list
+        printAdjacencyList(weightedUnDirectedGraph);
+
+        //adjacency matrix
+        printWeightedAdjacencyMatrix(weightedUnDirectedGraph);
     }
 
     @Test
     void createWeightedDirectedGraph(){
-        String graphAdjacencyListStr = weightedDirectedGraph.toString();
+        //adjacency list
+        printAdjacencyList(weightedDirectedGraph);
+
+        //adjacency matrix
+        printWeightedAdjacencyMatrix(weightedDirectedGraph);
+    }
+
+    /**
+     *
+     * @param graph
+     */
+    private void printAdjacencyList(Graph graph){
+        String graphAdjacencyListStr = graph.toString();
         System.out.println(graphAdjacencyListStr);
+    }
+
+    /**
+     *
+     * @param weightedGraph
+     */
+    private void printWeightedAdjacencyMatrix(WeightedGraph weightedGraph){
+        Integer[][] adjacencyMatrix = weightedGraph.createAdjacencyMatrix();
+        String graphAdjacencyMatrixStr = WeightedGraph.traverseAdjacencyMatrix(adjacencyMatrix);
+        System.out.println(graphAdjacencyMatrixStr);
+    }
+
+    /**
+     *
+     * @param unWeightedGraph
+     */
+    private void printUnWeightedAdjacencyMatrix(UnWeightedGraph unWeightedGraph){
+        boolean[][] adjacencyMatrix = unWeightedGraph.createAdjacencyMatrix();
+        String graphAdjacencyMatrixStr = UnWeightedGraph.traverseAdjacencyMatrix(adjacencyMatrix);
+        System.out.println(graphAdjacencyMatrixStr);
     }
 
 }
