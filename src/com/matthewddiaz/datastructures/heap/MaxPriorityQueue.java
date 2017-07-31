@@ -6,6 +6,8 @@ package com.matthewddiaz.datastructures.heap;
 
 import com.matthewddiaz.designpatterns.behavioralPatterns.Iterator;
 
+import java.util.List;
+
 /**
  * MaxPriorityQueue data structure maintains a set of elements which are maintained based on an attribute
  * of element called key. MPQ has 3 major operations to perform the data:
@@ -19,6 +21,16 @@ import com.matthewddiaz.designpatterns.behavioralPatterns.Iterator;
 public class MaxPriorityQueue {
     private MaxHeap maxHeap;
     private Comparable[] heapArray;
+
+    public MaxPriorityQueue(List<Comparable> list){
+        this.maxHeap = new MaxHeap();
+        this.heapArray = convertListToArray(list);
+        this.maxHeap.buildMaxHeap(this.heapArray);
+    }
+
+    private Comparable[] convertListToArray(List<Comparable> list){
+        return list.toArray(new Comparable[list.size()]);
+    }
 
     /**
      * Constructor that turns the input Comparable array to a maxHeap.

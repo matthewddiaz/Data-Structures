@@ -118,6 +118,41 @@ public class GraphFactory {
         return unWeightedUnDirectedGraph;
     }
 
+    public static WeightedUnDirectedGraph<Character> createWeightedUnDirectedComplexGraph() throws Exception {
+        Set<Vertex<Character>> vertexSet = createVertexCharacterSet(0,8);
+
+        WeightedUnDirectedGraph<Character> weightedUnDirectedGraph = new WeightedUnDirectedGraph(vertexSet);
+        weightedUnDirectedGraph.addWeightedEdge('a','b', 4);
+        weightedUnDirectedGraph.addWeightedEdge('a','h', 8);
+        weightedUnDirectedGraph.addWeightedEdge('b','c', 8);
+        weightedUnDirectedGraph.addWeightedEdge('b','h', 11);
+        weightedUnDirectedGraph.addWeightedEdge('c','i', 2);
+        weightedUnDirectedGraph.addWeightedEdge('c','f', 4);
+        weightedUnDirectedGraph.addWeightedEdge('c','d', 7);
+        weightedUnDirectedGraph.addWeightedEdge('d','f', 14);
+        weightedUnDirectedGraph.addWeightedEdge('d','e', 9);
+        weightedUnDirectedGraph.addWeightedEdge('e','f', 10);
+        weightedUnDirectedGraph.addWeightedEdge('f','g', 2);
+        weightedUnDirectedGraph.addWeightedEdge('g','i', 6);
+        weightedUnDirectedGraph.addWeightedEdge('g','h', 1);
+        weightedUnDirectedGraph.addWeightedEdge('i','h', 7);
+        return weightedUnDirectedGraph;
+    }
+
+    public static WeightedUnDirectedGraph<Character> createWeightedUnDirectedSmallGraph() throws Exception {
+        Set<Vertex<Character>> vertexSet = createVertexCharacterSet(0,4);
+
+        WeightedUnDirectedGraph<Character> weightedUnDirectedGraph = new WeightedUnDirectedGraph(vertexSet);
+        weightedUnDirectedGraph.addWeightedEdge('a','b', 3);
+        weightedUnDirectedGraph.addWeightedEdge('a','e', 1);
+        weightedUnDirectedGraph.addWeightedEdge('b','e', 4);
+        weightedUnDirectedGraph.addWeightedEdge('b','c', 5);
+        weightedUnDirectedGraph.addWeightedEdge('c','e', 6);
+        weightedUnDirectedGraph.addWeightedEdge('c','d', 2);
+        weightedUnDirectedGraph.addWeightedEdge('d','e', 7);
+        return weightedUnDirectedGraph;
+    }
+
     /**
      *
      * @param startIndex starting index for vertex set
@@ -129,6 +164,16 @@ public class GraphFactory {
         for(int index = startIndex; index <= endIndex; index++){
             vertexSet.add(new Vertex(index));
         }
+        return vertexSet;
+    }
+
+    private static Set<Vertex<Character>> createVertexCharacterSet(int startIndex, int endIndex){
+        Set<Vertex<Character>> vertexSet = new HashSet<>();
+
+        for(int index = startIndex; index <= endIndex; index++){
+            vertexSet.add(new Vertex((char)(index + 97)));
+        }
+
         return vertexSet;
     }
 }
