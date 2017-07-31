@@ -1,5 +1,6 @@
-package com.matthewddiaz.datastructures.heap;
+package com.matthewddiaz.datastructures.priorityQueues;
 
+import com.matthewddiaz.datastructures.priorityQueues.MaxPriorityQueue;
 import data.TestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

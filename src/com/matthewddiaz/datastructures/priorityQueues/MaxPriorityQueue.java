@@ -1,9 +1,10 @@
-package com.matthewddiaz.datastructures.heap;
+package com.matthewddiaz.datastructures.priorityQueues;
 
 /**
  * Created by matthewdiaz on 2/27/17.
  */
 
+import com.matthewddiaz.datastructures.heap.MaxHeap;
 import com.matthewddiaz.designpatterns.behavioralPatterns.Iterator;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class MaxPriorityQueue {
     public MaxPriorityQueue(List<Comparable> list){
         this.maxHeap = new MaxHeap();
         this.heapArray = convertListToArray(list);
-        this.maxHeap.buildMaxHeap(this.heapArray);
+        this.maxHeap.buildHeap(this.heapArray);
     }
 
     private Comparable[] convertListToArray(List<Comparable> list){
@@ -41,7 +42,7 @@ public class MaxPriorityQueue {
     public MaxPriorityQueue(Comparable[] array) {
         this.maxHeap = new MaxHeap();
         this.heapArray = array;
-        this.maxHeap.buildMaxHeap(this.heapArray);
+        this.maxHeap.buildHeap(this.heapArray);
     }
 
     /**
@@ -53,7 +54,7 @@ public class MaxPriorityQueue {
     public MaxPriorityQueue(Comparable[] array, int numOfElementsInHeap) throws Exception{
         this.maxHeap = new MaxHeap();
         this.heapArray = array;
-        this.maxHeap.buildMaxHeap(this.heapArray, numOfElementsInHeap);
+        this.maxHeap.buildHeap(this.heapArray, numOfElementsInHeap);
     }
 
     /*
@@ -88,7 +89,7 @@ public class MaxPriorityQueue {
         //decrease heap size by 1. This is to remove the duplicate occurrence of the last element
         this.maxHeap.decrementHeapSize();
         //call maxHeapify on heap[0] to ensure max heap property on the first element
-        this.maxHeap.maxHeapify(this.heapArray,0);
+        this.maxHeap.heapify(this.heapArray,0);
         return maxElement;
     }
 

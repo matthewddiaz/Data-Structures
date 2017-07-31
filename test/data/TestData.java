@@ -20,4 +20,25 @@ public class TestData {
     public static String[] getStringArray() {
         return stringArray;
     }
+
+    public static Double[] generatePartialGradesArray(){
+        Double[] partialClassGrades = new Double[10];
+        partialClassGrades[0] = 10.4;
+        partialClassGrades[1] = 103.2;
+        partialClassGrades[2] = 1.4;
+        partialClassGrades[3] = 50.1;
+        partialClassGrades[4] = 19.3;
+        partialClassGrades[5] = 23.6;
+        return partialClassGrades;
+    }
+
+    public static Integer[] generatePartialAgesArray(){
+        Integer[] studentAges = new Integer[10];
+        studentAges[0] = 15;
+        studentAges[1] = 21;
+        studentAges[2] = 11;
+        studentAges[3] = 30;
+        studentAges[4] = 19;
+        return studentAges;
+    }
 }
