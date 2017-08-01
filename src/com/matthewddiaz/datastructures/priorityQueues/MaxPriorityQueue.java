@@ -4,8 +4,8 @@ package com.matthewddiaz.datastructures.priorityQueues;
  * Created by matthewdiaz on 2/27/17.
  */
 
+import com.matthewddiaz.datastructures.heap.Heap;
 import com.matthewddiaz.datastructures.heap.MaxHeap;
-import com.matthewddiaz.designpatterns.behavioralPatterns.Iterator;
 
 import java.util.List;
 
@@ -19,18 +19,10 @@ import java.util.List;
  * NOTE: The following MPQ implementation is backed by a Max Heap and thus must comply with Max Heap rules after
  * inserting a key and removing the maximum key. However this MPQ may have been implemented using another data structure.
  */
-public class MaxPriorityQueue {
-    private MaxHeap maxHeap;
-    private Comparable[] heapArray;
+public class MaxPriorityQueue extends PriorityQueue{
 
     public MaxPriorityQueue(List<Comparable> list){
-        this.maxHeap = new MaxHeap();
-        this.heapArray = convertListToArray(list);
-        this.maxHeap.buildHeap(this.heapArray);
-    }
-
-    private Comparable[] convertListToArray(List<Comparable> list){
-        return list.toArray(new Comparable[list.size()]);
+        super(list, new MaxHeap());
     }
 
     /**
@@ -40,9 +32,7 @@ public class MaxPriorityQueue {
      * @param array
      */
     public MaxPriorityQueue(Comparable[] array) {
-        this.maxHeap = new MaxHeap();
-        this.heapArray = array;
-        this.maxHeap.buildHeap(this.heapArray);
+        super(array, new MaxHeap());
     }
 
     /**
@@ -52,9 +42,7 @@ public class MaxPriorityQueue {
      * @param numOfElementsInHeap
      */
     public MaxPriorityQueue(Comparable[] array, int numOfElementsInHeap) throws Exception{
-        this.maxHeap = new MaxHeap();
-        this.heapArray = array;
-        this.maxHeap.buildHeap(this.heapArray, numOfElementsInHeap);
+        super(array, new MaxHeap(), numOfElementsInHeap);
     }
 
     /*
@@ -66,7 +54,7 @@ public class MaxPriorityQueue {
         if(isEmpty()){
             return null;
         }
-        return this.heapArray[0];
+        return this.getHeapArray()[0];
     }
 
     /**
@@ -81,15 +69,18 @@ public class MaxPriorityQueue {
             throw new Exception("Heap is empty. Can't remove from an empty heap.");
         }
 
-        Comparable maxElement = this.heapArray[0];
+        Comparable[] heapArray = this.getHeapArray();
+        Heap heap = this.getHeap();
+
+        Comparable maxElement = heapArray[0];
         //obtaining the index of the last element in the heap.
-        int indexOfLastElementInHeap = this.maxHeap.getHeapSize() - 1;
+        int indexOfLastElementInHeap = heap.getHeapSize() - 1;
         //setting the first element in heap equal to the last element. The max value has been overwritten
-        this.heapArray[0] = this.heapArray[indexOfLastElementInHeap];
+        heapArray[0] = heapArray[indexOfLastElementInHeap];
         //decrease heap size by 1. This is to remove the duplicate occurrence of the last element
-        this.maxHeap.decrementHeapSize();
+        heap.decrementHeapSize();
         //call maxHeapify on heap[0] to ensure max heap property on the first element
-        this.maxHeap.heapify(this.heapArray,0);
+        heap.heapify(heapArray,0);
         return maxElement;
     }
 
@@ -106,59 +97,15 @@ public class MaxPriorityQueue {
             throw new Exception("Max Priority Queue is full. Can't insert a new element");
         }
 
+        Comparable[] heapArray = this.getHeapArray();
+        Heap heap = this.getHeap();
+
         //inserts the key to the end of the max heap
-        this.heapArray[this.maxHeap.getHeapSize()] = key;
+        heapArray[heap.getHeapSize()] = key;
         //placing the key in its appropriate position to conform the max heap property
-        swim(this.maxHeap.getHeapSize());
+        swim(heap.getHeapSize());
         //increase the heap size by one.
-        this.maxHeap.incrementHeapSize();
-    }
-
-    public boolean isEmpty(){
-        return this.maxHeap.isEmpty();
-    }
-
-    public boolean isFull(){
-        return this.maxHeap.isFull();
-    }
-
-    /**
-     * Creates a new Iterator of MPQ. The order of the iterator is the order maintained by
-     * MPQ which is its underlying heap.
-     * @return
-     */
-    public Iterator<Comparable> createIterator(){
-        return new Iterator<Comparable>() {
-            private int currentIndex;
-
-            @Override
-            public void first() {
-                currentIndex = 0;
-            }
-
-            @Override
-            public Comparable currentElement() {
-                return heapArray[currentIndex];
-            }
-
-            @Override
-            public void next() {
-                currentIndex++;
-            }
-
-            @Override
-            public boolean isDone() {
-                return (currentIndex >= maxHeap.getHeapSize());
-            }
-        };
-    }
-
-    /**
-     * Returns array containing Max Heap data
-     * @return
-     */
-    public Comparable[] getMaxHeap(){
-        return this.heapArray;
+        heap.incrementHeapSize();
     }
 
     /**
@@ -175,7 +122,10 @@ public class MaxPriorityQueue {
      * @throws Exception
      */
     private void swim(int index) throws Exception {
-        if(index > maxHeap.getHeapSize() || index < 0){
+        Comparable[] heapArray = this.getHeapArray();
+        Heap heap = this.getHeap();
+
+        if(index > heap.getHeapSize() || index < 0){
             throw new Exception("Index out of Bound");
         }
 
@@ -183,20 +133,9 @@ public class MaxPriorityQueue {
          * While index is not the root element (A[0]) and parent of element at index is less
          * than the element at index swap the two elements and set index equal to parent index.
          */
-        while(index > 0 && (this.heapArray[index/2].compareTo(this.heapArray[index]) < 0)){
+        while(index > 0 && (heapArray[index/2].compareTo(heapArray[index]) < 0)){
             swap(index/2, index);
             index = index/2;
         }
-    }
-
-    /**
-     * Swaps elements in index1 and index2 in heapArray
-     * @param index1
-     * @param index2
-     */
-    private void swap(int index1, int index2){
-        Comparable tempElement = this.heapArray[index1];
-        this.heapArray[index1] = this.heapArray[index2];
-        this.heapArray[index2] = tempElement;
     }
 }

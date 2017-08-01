@@ -94,7 +94,7 @@ class MaxPriorityQueueTest {
         mpq.insertElement(-105);
 
 
-        Comparable[] actualMaxHeap = mpq.getMaxHeap();
+        Comparable[] actualMaxHeap = mpq.getHeapArray();
         assertArrayEquals(expectedMaxHeap, actualMaxHeap);
     }
 }
