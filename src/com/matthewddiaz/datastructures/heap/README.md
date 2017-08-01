@@ -24,50 +24,46 @@ Operations:
 1) Heapify(int index) - makes sure that the key at the current position maintains its heap property. 
 2) buildHeap(Array A) - converts array A into a heap.  
 
+### Abstract base class [Heap](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/heap/Heap.java)
+
 ### [Max Heap](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/heap/MaxHeap.java)
 Max Heap supports the following operations:
 
 1) **maxHeapify(Array A, int index)** - ensures that both the left and right child are less than the key at the given index.
-The method finds the index of the largest key between the node, right, and left child. If the index is of the largest
+The method finds the index of the largest key between the node, right, and left child. If the index of the largest
 key does not correspond to the parent's index; the parent key is swapped with the child key. Then maxHeapify 
 is recursively called again until heap properties are enforced.
 
     **Time Complexity:** Θ(lg(n))
 
-2) **buildMaxHeap(Array A)** - converts array A into a Max heap. The Max Heap constructs the max heap from bottom-up approach
+2) **buildMaxHeap(Array A)** - converts array A into a Max heap. The Max Heap constructs the max heap by using a bottom-up approach
 by calling maxHeapify() on nodes A[N/2..1]. Recall that nodes after index N/2 are leaf nodes and therefore already conform
 to max heap's property.
 
 **NOTE:** This Max Heap is implemented with root at A[0] thus both left and right child
-are offset by 1.
+are offset by 1. That is leftChildIndex is (2i + 1) and rightChildIndex is (2i + 2) where i is the parent index.
 
    **Time Complexity:** Θ(n)
 
-**NOTE:** The following implementation of max heap excludes 
+**Test class:** [MaxHeapTest](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/heap/MaxHeapTest.java)
 
+### [Min Heap](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/heap/MaxHeap.java)
+Min Heap supports the following operations:
 
-**Test class:** [MaxHeapTest](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/queue/MaxHeapTest.java)
-
-## Priority Queue
-A priority queue is data structure that maintains priority on its data based on an attribute key K. Priority Queses are usually backed by 
-a heap to ensure efficient implementation; however a priority queue may be implemented with a linked list or normal array. 
-
-There are two types of priority queues a **Max PQ** and a **Min PQ**. In a Max PQ the the **extractMax()** operation removes the highest
-priority key from the queue. In a Min PQ **extractMin()** operation removes the lowest priority key from the queue. 
-
-### [Max Priority Queue](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/heap/MaxPriorityQueue.java)
-Max Priority Queue supports the following operations:
-
-1) **max()** - returns the highest priority key in the priority queue. The key is not removed from the priority queue.
-
-    **Time Complexity:** Θ(1)
-
-2) **extractMax()** - returns and removes the highest priority key from the priority queue.
-        
-   **Time Complexity:** Θ(lg(n))
-      
-3) **insertElement(Element key)** - inserts a key into the priority queue.
+1) **minHeapify(Array A, int index)** - ensures that both the left and right child are greater than or equal the key at the
+given index. The method finds the index of the smallest key between the node, right, and left child. If the index of the smallest
+key does not correspond to the parent's index; the parent key is swapped with the child key. Then minHeapify 
+is recursively called again until heap properties are enforced.
 
     **Time Complexity:** Θ(lg(n))
 
-**Test class:** [MaxPriorityQueueTest](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/queue/MaxProrityQueueTest.java)
+2) **buildMinHeap(Array A)** - converts array A into a Min heap. The Min Heap constructs the min heap by using a bottom-up approach
+by calling minHeapify() on nodes A[N/2..1]. Recall that nodes after index N/2 are leaf nodes and therefore already conform
+to min heap's property.
+
+**NOTE:** This Min Heap is implemented with root at A[0] thus both left and right child
+are offset by 1. That is leftChildIndex is (2i + 1) and rightChildIndex is (2i + 2) where i is the parent index.
+
+   **Time Complexity:** Θ(n)
+
+**Test class:** [MinHeapTest](https://github.com/matthewddiaz/Data-Structures/blob/master/test/com/matthewddiaz/datastructures/heap/MinHeapTest.java)
