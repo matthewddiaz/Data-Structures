@@ -11,7 +11,7 @@ package com.matthewddiaz.datastructures.heap;
  * NOTE: That means that A[0] will always contain the largest element in the max heap
  * NOTE: Max Heap is extremely useful; since it is used to implement HeapSort and a Max Priority Queue.
  */
-public class MaxHeap extends Heap{
+public class MaxHeap<T extends Comparable> extends Heap<T>{
     /**
      * NOTE: It's important to call any of the two buildMaxHeap to turn the input array into
      * an actual Max Heap. The constructor does not do this step.
@@ -22,7 +22,7 @@ public class MaxHeap extends Heap{
 
 
     @Override
-    protected int indexOfCorrectValue(Comparable[] array, int parentIndex, int leftChildIndex, int rightChildIndex) {
+    protected int indexOfCorrectValue(T[] array, int parentIndex, int leftChildIndex, int rightChildIndex) {
         int largestElementIndex = parentIndex;
         //check if leftChildIndex is less than heapSize & leftChild is greater than parent
         if((leftChildIndex < this.getHeapSize()) && (array[leftChildIndex].compareTo(array[parentIndex]) > 0)){

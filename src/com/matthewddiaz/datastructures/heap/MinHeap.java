@@ -3,14 +3,14 @@ package com.matthewddiaz.datastructures.heap;
 /**
  * Created by matthewdiaz on 7/31/17.
  */
-public class MinHeap extends Heap{
+public class MinHeap<T extends Comparable> extends Heap<T>{
 
     public MinHeap(){
         super();
     }
 
     @Override
-    protected int indexOfCorrectValue(Comparable[] array, int parentIndex, int leftChildIndex, int rightChildIndex) {
+    protected int indexOfCorrectValue(T[] array, int parentIndex, int leftChildIndex, int rightChildIndex) {
         int smallestElementIndex = parentIndex;
         //check if leftChildIndex is less than heapSize & leftChild is less than parent
         if((leftChildIndex < this.getHeapSize()) && (array[leftChildIndex].compareTo(array[parentIndex]) < 0)){

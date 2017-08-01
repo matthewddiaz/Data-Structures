@@ -3,7 +3,7 @@ package com.matthewddiaz.datastructures.heap;
 /**
  * Created by matthewdiaz on 7/31/17.
  */
-public abstract class Heap {
+public abstract class Heap<T extends Comparable> {
     //heapSize is equal equal to # of elements in array. Can range from [0, array.length - 1]
     private int heapSize;
     //heap length is equal to array.length
@@ -31,7 +31,7 @@ public abstract class Heap {
      * @param array
      * @param parentIndex
      */
-    public void heapify(Comparable[] array, int parentIndex){
+    public void heapify(T[] array, int parentIndex){
         //returns immediately if parentIndex is larger than the index of the last nonleaf node in the heap;
         //because the element at parentIndex is actually a leaf element.
         int lastNonLeafElementIndex = (this.getHeapSize()/2) - 1;
@@ -63,7 +63,7 @@ public abstract class Heap {
      * @param rightChildIndex
      * @return
      */
-    protected abstract int indexOfCorrectValue(Comparable[] array, int parentIndex, int leftChildIndex, int rightChildIndex);
+    protected abstract int indexOfCorrectValue(T[] array, int parentIndex, int leftChildIndex, int rightChildIndex);
     
     /**
      * This method calls buildMaxHeap(array, numOfElements) and assumes that
@@ -72,7 +72,7 @@ public abstract class Heap {
      * Running Time: θ(n)
      * @param array
      */
-    public void buildHeap(Comparable[] array) {
+    public void buildHeap(T[] array) {
         try {
             buildHeap(array, array.length);
         } catch (Exception e) {
@@ -91,7 +91,7 @@ public abstract class Heap {
      *
      * Running Time: θ(n)
      */
-    public void buildHeap(Comparable[] array, int numOfElements) throws Exception {
+    public void buildHeap(T[] array, int numOfElements) throws Exception {
         if(numOfElements < 0 || numOfElements > array.length){
             throw new Exception("Number of elements for this heap is out of bound. " +
                     "Acceptable range for numOfElements is [0...array.length]");
@@ -118,8 +118,8 @@ public abstract class Heap {
      * @param leftElement
      * @param rightElement
      */
-    protected void swap(Comparable[] array, int leftElement, int rightElement){
-        Comparable tempElement = array[leftElement];
+    protected void swap(T[] array, int leftElement, int rightElement){
+        T tempElement = array[leftElement];
         array[leftElement] = array[rightElement];
         array[rightElement] = tempElement;
     }
