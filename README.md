@@ -12,6 +12,8 @@ Repository for commonly used data structures in computer science.
 
 ### [List](https://github.com/matthewddiaz/Data-Structures/tree/master/src/com/matthewddiaz/datastructures/lists)
 
+### [Priority Queue](https://github.com/matthewddiaz/Data-Structures/tree/master/src/com/matthewddiaz/datastructures/priorityQueues)
+
 ### [Queue](https://github.com/matthewddiaz/Data-Structures/tree/master/src/com/matthewddiaz/datastructures/queue)
 
 ### [Stack](https://github.com/matthewddiaz/Data-Structures/blob/master/src/com/matthewddiaz/datastructures/stack)

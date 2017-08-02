@@ -10,7 +10,7 @@ public class MinHeap<T extends Comparable> extends Heap<T>{
     }
 
     @Override
-    protected int indexOfCorrectValue(T[] array, int parentIndex, int leftChildIndex, int rightChildIndex) {
+    protected int indexOfHighestPriorityValue(T[] array, int parentIndex, int leftChildIndex, int rightChildIndex) {
         int smallestElementIndex = parentIndex;
         //check if leftChildIndex is less than heapSize & leftChild is less than parent
         if((leftChildIndex < this.getHeapSize()) && (array[leftChildIndex].compareTo(array[parentIndex]) < 0)){

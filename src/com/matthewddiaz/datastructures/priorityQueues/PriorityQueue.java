@@ -99,6 +99,20 @@ public abstract class PriorityQueue<T extends Comparable> {
         };
     }
 
+    /**
+     * Note: Time complexity is O(n) need to improve this to O(1)
+     * @param key input key
+     * @return true if the key is in the priority queue
+     */
+    public boolean contains(T key){
+        for(T element : heapArray){
+            if(element == key){
+                return true;
+            }
+        }
+        return false;
+    }
+
     /*
     * Returns the element with the first priority from heapArray
     *

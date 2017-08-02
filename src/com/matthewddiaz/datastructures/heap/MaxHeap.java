@@ -22,7 +22,7 @@ public class MaxHeap<T extends Comparable> extends Heap<T>{
 
 
     @Override
-    protected int indexOfCorrectValue(T[] array, int parentIndex, int leftChildIndex, int rightChildIndex) {
+    protected int indexOfHighestPriorityValue(T[] array, int parentIndex, int leftChildIndex, int rightChildIndex) {
         int largestElementIndex = parentIndex;
         //check if leftChildIndex is less than heapSize & leftChild is greater than parent
         if((leftChildIndex < this.getHeapSize()) && (array[leftChildIndex].compareTo(array[parentIndex]) > 0)){
